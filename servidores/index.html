@@ -12,7 +12,7 @@
     @font-face { font-family: 'FoundersGrotesk'; src: url('font/TestFoundersGrotesk-Bold-BF66175e9700615.otf') format('opentype'); font-weight: 700; font-style: normal; }
   </style>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; font-family: 'FoundersGrotesk', sans-serif; }
 
     :root {
       --pink: #cc1a1a;
@@ -304,7 +304,7 @@
       <a href="/wiki/" class="nav-link">Wiki <span class="ext">↗</span></a>
     </div>
     <div class="nav-right">
-      <a href="#" class="nav-btn-outline">Obtener Asistencia</a>
+      <a href="/asistencia/" class="nav-btn-outline">Obtener Asistencia</a>
       <button class="nav-icon-btn" aria-label="Buscar">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
@@ -404,10 +404,11 @@
     // wheel: primer gesto hacia abajo marca transitionY
     window.addEventListener('wheel', (e) => {
       if (e.deltaY > 0 && navState === 1 && transitionY === null) {
-        transitionY = window.scrollY;
+        // Si transitionY es null (tras reaparecer), ocultar inmediatamente al bajar
+        transitionY = window.scrollY - HIDE_AFTER_PX;
       } else if (e.deltaY < 0 && navState === 2) {
         applyState(1);
-        transitionY = window.scrollY;
+        transitionY = null; // null = listo para ocultarse en el próximo scroll hacia abajo
         hiddenY = null;
       }
     }, { passive: true });
@@ -424,7 +425,7 @@
         hiddenY = y; applyState(2);
       }
       if (navState === 2 && hiddenY !== null && y < hiddenY) {
-        hiddenY = null; transitionY = y; applyState(1);
+        hiddenY = null; transitionY = null; applyState(1);
       }
     }, { passive: true });
 

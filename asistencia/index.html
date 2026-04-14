@@ -12,7 +12,7 @@
     @font-face { font-family: 'FoundersGrotesk'; src: url('font/TestFoundersGrotesk-Bold-BF66175e9700615.otf') format('opentype'); font-weight: 700; font-style: normal; }
   </style>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; font-family: 'FoundersGrotesk', sans-serif; }
     :root { --pink: #cc1a1a; --pink-light: #e02020; --nav-h: 99px; }
     body { font-family: 'FoundersGrotesk', sans-serif; background: #ffffff;
       overflow: hidden; color: #000; overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; }
@@ -115,10 +115,11 @@
     // wheel: primer gesto hacia abajo marca transitionY
     window.addEventListener('wheel', (e) => {
       if (e.deltaY > 0 && navState === 1 && transitionY === null) {
-        transitionY = window.scrollY;
+        // Si transitionY es null (tras reaparecer), ocultar inmediatamente al bajar
+        transitionY = window.scrollY - HIDE_AFTER_PX;
       } else if (e.deltaY < 0 && navState === 2) {
         applyState(1);
-        transitionY = window.scrollY;
+        transitionY = null; // null = listo para ocultarse en el próximo scroll hacia abajo
         hiddenY = null;
       }
     }, { passive: true });
@@ -135,7 +136,7 @@
         hiddenY = y; applyState(2);
       }
       if (navState === 2 && hiddenY !== null && y < hiddenY) {
-        hiddenY = null; transitionY = y; applyState(1);
+        hiddenY = null; transitionY = null; applyState(1);
       }
     }, { passive: true });
 
