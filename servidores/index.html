@@ -47,6 +47,7 @@
       pointer-events: none;
     }
 
+    /* Zona invisible en la parte superior que reactiva la navbar */
     #nav-hover-zone {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -54,7 +55,6 @@
       z-index: 201;
       pointer-events: all;
     }
-
     .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
     .nav-center {
       display: flex; align-items: center; gap: 0.1rem;
@@ -62,7 +62,7 @@
     }
     .nav-link {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 14.5px; font-weight: 600; letter-spacing: 0.08em;
+      font-size: 15px; font-weight: 700; letter-spacing: 0.08em;
       text-transform: uppercase; color: rgba(255,255,255,0.9);
       text-decoration: none; padding: 0.55rem 1.1rem;
       display: flex; align-items: center; gap: 0.25rem;
@@ -75,11 +75,15 @@
     .nav-right { display: flex; align-items: center; gap: 0.8rem; }
     .nav-btn-outline {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 14.5px; font-weight: 600; letter-spacing: 0.02em;
-      color: rgba(255,255,255,0.9); text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
       padding: 0.55rem 1.1rem;
       border: 1.5px solid rgba(255,255,255,0.45);
-      border-radius: 999px; white-space: nowrap;
+      border-radius: 999px;
+      white-space: nowrap;
       transition: border-color 0.18s, color 0.18s;
     }
     .nav-btn-outline:hover { border-color: #fff; color: #fff; }
@@ -372,13 +376,16 @@
     <span>Madrid</span>
     <span>MMXIX</span>
   </div>  <script>
-        const nav = document.querySelector('nav');
+    const nav = document.querySelector('nav');
     const hoverZone = document.getElementById('nav-hover-zone');
     let isHovering = false;
     // 0 = transparente | 1 = translúcida | 2 = oculta
     let navState = 0;
+    // scrollY en el momento en que se volvió translúcida
     let transitionY = null;
+    // Cuántos px hay que bajar desde transitionY para ocultarla
     const HIDE_AFTER_PX = 120;
+    // scrollY en el momento en que se ocultó
     let hiddenY = null;
 
     function applyState(s) {
@@ -394,18 +401,21 @@
       }
     }
 
+    // wheel: solo gestiona el paso 0→1 (transparente → translúcida)
     window.addEventListener('wheel', (e) => {
       if (e.deltaY > 0 && navState === 0) {
         transitionY = window.scrollY;
         applyState(1);
       } else if (e.deltaY > 0 && navState === 1 && transitionY === null) {
+        // Volvió a bajar tras reaparecer: ocultar inmediatamente
         transitionY = window.scrollY - HIDE_AFTER_PX;
       } else if (e.deltaY < 0) {
         if (window.scrollY <= 0) { transitionY = null; applyState(0); }
-        else if (navState !== 1) { applyState(1); transitionY = null; }
+        else if (navState !== 1)  { applyState(1); transitionY = null; }
       }
     }, { passive: true });
 
+    // scroll: gestiona el paso 1→2 (translúcida → oculta) y la vuelta al top
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
       if (y <= 0) {
@@ -417,9 +427,10 @@
         hiddenY = y;
         applyState(2);
       }
+      // Si sube mientras está oculta: volver a translúcida
       if (navState === 2 && hiddenY !== null && y < hiddenY) {
         hiddenY = null;
-        transitionY = null;
+        transitionY = null; // null = listo para ocultarse en el próximo scroll hacia abajo
         applyState(1);
       }
     }, { passive: true });
@@ -427,7 +438,7 @@
     hoverZone.addEventListener('mouseenter', () => { isHovering = true; nav.classList.remove('hidden'); });
     nav.addEventListener('mouseenter',       () => { isHovering = true; nav.classList.remove('hidden'); });
     nav.addEventListener('mouseleave',       () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); });
-    hoverZone.addEventListener('mouseleave', () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); }); });
+    hoverZone.addEventListener('mouseleave', () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); });
   </script>
   <script>
     (function() {
