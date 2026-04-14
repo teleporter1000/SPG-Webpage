@@ -15,12 +15,12 @@
     #nav-hover-zone { position: fixed; top: 0; left: 0; right: 0; height: 20px; z-index: 201; pointer-events: all; }
     .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
     .nav-center { display: flex; align-items: center; gap: 0.1rem; position: absolute; left: 50%; transform: translateX(-50%); }
-    .nav-link { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.9); text-decoration: none; padding: 0.55rem 1.1rem; display: flex; align-items: center; gap: 0.25rem; transition: color 0.18s, background 0.18s; white-space: nowrap; border-radius: 999px; }
+    .nav-link { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.9); text-decoration: none; padding: 0.55rem 1.1rem; display: flex; align-items: center; gap: 0.25rem; transition: color 0.18s, background 0.18s; white-space: nowrap; border-radius: 999px; }
     .nav-link:hover { color: #fff; background: rgba(255,255,255,0.15); }
     .nav-link.active { color: #fff; background: rgba(255,255,255,0.12); }
     .nav-link .ext { font-size: 0.75em; opacity: 0.7; }
     .nav-right { display: flex; align-items: center; gap: 0.8rem; }
-    .nav-btn-outline { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; color: rgba(255,255,255,0.9); text-decoration: none; padding: 0.55rem 1.1rem; border: 1.5px solid rgba(255,255,255,0.45); border-radius: 999px; white-space: nowrap; transition: border-color 0.18s, color 0.18s; }
+    .nav-btn-outline { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14.5px; font-weight: 600; letter-spacing: 0.02em; color: rgba(255,255,255,0.9); text-decoration: none; padding: 0.55rem 1.1rem; border: 1.5px solid rgba(255,255,255,0.45); border-radius: 999px; white-space: nowrap; transition: border-color 0.18s, color 0.18s; }
     .nav-btn-outline:hover { border-color: #fff; color: #fff; }
     .nav-icon-btn { background: none; border: none; color: rgba(255,255,255,0.85); cursor: pointer; padding: 0.4rem; display: flex; align-items: center; transition: color 0.2s; }
     .nav-icon-btn:hover { color: #fff; }
@@ -188,21 +188,20 @@
     <span>Madrid</span>
     <span>MMXIX</span>
   </div>  <script>
-    const nav = document.querySelector('nav');
+        const nav = document.querySelector('nav');
     const hoverZone = document.getElementById('nav-hover-zone');
     let isHovering = false;
-    // En páginas sin hero la navbar arranca siempre translúcida (estado 1)
-    // 1 = translúcida | 2 = oculta
-    let navState = 1;
+    // 0 = transparente | 1 = translúcida | 2 = oculta
+    let navState = 0;
     let transitionY = null;
-    let hiddenY = null;
     const HIDE_AFTER_PX = 120;
-
-    nav.classList.add('scrolled');
+    let hiddenY = null;
 
     function applyState(s) {
       navState = s;
-      if (s === 1) {
+      if (s === 0) {
+        nav.classList.remove('scrolled', 'hidden');
+      } else if (s === 1) {
         nav.classList.add('scrolled');
         nav.classList.remove('hidden');
       } else {
@@ -211,147 +210,39 @@
       }
     }
 
-    // wheel: primer gesto hacia abajo marca transitionY
     window.addEventListener('wheel', (e) => {
-      if (e.deltaY > 0 && navState === 1 && transitionY === null) {
-        // Si transitionY es null (tras reaparecer), ocultar inmediatamente al bajar
-        transitionY = window.scrollY - HIDE_AFTER_PX;
-      } else if (e.deltaY < 0 && navState === 2) {
+      if (e.deltaY > 0 && navState === 0) {
+        transitionY = window.scrollY;
         applyState(1);
-        transitionY = null; // null = listo para ocultarse en el próximo scroll hacia abajo
-        hiddenY = null;
+      } else if (e.deltaY > 0 && navState === 1 && transitionY === null) {
+        transitionY = window.scrollY - HIDE_AFTER_PX;
+      } else if (e.deltaY < 0) {
+        if (window.scrollY <= 0) { transitionY = null; applyState(0); }
+        else if (navState !== 1) { applyState(1); transitionY = null; }
       }
     }, { passive: true });
 
-    // scroll: gestiona ocultado y reaparición
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
       if (y <= 0) {
-        navState = 1; transitionY = null; hiddenY = null;
-        nav.classList.add('scrolled'); nav.classList.remove('hidden');
+        transitionY = null;
+        applyState(0);
         return;
       }
       if (navState === 1 && transitionY !== null && y >= transitionY + HIDE_AFTER_PX) {
-        hiddenY = y; applyState(2);
+        hiddenY = y;
+        applyState(2);
       }
       if (navState === 2 && hiddenY !== null && y < hiddenY) {
-        hiddenY = null; transitionY = null; applyState(1);
+        hiddenY = null;
+        transitionY = null;
+        applyState(1);
       }
     }, { passive: true });
-
-    const servidores = {
-      minecraft: ['SPG 1', 'SPG 2', 'SPG 3', 'SPG 4.1'],
-      ark:       ['Fjordur (SPG 1)']
-    };
-
-    const sistemasOS = {
-      minecraft: {
-        0: [{ value: 'universal', label: 'Universal' }],
-        1: [{ value: 'universal', label: 'Universal' }],
-        2: [{ value: 'universal', label: 'Universal' }],
-        3: [{ value: 'windows', label: 'Windows 11' }, { value: 'mac', label: 'MacOS' }, { value: 'linux', label: 'Linux' }],
-      },
-      ark: {
-        0: [{ value: 'windows', label: 'Windows 11' }, { value: 'mac', label: 'MacOS' }, { value: 'linux', label: 'Linux' }],
-      }
-    };
-
-    const descargas = {
-      minecraft: {
-        0: { // SPG 1
-          reconstruido: 'https://drive.usercontent.google.com/download?id=16Kqz3fp_Tgg77zQXnmXh0CjOP3Ixw_qN&export=download&authuser=0',
-          normal:       'https://drive.usercontent.google.com/download?id=1T4mAEdSmGJaoBZzf1qdZRb24kZj5oQ_r&export=download&authuser=0'
-        },
-        1: { // SPG 2
-          mundo: 'https://drive.usercontent.google.com/download?id=1fmdPT8IwAr5asUHxPQYREXg9YboRl-pa&export=download&authuser=0'
-        },
-        2: { // SPG 3
-          'modpack-mundo': ['https://drive.usercontent.google.com/download?id=1z64dMbNSb63b1-1nOWY9nZr0PsIyEw9b&export=download&authuser=0', 'https://drive.usercontent.google.com/download?id=1imlSI7eBX6X4uBJfxlNBtWZQp4czz7Lk&export=download&authuser=0'],
-          'mundo': 'https://drive.usercontent.google.com/download?id=1z64dMbNSb63b1-1nOWY9nZr0PsIyEw9b&export=download&authuser=0',
-          'modpack': 'https://drive.usercontent.google.com/download?id=1imlSI7eBX6X4uBJfxlNBtWZQp4czz7Lk&export=download&authuser=0'
-        }
-      }
-    };
-
-    const selJuego    = document.getElementById('sel-juego');
-    const selServidor = document.getElementById('sel-servidor');
-    const selOS       = document.getElementById('sel-os');
-    const rowVersion  = document.getElementById('row-version');
-
-    function poblarServidores() {
-      const juego = selJuego.value;
-      if (!juego) return;
-      selServidor.innerHTML = `<option value="" disabled selected>Seleccione un mundo</option>` +
-        servidores[juego].map((s, i) => `<option value="${i}">${s}</option>`).join('');
-      selOS.innerHTML = `<option value="" disabled selected>Seleccione un sistema operativo</option>`;
-      rowVersion.style.display = 'none';
-    }
-
-    function autoSelect(sel) {
-      // Si solo hay una opción real (sin contar el placeholder disabled), seleccionarla automáticamente
-      const realOpts = [...sel.options].filter(o => !o.disabled);
-      if (realOpts.length === 1) {
-        sel.value = realOpts[0].value;
-        sel.dispatchEvent(new Event('change'));
-      }
-    }
-
-    function actualizarOS() {
-      const juego = selJuego.value;
-      const idx   = parseInt(selServidor.value);
-      if (isNaN(idx)) return;
-      const opts  = sistemasOS[juego]?.[idx] || [{ value: 'windows', label: 'Windows 11' }, { value: 'mac', label: 'MacOS' }, { value: 'linux', label: 'Linux' }];
-      selOS.innerHTML = `<option value="" disabled selected>Seleccione un sistema operativo</option>` +
-        opts.map(o => `<option value="${o.value}">${o.label}</option>`).join('');
-      actualizarVersion();
-      autoSelect(selOS);
-    }
-
-    function actualizarVersion() {
-      const juego = selJuego.value;
-      const idx   = parseInt(selServidor.value);
-      const selVersion = document.getElementById('sel-version');
-
-      if (juego === 'minecraft' && idx === 0) {
-        rowVersion.style.display = '';
-        selVersion.innerHTML = `<option value="" disabled selected>Seleccione su descarga</option><option value="reconstruido">Mundo reconstruido</option><option value="normal">Mundo normal</option>`;
-      } else if (juego === 'minecraft' && idx === 1) {
-        rowVersion.style.display = '';
-        selVersion.innerHTML = `<option value="" disabled selected>Seleccione su descarga</option><option value="mundo">Mundo</option>`;
-        autoSelect(selVersion);
-      } else if (juego === 'minecraft' && idx === 2) {
-        rowVersion.style.display = '';
-        selVersion.innerHTML = `<option value="" disabled selected>Seleccione su descarga</option><option value="modpack-mundo">Modpack + Mundo</option><option value="mundo">Mundo Survival</option><option value="modpack">Modpack 1.0 (FINAL)</option>`;
-      } else {
-        rowVersion.style.display = 'none';
-      }
-    }
-
-    function poblarServidoresYAutoSelect() {
-      poblarServidores();
-      autoSelect(selServidor);
-    }
-
-    selJuego.addEventListener('change', poblarServidoresYAutoSelect);
-    selServidor.addEventListener('change', actualizarOS);
-    // Sin llamada inicial — los placeholders ya están en el HTML
-
-    document.getElementById('btn-descargar').addEventListener('click', () => {
-      const juego   = selJuego.value;
-      const idx     = parseInt(selServidor.value);
-      const version = document.getElementById('sel-version').value;
-      const url     = descargas[juego]?.[idx]?.[version];
-      if (!url) { alert('Descarga no disponible aún.'); return; }
-      if (Array.isArray(url)) {
-        url.forEach(u => window.open(u, '_blank'));
-      } else {
-        window.open(url, '_blank');
-      }
-    });
 
     hoverZone.addEventListener('mouseenter', () => { isHovering = true; nav.classList.remove('hidden'); });
     nav.addEventListener('mouseenter',       () => { isHovering = true; nav.classList.remove('hidden'); });
     nav.addEventListener('mouseleave',       () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); });
-    hoverZone.addEventListener('mouseleave', () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); });
+    hoverZone.addEventListener('mouseleave', () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); }); });
   </script></body>
 </html>

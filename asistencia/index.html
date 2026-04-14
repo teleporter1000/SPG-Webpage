@@ -16,12 +16,12 @@
     #nav-hover-zone { position: fixed; top: 0; left: 0; right: 0; height: 20px; z-index: 201; pointer-events: all; }
     .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
     .nav-center { display: flex; align-items: center; gap: 0.1rem; position: absolute; left: 50%; transform: translateX(-50%); }
-    .nav-link { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.9); text-decoration: none; padding: 0.55rem 1.1rem; display: flex; align-items: center; gap: 0.25rem; transition: color 0.18s, background 0.18s; white-space: nowrap; border-radius: 999px; }
+    .nav-link { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.9); text-decoration: none; padding: 0.55rem 1.1rem; display: flex; align-items: center; gap: 0.25rem; transition: color 0.18s, background 0.18s; white-space: nowrap; border-radius: 999px; }
     .nav-link:hover { color: #000; background: rgba(255,255,255,0.15); }
     .nav-link.active { color: #000; background: rgba(255,255,255,0.12); }
     .nav-link .ext { font-size: 0.75em; opacity: 0.7; }
     .nav-right { display: flex; align-items: center; gap: 0.8rem; }
-    .nav-btn-outline { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; color: rgba(255,255,255,0.9); text-decoration: none; padding: 0.55rem 1.1rem; border: 1.5px solid rgba(255,255,255,0.45); border-radius: 999px; white-space: nowrap; transition: border-color 0.18s, color 0.18s; }
+    .nav-btn-outline { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14.5px; font-weight: 600; letter-spacing: 0.02em; color: rgba(255,255,255,0.9); text-decoration: none; padding: 0.55rem 1.1rem; border: 1.5px solid rgba(255,255,255,0.45); border-radius: 999px; white-space: nowrap; transition: border-color 0.18s, color 0.18s; }
     .nav-btn-outline:hover { border-color: #000; color: #000; }
     .nav-icon-btn { background: none; border: none; color: rgba(255,255,255,0.85); cursor: pointer; padding: 0.4rem; display: flex; align-items: center; transition: color 0.2s; }
     .nav-icon-btn:hover { color: #000; }
@@ -83,21 +83,20 @@
     <span>Madrid</span>
     <span>MMXIX</span>
   </div>  <script>
-    const nav = document.querySelector('nav');
+        const nav = document.querySelector('nav');
     const hoverZone = document.getElementById('nav-hover-zone');
     let isHovering = false;
-    // En páginas sin hero la navbar arranca siempre translúcida (estado 1)
-    // 1 = translúcida | 2 = oculta
-    let navState = 1;
+    // 0 = transparente | 1 = translúcida | 2 = oculta
+    let navState = 0;
     let transitionY = null;
-    let hiddenY = null;
     const HIDE_AFTER_PX = 120;
-
-    nav.classList.add('scrolled');
+    let hiddenY = null;
 
     function applyState(s) {
       navState = s;
-      if (s === 1) {
+      if (s === 0) {
+        nav.classList.remove('scrolled', 'hidden');
+      } else if (s === 1) {
         nav.classList.add('scrolled');
         nav.classList.remove('hidden');
       } else {
@@ -106,37 +105,39 @@
       }
     }
 
-    // wheel: primer gesto hacia abajo marca transitionY
     window.addEventListener('wheel', (e) => {
-      if (e.deltaY > 0 && navState === 1 && transitionY === null) {
-        // Si transitionY es null (tras reaparecer), ocultar inmediatamente al bajar
-        transitionY = window.scrollY - HIDE_AFTER_PX;
-      } else if (e.deltaY < 0 && navState === 2) {
+      if (e.deltaY > 0 && navState === 0) {
+        transitionY = window.scrollY;
         applyState(1);
-        transitionY = null; // null = listo para ocultarse en el próximo scroll hacia abajo
-        hiddenY = null;
+      } else if (e.deltaY > 0 && navState === 1 && transitionY === null) {
+        transitionY = window.scrollY - HIDE_AFTER_PX;
+      } else if (e.deltaY < 0) {
+        if (window.scrollY <= 0) { transitionY = null; applyState(0); }
+        else if (navState !== 1) { applyState(1); transitionY = null; }
       }
     }, { passive: true });
 
-    // scroll: gestiona ocultado y reaparición
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
       if (y <= 0) {
-        navState = 1; transitionY = null; hiddenY = null;
-        nav.classList.add('scrolled'); nav.classList.remove('hidden');
+        transitionY = null;
+        applyState(0);
         return;
       }
       if (navState === 1 && transitionY !== null && y >= transitionY + HIDE_AFTER_PX) {
-        hiddenY = y; applyState(2);
+        hiddenY = y;
+        applyState(2);
       }
       if (navState === 2 && hiddenY !== null && y < hiddenY) {
-        hiddenY = null; transitionY = null; applyState(1);
+        hiddenY = null;
+        transitionY = null;
+        applyState(1);
       }
     }, { passive: true });
 
     hoverZone.addEventListener('mouseenter', () => { isHovering = true; nav.classList.remove('hidden'); });
     nav.addEventListener('mouseenter',       () => { isHovering = true; nav.classList.remove('hidden'); });
     nav.addEventListener('mouseleave',       () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); });
-    hoverZone.addEventListener('mouseleave', () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); });
+    hoverZone.addEventListener('mouseleave', () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); }); });
   </script></body>
 </html>
