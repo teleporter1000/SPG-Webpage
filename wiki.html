@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wiki — GameStudio</title>
+  <style>
+    @font-face { font-family: 'FoundersGrotesk'; src: url('font/TestFoundersGrotesk-Light-BF66175e9730f02.otf') format('opentype'); font-weight: 300; font-style: normal; }
+    @font-face { font-family: 'FoundersGrotesk'; src: url('font/TestFoundersGrotesk-Regular-BF66175e972ac1c.otf') format('opentype'); font-weight: 400; font-style: normal; }
+    @font-face { font-family: 'FoundersGrotesk'; src: url('font/TestFoundersGrotesk-Medium-BF66175e9723b7a.otf') format('opentype'); font-weight: 500; font-style: normal; }
+    @font-face { font-family: 'FoundersGrotesk'; src: url('font/TestFoundersGrotesk-Semibold-BF66175e972c958.otf') format('opentype'); font-weight: 600; font-style: normal; }
+    @font-face { font-family: 'FoundersGrotesk'; src: url('font/TestFoundersGrotesk-Bold-BF66175e9700615.otf') format('opentype'); font-weight: 700; font-style: normal; }
+  </style>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --pink: #cc1a1a; --pink-light: #e02020; --nav-h: 99px; }
+    body { font-family: 'FoundersGrotesk', sans-serif; background: #0d0d0d; color: #fff; overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; padding: 0 4rem; background: transparent; transition: background 0.35s ease, backdrop-filter 0.35s ease, transform 0.4s ease; }
+    nav.scrolled { background: rgba(0,0,0,0.55); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    nav.hidden { transform: translateY(calc(-100% - 10px)); pointer-events: none; }
+    #nav-hover-zone { position: fixed; top: 0; left: 0; right: 0; height: 20px; z-index: 201; pointer-events: all; }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .nav-center { display: flex; align-items: center; gap: 0.1rem; position: absolute; left: 50%; transform: translateX(-50%); }
+    .nav-link { font-family: 'FoundersGrotesk', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.9); text-decoration: none; padding: 0.55rem 1.1rem; display: flex; align-items: center; gap: 0.25rem; transition: color 0.18s, background 0.18s; white-space: nowrap; border-radius: 999px; }
+    .nav-link:hover { color: #fff; background: rgba(255,255,255,0.15); }
+    .nav-link.active { color: #fff; background: rgba(255,255,255,0.12); }
+    .nav-link .ext { font-size: 0.75em; opacity: 0.7; }
+    .nav-right { display: flex; align-items: center; gap: 0.8rem; }
+    .nav-btn-outline { font-family: 'FoundersGrotesk', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: 0.02em; color: rgba(255,255,255,0.9); text-decoration: none; padding: 0.55rem 1.1rem; border: 1.5px solid rgba(255,255,255,0.45); border-radius: 999px; white-space: nowrap; transition: border-color 0.18s, color 0.18s; }
+    .nav-btn-outline:hover { border-color: #fff; color: #fff; }
+    .nav-icon-btn { background: none; border: none; color: rgba(255,255,255,0.85); cursor: pointer; padding: 0.4rem; display: flex; align-items: center; transition: color 0.2s; }
+    .nav-icon-btn:hover { color: #fff; }
+    @media (max-width: 860px) { .nav-center { display: none; } }
+    main { flex: 1; padding-top: var(--nav-h); display: flex; align-items: center; justify-content: center; }
+    .page-placeholder { text-align: center; padding: 6rem 2rem; opacity: 0.35; }
+    .page-placeholder p { font-size: 1.1rem; font-weight: 400; letter-spacing: 0.05em; color: rgba(255,255,255,0.6); }
+    .footer-bottom-bar { background: #000; padding: calc(2.2rem + 1px) calc(4rem + 1px); display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: center; position: relative; }
+    .footer-bottom-bar::before { content: ''; position: absolute; top: -60px; left: 0; right: 0; height: 60px; background: linear-gradient(to bottom, transparent, #000); pointer-events: none; }
+    .footer-bottom-bar span { font-size: 13px; color: rgba(255,255,255,0.55); letter-spacing: 0.05em; }
+    .footer-bottom-bar span:nth-child(2) { text-align: center; }
+    .footer-bottom-bar span:nth-child(3) { text-align: right; }
+  </style>
+</head>
+<body>
+  <div id="nav-hover-zone"></div>
+  <nav>
+    <a href="index.html" class="nav-logo" title="Inicio">
+      <img src="icono_esqunas_redondeadas.png" alt="SPG" style="height:47px;width:47px;border-radius:10px;display:block;object-fit:cover;"/>
+    </a>
+    <div class="nav-center">
+      <a href="index.html" class="nav-link">Inicio</a>
+      <a href="servidores.html" class="nav-link">Servidores</a>
+      <a href="archivo.html" class="nav-link">Archivo</a>
+      <a href="redes-sociales.html" class="nav-link">Redes Sociales</a>
+      <a href="https://discord.com/invite/WaSdGkwMrm" target="_blank" rel="noopener" class="nav-link">Discord <span class="ext">↗</span></a>
+      <a href="wiki.html" class="nav-link active">Wiki <span class="ext">↗</span></a>
+    </div>
+    <div class="nav-right">
+      <a href="#" class="nav-btn-outline">Obtener Asistencia</a>
+      <button class="nav-icon-btn" aria-label="Buscar">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+  <main>
+    <div class="page-placeholder">
+      <p>Contenido de Wiki próximamente.</p>
+    </div>
+  </main>
+  <div class="footer-bottom-bar">
+    <span>SpanishProGamers</span>
+    <span>Madrid</span>
+    <span>MMXIX</span>
+  </div>  <script>
+    const nav = document.querySelector('nav');
+    const hoverZone = document.getElementById('nav-hover-zone');
+    let isHovering = false;
+    // En páginas sin hero la navbar arranca siempre translúcida (estado 1)
+    // 1 = translúcida | 2 = oculta
+    let navState = 1;
+    let transitionY = null;
+    let hiddenY = null;
+    const HIDE_AFTER_PX = 120;
+
+    nav.classList.add('scrolled');
+
+    function applyState(s) {
+      navState = s;
+      if (s === 1) {
+        nav.classList.add('scrolled');
+        nav.classList.remove('hidden');
+      } else {
+        nav.classList.add('scrolled');
+        if (!isHovering) nav.classList.add('hidden');
+      }
+    }
+
+    // wheel: primer gesto hacia abajo marca transitionY
+    window.addEventListener('wheel', (e) => {
+      if (e.deltaY > 0 && navState === 1 && transitionY === null) {
+        transitionY = window.scrollY;
+      } else if (e.deltaY < 0 && navState === 2) {
+        applyState(1);
+        transitionY = window.scrollY;
+        hiddenY = null;
+      }
+    }, { passive: true });
+
+    // scroll: gestiona ocultado y reaparición
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y <= 0) {
+        navState = 1; transitionY = null; hiddenY = null;
+        nav.classList.add('scrolled'); nav.classList.remove('hidden');
+        return;
+      }
+      if (navState === 1 && transitionY !== null && y >= transitionY + HIDE_AFTER_PX) {
+        hiddenY = y; applyState(2);
+      }
+      if (navState === 2 && hiddenY !== null && y < hiddenY) {
+        hiddenY = null; transitionY = y; applyState(1);
+      }
+    }, { passive: true });
+
+    hoverZone.addEventListener('mouseenter', () => { isHovering = true; nav.classList.remove('hidden'); });
+    nav.addEventListener('mouseenter',       () => { isHovering = true; nav.classList.remove('hidden'); });
+    nav.addEventListener('mouseleave',       () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); });
+    hoverZone.addEventListener('mouseleave', () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); });
+  </script></body>
+</html>

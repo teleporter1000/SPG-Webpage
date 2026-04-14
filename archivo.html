@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Archivo — SpanishProGamers</title>
+  <style>
+    @font-face { font-family: 'FoundersGrotesk'; src: url('font/TestFoundersGrotesk-Light-BF66175e9730f02.otf') format('opentype'); font-weight: 300; font-style: normal; }
+    @font-face { font-family: 'FoundersGrotesk'; src: url('font/TestFoundersGrotesk-Regular-BF66175e972ac1c.otf') format('opentype'); font-weight: 400; font-style: normal; }
+    @font-face { font-family: 'FoundersGrotesk'; src: url('font/TestFoundersGrotesk-Medium-BF66175e9723b7a.otf') format('opentype'); font-weight: 500; font-style: normal; }
+    @font-face { font-family: 'FoundersGrotesk'; src: url('font/TestFoundersGrotesk-Semibold-BF66175e972c958.otf') format('opentype'); font-weight: 600; font-style: normal; }
+    @font-face { font-family: 'FoundersGrotesk'; src: url('font/TestFoundersGrotesk-Bold-BF66175e9700615.otf') format('opentype'); font-weight: 700; font-style: normal; }
+  </style>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --pink: #cc1a1a; --pink-light: #e02020; --nav-h: 99px; }
+    body { font-family: 'FoundersGrotesk', sans-serif; background: #0d0d0d; color: #fff; overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; padding: 0 4rem; background: transparent; transition: background 0.35s ease, backdrop-filter 0.35s ease, transform 0.4s ease; }
+    nav.scrolled { background: rgba(0,0,0,0.55); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    nav.hidden { transform: translateY(calc(-100% - 10px)); pointer-events: none; }
+    #nav-hover-zone { position: fixed; top: 0; left: 0; right: 0; height: 20px; z-index: 201; pointer-events: all; }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .nav-center { display: flex; align-items: center; gap: 0.1rem; position: absolute; left: 50%; transform: translateX(-50%); }
+    .nav-link { font-family: 'FoundersGrotesk', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.9); text-decoration: none; padding: 0.55rem 1.1rem; display: flex; align-items: center; gap: 0.25rem; transition: color 0.18s, background 0.18s; white-space: nowrap; border-radius: 999px; }
+    .nav-link:hover { color: #fff; background: rgba(255,255,255,0.15); }
+    .nav-link.active { color: #fff; background: rgba(255,255,255,0.12); }
+    .nav-link .ext { font-size: 0.75em; opacity: 0.7; }
+    .nav-right { display: flex; align-items: center; gap: 0.8rem; }
+    .nav-btn-outline { font-family: 'FoundersGrotesk', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: 0.02em; color: rgba(255,255,255,0.9); text-decoration: none; padding: 0.55rem 1.1rem; border: 1.5px solid rgba(255,255,255,0.45); border-radius: 999px; white-space: nowrap; transition: border-color 0.18s, color 0.18s; }
+    .nav-btn-outline:hover { border-color: #fff; color: #fff; }
+    .nav-icon-btn { background: none; border: none; color: rgba(255,255,255,0.85); cursor: pointer; padding: 0.4rem; display: flex; align-items: center; transition: color 0.2s; }
+    .nav-icon-btn:hover { color: #fff; }
+    @media (max-width: 860px) { .nav-center { display: none; } }
+    main { flex: 1; padding-top: var(--nav-h); display: flex; align-items: center; justify-content: center; }
+
+    /* ── SELECTOR DE MUNDOS ── */
+    .selector-card {
+      background: #fff;
+      color: #111;
+      border-radius: 12px;
+      padding: 2.5rem 2.8rem;
+      width: 100%;
+      max-width: 540px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    .selector-card h2 {
+      font-family: 'FoundersGrotesk', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #111;
+      margin-bottom: 1.6rem;
+    }
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: #f0f0f0;
+      border-radius: 6px;
+      padding: 0.65rem 1rem;
+      margin-bottom: 1.2rem;
+      gap: 0.6rem;
+    }
+    .search-bar input {
+      border: none;
+      background: transparent;
+      font-family: 'FoundersGrotesk', sans-serif;
+      font-size: 0.95rem;
+      color: #555;
+      width: 100%;
+      outline: none;
+    }
+    .search-bar svg { flex-shrink: 0; color: #888; }
+
+    .sel-row {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.85rem;
+    }
+    .sel-row select {
+      flex: 1;
+      font-family: 'FoundersGrotesk', sans-serif;
+      font-size: 0.95rem;
+      color: #111;
+      background: #fff;
+      border: 1.5px solid #ccc;
+      border-radius: 6px;
+      padding: 0.65rem 1rem;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      cursor: pointer;
+      transition: border-color 0.18s;
+    }
+    .sel-row select:focus { outline: none; border-color: #888; }
+    .sel-row select:disabled { color: #aaa; cursor: not-allowed; }
+
+    .btn-descargar {
+      margin-top: 0.4rem;
+      font-family: 'FoundersGrotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      background: var(--pink);
+      border: none;
+      border-radius: 6px;
+      padding: 0.75rem 2rem;
+      cursor: pointer;
+      transition: background 0.18s;
+    }
+    .btn-descargar:hover { background: var(--pink-light); }
+    .btn-descargar:disabled { background: #aaa; cursor: not-allowed; }
+    .footer-bottom-bar { background: #000; padding: calc(2.2rem + 1px) calc(4rem + 1px); display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: center; position: relative; }
+    .footer-bottom-bar::before { content: ''; position: absolute; top: -60px; left: 0; right: 0; height: 60px; background: linear-gradient(to bottom, transparent, #000); pointer-events: none; }
+    .footer-bottom-bar span { font-size: 13px; color: rgba(255,255,255,0.55); letter-spacing: 0.05em; }
+    .footer-bottom-bar span:nth-child(2) { text-align: center; }
+    .footer-bottom-bar span:nth-child(3) { text-align: right; }
+  </style>
+</head>
+<body>
+  <div id="nav-hover-zone"></div>
+  <nav>
+    <a href="index.html" class="nav-logo" title="Inicio">
+      <img src="icono_esqunas_redondeadas.png" alt="SPG" style="height:47px;width:47px;border-radius:10px;display:block;object-fit:cover;"/>
+    </a>
+    <div class="nav-center">
+      <a href="index.html" class="nav-link">Inicio</a>
+      <a href="servidores.html" class="nav-link">Servidores</a>
+      <a href="archivo.html" class="nav-link active">Archivo</a>
+      <a href="redes-sociales.html" class="nav-link">Redes Sociales</a>
+      <a href="https://discord.com/invite/WaSdGkwMrm" target="_blank" rel="noopener" class="nav-link">Discord <span class="ext">↗</span></a>
+      <a href="wiki.html" class="nav-link">Wiki <span class="ext">↗</span></a>
+    </div>
+    <div class="nav-right">
+      <a href="asistencia.html" class="nav-btn-outline">Obtener Asistencia</a>
+      <button class="nav-icon-btn" aria-label="Buscar">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+  <main>
+    <div class="selector-card">
+      <h2>Búsqueda de mundos</h2>
+
+      <!-- Barra de búsqueda (estética) -->
+      <div class="search-bar">
+        <input type="text" placeholder="Buscar por producto, tipo de producto o serie" />
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </div>
+
+      <!-- Juego -->
+      <div class="sel-row">
+        <select id="sel-juego">
+          <option value="" disabled selected>Seleccione un juego</option>
+          <option value="minecraft">Minecraft</option>
+          <option value="ark">ARK</option>
+        </select>
+      </div>
+
+      <!-- Servidor -->
+      <div class="sel-row">
+        <select id="sel-servidor">
+          <option value="" disabled selected>Seleccione un mundo</option>
+        </select>
+      </div>
+
+      <!-- Sistema operativo -->
+      <div class="sel-row">
+        <select id="sel-os">
+          <option value="" disabled selected>Seleccione un sistema operativo</option>
+          <option value="windows">Windows 11</option>
+          <option value="mac">MacOS</option>
+          <option value="linux">Linux</option>
+        </select>
+      </div>
+
+      <!-- Versión (solo Minecraft SPG1 y SPG2) -->
+      <div class="sel-row" id="row-version" style="display:none;">
+        <select id="sel-version">
+          <option value="" disabled selected>Seleccione su descarga</option>
+        </select>
+      </div>
+
+      <button class="btn-descargar" id="btn-descargar">Descargar</button>
+    </div>
+  </main>
+  <div class="footer-bottom-bar">
+    <span>SpanishProGamers</span>
+    <span>Madrid</span>
+    <span>MMXIX</span>
+  </div>  <script>
+    const nav = document.querySelector('nav');
+    const hoverZone = document.getElementById('nav-hover-zone');
+    let isHovering = false;
+    // En páginas sin hero la navbar arranca siempre translúcida (estado 1)
+    // 1 = translúcida | 2 = oculta
+    let navState = 1;
+    let transitionY = null;
+    let hiddenY = null;
+    const HIDE_AFTER_PX = 120;
+
+    nav.classList.add('scrolled');
+
+    function applyState(s) {
+      navState = s;
+      if (s === 1) {
+        nav.classList.add('scrolled');
+        nav.classList.remove('hidden');
+      } else {
+        nav.classList.add('scrolled');
+        if (!isHovering) nav.classList.add('hidden');
+      }
+    }
+
+    // wheel: primer gesto hacia abajo marca transitionY
+    window.addEventListener('wheel', (e) => {
+      if (e.deltaY > 0 && navState === 1 && transitionY === null) {
+        transitionY = window.scrollY;
+      } else if (e.deltaY < 0 && navState === 2) {
+        applyState(1);
+        transitionY = window.scrollY;
+        hiddenY = null;
+      }
+    }, { passive: true });
+
+    // scroll: gestiona ocultado y reaparición
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y <= 0) {
+        navState = 1; transitionY = null; hiddenY = null;
+        nav.classList.add('scrolled'); nav.classList.remove('hidden');
+        return;
+      }
+      if (navState === 1 && transitionY !== null && y >= transitionY + HIDE_AFTER_PX) {
+        hiddenY = y; applyState(2);
+      }
+      if (navState === 2 && hiddenY !== null && y < hiddenY) {
+        hiddenY = null; transitionY = y; applyState(1);
+      }
+    }, { passive: true });
+
+    const servidores = {
+      minecraft: ['SPG 1', 'SPG 2', 'SPG 3', 'SPG 4.1'],
+      ark:       ['Fjordur (SPG 1)']
+    };
+
+    const sistemasOS = {
+      minecraft: {
+        0: [{ value: 'universal', label: 'Universal' }],
+        1: [{ value: 'universal', label: 'Universal' }],
+        2: [{ value: 'universal', label: 'Universal' }],
+        3: [{ value: 'windows', label: 'Windows 11' }, { value: 'mac', label: 'MacOS' }, { value: 'linux', label: 'Linux' }],
+      },
+      ark: {
+        0: [{ value: 'windows', label: 'Windows 11' }, { value: 'mac', label: 'MacOS' }, { value: 'linux', label: 'Linux' }],
+      }
+    };
+
+    const descargas = {
+      minecraft: {
+        0: { // SPG 1
+          reconstruido: 'https://drive.usercontent.google.com/download?id=16Kqz3fp_Tgg77zQXnmXh0CjOP3Ixw_qN&export=download&authuser=0',
+          normal:       'https://drive.usercontent.google.com/download?id=1T4mAEdSmGJaoBZzf1qdZRb24kZj5oQ_r&export=download&authuser=0'
+        },
+        1: { // SPG 2
+          mundo: 'https://drive.usercontent.google.com/download?id=1fmdPT8IwAr5asUHxPQYREXg9YboRl-pa&export=download&authuser=0'
+        },
+        2: { // SPG 3
+          'modpack-mundo': ['https://drive.usercontent.google.com/download?id=1z64dMbNSb63b1-1nOWY9nZr0PsIyEw9b&export=download&authuser=0', 'https://drive.usercontent.google.com/download?id=1imlSI7eBX6X4uBJfxlNBtWZQp4czz7Lk&export=download&authuser=0'],
+          'mundo': 'https://drive.usercontent.google.com/download?id=1z64dMbNSb63b1-1nOWY9nZr0PsIyEw9b&export=download&authuser=0',
+          'modpack': 'https://drive.usercontent.google.com/download?id=1imlSI7eBX6X4uBJfxlNBtWZQp4czz7Lk&export=download&authuser=0'
+        }
+      }
+    };
+
+    const selJuego    = document.getElementById('sel-juego');
+    const selServidor = document.getElementById('sel-servidor');
+    const selOS       = document.getElementById('sel-os');
+    const rowVersion  = document.getElementById('row-version');
+
+    function poblarServidores() {
+      const juego = selJuego.value;
+      if (!juego) return;
+      selServidor.innerHTML = `<option value="" disabled selected>Seleccione un mundo</option>` +
+        servidores[juego].map((s, i) => `<option value="${i}">${s}</option>`).join('');
+      selOS.innerHTML = `<option value="" disabled selected>Seleccione un sistema operativo</option>`;
+      rowVersion.style.display = 'none';
+    }
+
+    function autoSelect(sel) {
+      // Si solo hay una opción real (sin contar el placeholder disabled), seleccionarla automáticamente
+      const realOpts = [...sel.options].filter(o => !o.disabled);
+      if (realOpts.length === 1) {
+        sel.value = realOpts[0].value;
+        sel.dispatchEvent(new Event('change'));
+      }
+    }
+
+    function actualizarOS() {
+      const juego = selJuego.value;
+      const idx   = parseInt(selServidor.value);
+      if (isNaN(idx)) return;
+      const opts  = sistemasOS[juego]?.[idx] || [{ value: 'windows', label: 'Windows 11' }, { value: 'mac', label: 'MacOS' }, { value: 'linux', label: 'Linux' }];
+      selOS.innerHTML = `<option value="" disabled selected>Seleccione un sistema operativo</option>` +
+        opts.map(o => `<option value="${o.value}">${o.label}</option>`).join('');
+      actualizarVersion();
+      autoSelect(selOS);
+    }
+
+    function actualizarVersion() {
+      const juego = selJuego.value;
+      const idx   = parseInt(selServidor.value);
+      const selVersion = document.getElementById('sel-version');
+
+      if (juego === 'minecraft' && idx === 0) {
+        rowVersion.style.display = '';
+        selVersion.innerHTML = `<option value="" disabled selected>Seleccione su descarga</option><option value="reconstruido">Mundo reconstruido</option><option value="normal">Mundo normal</option>`;
+      } else if (juego === 'minecraft' && idx === 1) {
+        rowVersion.style.display = '';
+        selVersion.innerHTML = `<option value="" disabled selected>Seleccione su descarga</option><option value="mundo">Mundo</option>`;
+        autoSelect(selVersion);
+      } else if (juego === 'minecraft' && idx === 2) {
+        rowVersion.style.display = '';
+        selVersion.innerHTML = `<option value="" disabled selected>Seleccione su descarga</option><option value="modpack-mundo">Modpack + Mundo</option><option value="mundo">Mundo Survival</option><option value="modpack">Modpack 1.0 (FINAL)</option>`;
+      } else {
+        rowVersion.style.display = 'none';
+      }
+    }
+
+    function poblarServidoresYAutoSelect() {
+      poblarServidores();
+      autoSelect(selServidor);
+    }
+
+    selJuego.addEventListener('change', poblarServidoresYAutoSelect);
+    selServidor.addEventListener('change', actualizarOS);
+    // Sin llamada inicial — los placeholders ya están en el HTML
+
+    document.getElementById('btn-descargar').addEventListener('click', () => {
+      const juego   = selJuego.value;
+      const idx     = parseInt(selServidor.value);
+      const version = document.getElementById('sel-version').value;
+      const url     = descargas[juego]?.[idx]?.[version];
+      if (!url) { alert('Descarga no disponible aún.'); return; }
+      if (Array.isArray(url)) {
+        url.forEach(u => window.open(u, '_blank'));
+      } else {
+        window.open(url, '_blank');
+      }
+    });
+
+    hoverZone.addEventListener('mouseenter', () => { isHovering = true; nav.classList.remove('hidden'); });
+    nav.addEventListener('mouseenter',       () => { isHovering = true; nav.classList.remove('hidden'); });
+    nav.addEventListener('mouseleave',       () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); });
+    hoverZone.addEventListener('mouseleave', () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); });
+  </script></body>
+</html>

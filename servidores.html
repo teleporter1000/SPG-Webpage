@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Servidores — SpanishProGamers</title>
+  <style>
+    @font-face { font-family: 'FoundersGrotesk'; src: url('font/TestFoundersGrotesk-Light-BF66175e9730f02.otf') format('opentype'); font-weight: 300; font-style: normal; }
+    @font-face { font-family: 'FoundersGrotesk'; src: url('font/TestFoundersGrotesk-Regular-BF66175e972ac1c.otf') format('opentype'); font-weight: 400; font-style: normal; }
+    @font-face { font-family: 'FoundersGrotesk'; src: url('font/TestFoundersGrotesk-Medium-BF66175e9723b7a.otf') format('opentype'); font-weight: 500; font-style: normal; }
+    @font-face { font-family: 'FoundersGrotesk'; src: url('font/TestFoundersGrotesk-Semibold-BF66175e972c958.otf') format('opentype'); font-weight: 600; font-style: normal; }
+    @font-face { font-family: 'FoundersGrotesk'; src: url('font/TestFoundersGrotesk-Bold-BF66175e9700615.otf') format('opentype'); font-weight: 700; font-style: normal; }
+  </style>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pink: #cc1a1a;
+      --pink-light: #e02020;
+      --nav-h: 99px;
+    }
+
+    body {
+      font-family: 'FoundersGrotesk', sans-serif;
+      background: #0d0d0d;
+      color: #fff;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4rem;
+      background: transparent;
+      transition: background 0.35s ease, backdrop-filter 0.35s ease, transform 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    nav.hidden {
+      transform: translateY(calc(-100% - 10px));
+      pointer-events: none;
+    }
+
+    #nav-hover-zone {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 20px;
+      z-index: 201;
+      pointer-events: all;
+    }
+
+    .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .nav-center {
+      display: flex; align-items: center; gap: 0.1rem;
+      position: absolute; left: 50%; transform: translateX(-50%);
+    }
+    .nav-link {
+      font-family: 'FoundersGrotesk', sans-serif;
+      font-size: 16px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: rgba(255,255,255,0.9);
+      text-decoration: none; padding: 0.55rem 1.1rem;
+      display: flex; align-items: center; gap: 0.25rem;
+      transition: color 0.18s, background 0.18s;
+      white-space: nowrap; border-radius: 999px;
+    }
+    .nav-link:hover { color: #fff; background: rgba(255,255,255,0.15); }
+    .nav-link.active { color: #fff; background: rgba(255,255,255,0.12); }
+    .nav-link .ext { font-size: 0.75em; opacity: 0.7; }
+    .nav-right { display: flex; align-items: center; gap: 0.8rem; }
+    .nav-btn-outline {
+      font-family: 'FoundersGrotesk', sans-serif;
+      font-size: 16px; font-weight: 600; letter-spacing: 0.02em;
+      color: rgba(255,255,255,0.9); text-decoration: none;
+      padding: 0.55rem 1.1rem;
+      border: 1.5px solid rgba(255,255,255,0.45);
+      border-radius: 999px; white-space: nowrap;
+      transition: border-color 0.18s, color 0.18s;
+    }
+    .nav-btn-outline:hover { border-color: #fff; color: #fff; }
+    .nav-icon-btn {
+      background: none; border: none; color: rgba(255,255,255,0.85);
+      cursor: pointer; padding: 0.4rem; display: flex; align-items: center; transition: color 0.2s;
+    }
+    .nav-icon-btn:hover { color: #fff; }
+    @media (max-width: 860px) { .nav-center { display: none; } }
+
+    /* ── MAIN CONTENT ── */
+    main {
+      flex: 1;
+      padding-top: calc(var(--nav-h) + 2.5rem);
+      padding-bottom: 5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    /* ── SERVER CARDS ── */
+    .server-card {
+      width: 100%;
+      max-width: 870px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.25rem 1.5rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .server-card:hover {
+      border-color: rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.07);
+    }
+    .server-logo {
+      flex-shrink: 0;
+      width: 88px;
+      height: 88px;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .server-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+    .server-logo-placeholder {
+      flex-shrink: 0;
+      width: 88px;
+      height: 88px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1px dashed rgba(255,255,255,0.15);
+    }
+    .server-info {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .server-game {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+    .server-name {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: #fff;
+      line-height: 1.2;
+    }
+    .server-ip {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.04em;
+    }
+    .server-ip span { color: rgba(255,255,255,0.75); }
+    .server-meta {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 0.4rem 0.5rem;
+      margin-top: 0.3rem;
+      align-items: center;
+      min-width: 0;
+      overflow: hidden;
+    }
+    .server-tag {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      padding: 0.2rem 0.75rem;
+      white-space: nowrap;
+      flex-shrink: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .server-status {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.75rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .status-online  { color: #4ade80; background: rgba(74,222,128,0.12); border: 1px solid rgba(74,222,128,0.3); }
+    .status-offline { color: #f87171; background: rgba(248,113,113,0.12); border: 1px solid rgba(248,113,113,0.3); }
+    .status-loading { color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); }
+    .btn-modpack {
+      display: inline-flex;
+      align-items: center;
+      font-family: 'FoundersGrotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #fff;
+      background: #cc1a1a;
+      border: none;
+      border-radius: 999px;
+      padding: 0.2rem 0.75rem;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.18s, transform 0.15s;
+    }
+    .btn-modpack:hover { background: #e02020; transform: translateY(-1px); }
+    .server-downloads {
+      flex-shrink: 0;
+      width: 140px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-left: 1.5rem;
+      padding-left: 0.6rem;
+      position: relative;
+    }
+    .server-downloads::before {
+      content: '';
+      position: absolute;
+      left: -0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 60%;
+      width: 1px;
+      background: rgba(255,255,255,0.1);
+    }
+    .server-downloads-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ── FOOTER ── */
+    .footer-bottom-bar {
+      background: #000;
+      padding: calc(2.2rem + 1px) calc(4rem + 1px);
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: center;
+      position: relative;
+    }
+    .footer-bottom-bar::before {
+      content: '';
+      position: absolute;
+      top: -60px; left: 0; right: 0; height: 60px;
+      background: linear-gradient(to bottom, transparent, #000);
+      pointer-events: none;
+    }
+    .footer-bottom-bar span {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.05em;
+    }
+    .footer-bottom-bar span:nth-child(2) { text-align: center; }
+    .footer-bottom-bar span:nth-child(3) { text-align: right; }
+  </style>
+</head>
+<body>
+
+  <div id="nav-hover-zone"></div>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="index.html" class="nav-logo" title="Inicio">
+      <img src="icono_esqunas_redondeadas.png" alt="SPG" style="height:47px;width:47px;border-radius:10px;display:block;object-fit:cover;"/>
+    </a>
+    <div class="nav-center">
+      <a href="index.html" class="nav-link">Inicio</a>
+      <a href="servidores.html" class="nav-link active">Servidores</a>
+      <a href="archivo.html" class="nav-link">Archivo</a>
+      <a href="redes-sociales.html" class="nav-link">Redes Sociales</a>
+      <a href="https://discord.com/invite/WaSdGkwMrm" target="_blank" rel="noopener" class="nav-link">Discord <span class="ext">↗</span></a>
+      <a href="wiki.html" class="nav-link">Wiki <span class="ext">↗</span></a>
+    </div>
+    <div class="nav-right">
+      <a href="#" class="nav-btn-outline">Obtener Asistencia</a>
+      <button class="nav-icon-btn" aria-label="Buscar">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- CONTENIDO -->
+  <main>
+
+    <!-- CARD 1: SPG Forge -->
+    <div class="server-card">
+      <div class="server-logo">
+        <img src="SPG_5.2.png" alt="SPG Forge Logo"/>
+      </div>
+      <div class="server-info">
+        <div class="server-game">Minecraft</div>
+        <div class="server-name">SPG 5.2 Servidor Forge</div>
+        <div class="server-ip">IP: <span>play.spanishprogamers.es</span></div>
+        <div class="server-meta">
+          <span class="server-status status-loading" id="mc-status">Cargando...</span>
+          <span class="server-tag">Whitelist encendida &middot; MD @TELEPORTER1000</span>
+          <span class="server-tag">Versi&oacute;n 1.20.1</span>
+        </div>
+      </div>
+      <div class="server-downloads">
+        <div class="server-downloads-label">Descargas:</div>
+        <a href="https://drive.usercontent.google.com/download?id=1H4vMrpHoDAhh7Ao43JaZQj1vRtC0fudE&export=download&authuser=0"
+           target="_blank" rel="noopener" class="btn-modpack">Modpack 0.4</a>
+      </div>
+    </div>
+
+    <!-- CARD 2: Project Zomboid -->
+    <div class="server-card">
+      <div class="server-logo">
+        <img src="Project_Zomboid_server.png" alt="Project Zomboid Logo"/>
+      </div>
+      <div class="server-info">
+        <div class="server-game">Project Zomboid</div>
+        <div class="server-name">Project Zomboid Server</div>
+        <div class="server-ip">Búsqueda (ingame): <span>SpanishProGamers</span></div>
+        <div class="server-meta">
+          <span class="server-status status-offline">¡Apagado!</span>
+          <span class="server-tag">Contraseña activada: TEST</span>
+          <span class="server-tag">Versión 42.13.0 (UNSTABLE)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 3: SPG Survival Evolved -->
+    <div class="server-card">
+      <div class="server-logo">
+        <img src="ARK_server.png" alt="ARK Logo"/>
+      </div>
+      <div class="server-info">
+        <div class="server-game">Ark: Survival Evolved</div>
+        <div class="server-name">SPG Survival Evolved</div>
+        <div class="server-ip">Búsqueda (ingame): <span>SpanishProGamers</span></div>
+        <div class="server-meta">
+          <span class="server-status status-offline">¡TEMPORALMENTE INACTIVO!</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <div class="footer-bottom-bar">
+    <span>SpanishProGamers</span>
+    <span>Madrid</span>
+    <span>MMXIX</span>
+  </div>  <script>
+    const nav = document.querySelector('nav');
+    const hoverZone = document.getElementById('nav-hover-zone');
+    let isHovering = false;
+    // En páginas sin hero la navbar arranca siempre translúcida (estado 1)
+    // 1 = translúcida | 2 = oculta
+    let navState = 1;
+    let transitionY = null;
+    let hiddenY = null;
+    const HIDE_AFTER_PX = 120;
+
+    nav.classList.add('scrolled');
+
+    function applyState(s) {
+      navState = s;
+      if (s === 1) {
+        nav.classList.add('scrolled');
+        nav.classList.remove('hidden');
+      } else {
+        nav.classList.add('scrolled');
+        if (!isHovering) nav.classList.add('hidden');
+      }
+    }
+
+    // wheel: primer gesto hacia abajo marca transitionY
+    window.addEventListener('wheel', (e) => {
+      if (e.deltaY > 0 && navState === 1 && transitionY === null) {
+        transitionY = window.scrollY;
+      } else if (e.deltaY < 0 && navState === 2) {
+        applyState(1);
+        transitionY = window.scrollY;
+        hiddenY = null;
+      }
+    }, { passive: true });
+
+    // scroll: gestiona ocultado y reaparición
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y <= 0) {
+        navState = 1; transitionY = null; hiddenY = null;
+        nav.classList.add('scrolled'); nav.classList.remove('hidden');
+        return;
+      }
+      if (navState === 1 && transitionY !== null && y >= transitionY + HIDE_AFTER_PX) {
+        hiddenY = y; applyState(2);
+      }
+      if (navState === 2 && hiddenY !== null && y < hiddenY) {
+        hiddenY = null; transitionY = y; applyState(1);
+      }
+    }, { passive: true });
+
+    hoverZone.addEventListener('mouseenter', () => { isHovering = true; nav.classList.remove('hidden'); });
+    nav.addEventListener('mouseenter',       () => { isHovering = true; nav.classList.remove('hidden'); });
+    nav.addEventListener('mouseleave',       () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); });
+    hoverZone.addEventListener('mouseleave', () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); });
+  </script>
+  <script>
+    (function() {
+      var el = document.getElementById('mc-status');
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'https://api.mcsrvstat.us/2/play.spanishprogamers.es', true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            var r = JSON.parse(xhr.responseText);
+            if (r.online) {
+              el.textContent = '¡EN LÍNEA!';
+              el.className = 'server-status status-online';
+            } else {
+              el.textContent = '¡MANTENIMIENTO!';
+              el.className = 'server-status status-offline';
+            }
+          } else {
+            el.textContent = 'Error';
+            el.className = 'server-status status-offline';
+          }
+        }
+      };
+      xhr.send();
+    })();
+  </script>
+</body>
+</html>

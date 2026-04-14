@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SpanishProGamers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <style>
+    @font-face { font-family: 'FoundersGrotesk'; src: url('font/TestFoundersGrotesk-Light-BF66175e9730f02.otf') format('opentype'); font-weight: 300; font-style: normal; }
+    @font-face { font-family: 'FoundersGrotesk'; src: url('font/TestFoundersGrotesk-Regular-BF66175e972ac1c.otf') format('opentype'); font-weight: 400; font-style: normal; }
+    @font-face { font-family: 'FoundersGrotesk'; src: url('font/TestFoundersGrotesk-Medium-BF66175e9723b7a.otf') format('opentype'); font-weight: 500; font-style: normal; }
+    @font-face { font-family: 'FoundersGrotesk'; src: url('font/TestFoundersGrotesk-Semibold-BF66175e972c958.otf') format('opentype'); font-weight: 600; font-style: normal; }
+    @font-face { font-family: 'FoundersGrotesk'; src: url('font/TestFoundersGrotesk-Bold-BF66175e9700615.otf') format('opentype'); font-weight: 700; font-style: normal; }
+  </style>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pink: #cc1a1a;
+      --pink-light: #e02020;
+      --nav-h: 99px;
+      --gap: 20px;
+    }
+
+    body {
+      font-family: 'FoundersGrotesk', sans-serif;
+      background: #0d0d0d;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4rem 0 4rem;
+      background: transparent;
+      transition: background 0.35s ease, backdrop-filter 0.35s ease, transform 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    nav.hidden {
+      transform: translateY(calc(-100% - 10px));
+      pointer-events: none;
+    }
+
+    /* Zona invisible en la parte superior que reactiva la navbar */
+    #nav-hover-zone {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 20px;
+      z-index: 201;
+      pointer-events: all;
+    }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .nav-center {
+      display: flex; align-items: center; gap: 0.1rem;
+      position: absolute; left: 50%; transform: translateX(-50%);
+    }
+    .nav-link {
+      font-family: 'FoundersGrotesk', sans-serif;
+      font-size: 16px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: rgba(255,255,255,0.9);
+      text-decoration: none; padding: 0.55rem 1.1rem;
+      display: flex; align-items: center; gap: 0.25rem;
+      transition: color 0.18s, background 0.18s;
+      white-space: nowrap; border-radius: 999px;
+    }
+    .nav-link:hover { color: #fff; background: rgba(255,255,255,0.15); }
+    .nav-link .ext { font-size: 0.75em; opacity: 0.7; }
+    .nav-right { display: flex; align-items: center; gap: 0.8rem; }
+    .nav-btn-outline {
+      font-family: 'FoundersGrotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      font-variant: normal;
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      padding: 0.55rem 1.1rem;
+      border: 1.5px solid rgba(255,255,255,0.45);
+      border-radius: 999px;
+      white-space: nowrap;
+      transition: border-color 0.18s, color 0.18s;
+    }
+    .nav-btn-outline:hover { border-color: #fff; color: #fff; }
+    .nav-icon-btn {
+      background: none; border: none; color: rgba(255,255,255,0.85);
+      cursor: pointer; padding: 0.4rem; display: flex; align-items: center; transition: color 0.2s;
+    }
+    .nav-icon-btn:hover { color: #fff; }
+    @media (max-width: 860px) { .nav-center { display: none; } }
+
+    /* ── HERO ── */
+    :root {
+      --pink: #cc1a1a;
+      --pink-light: #e02020;
+      --nav-h: 99px;
+      --gap: 20px;
+      --hero-bottom-gap: 100px;
+    }
+    .hero {
+      position: relative; width: 100%; height: calc(100vh - var(--hero-bottom-gap)); min-height: 580px;
+      overflow: hidden;
+      background: #0d0d0d url('backbanner.png') center top / cover no-repeat;
+    }
+    .hero-vignette {
+      position: absolute; inset: 0; z-index: 4;
+      background:
+        linear-gradient(to top, #000 0%, rgba(0,0,0,0.6) 12%, transparent 40%),
+        linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, transparent 15%);
+    }
+    .hero-center-logo {
+      position: absolute; top: 20%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 6; pointer-events: none; max-width: 1400px; width: 95%;
+    }
+    .hero-center-logo img {
+      width: 100%; height: auto; display: block;
+      filter: drop-shadow(0 4px 32px rgba(0,0,0,0.7));
+      mix-blend-mode: screen;
+    }
+
+    /* ── FOOTER ── */
+    .footer-bottom-bar {
+      background: #000; padding: calc(2.2rem + 1px) calc(4rem + 1px);
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      align-items: center; position: relative;
+    }
+    .footer-bottom-bar::before {
+      content: ''; position: absolute; top: -60px; left: 0; right: 0; height: 60px;
+      background: linear-gradient(to bottom, transparent, #000); pointer-events: none;
+    }
+    .footer-bottom-bar span { font-size: 13px; color: rgba(255,255,255,0.55); letter-spacing: 0.05em; }
+    .footer-bottom-bar span:nth-child(2) { text-align: center; }
+    .footer-bottom-bar span:nth-child(3) { text-align: right; }
+
+    /* ════════════════════════════════
+       NOVEDADES — Rockstar Store grid
+       ════════════════════════════════ */
+    .novedades-wrap {
+      background: #1a1a1a;
+      padding-bottom: 3rem;
+    }
+
+    /* La primera sección novedades — color gestionado por JS */
+    #novedades-main {
+      background: rgb(0, 0, 0);
+    }
+
+    .novedades-heading {
+      font-family: 'FoundersGrotesk', sans-serif;
+      font-size: 2.2rem; font-weight: 800;
+      letter-spacing: -0.01em;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: transparent;
+      padding: 1.2rem 350px;
+      margin-bottom: var(--gap);
+      width: 100%;
+    }
+
+    .novedades-heading .ver-todo {
+      font-family: 'FoundersGrotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      opacity: 0.85;
+      transition: opacity 0.18s;
+    }
+    .novedades-heading .ver-todo:hover { opacity: 1; }
+
+    /* Outer grid: wider left + right */
+    .novedades-body {
+      display: grid;
+      grid-template-columns: 0.9fr 1.2fr;
+      gap: var(--gap);
+      padding: 0 350px 0 350px;
+    }
+
+    /* ── LEFT big panel — horizontal rectangle ── */
+    .nov-left {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #e2e2e2;
+      height: 696px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .nov-left-img {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 3rem 6rem;
+    }
+    .nov-left-img img {
+      max-width: 75%;
+      max-height: 60%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .nov-left-text {
+      position: relative;
+      z-index: 2;
+      padding: 1.8rem 2rem;
+      background: linear-gradient(to top, rgba(232,232,232,0.98) 0%, rgba(232,232,232,0.6) 60%, transparent 100%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .nov-left-info { flex: 1; }
+    .nov-left-tag {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: rgba(0,0,0,0.4);
+      display: block; margin-bottom: 0.4rem;
+    }
+    .nov-left-title {
+      font-family: 'FoundersGrotesk', sans-serif;
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
+      font-weight: 800; color: #111; line-height: 1.2;
+      margin-bottom: 0.3rem;
+    }
+    .nov-left-date { font-size: 0.7rem; color: rgba(0,0,0,0.35); }
+    .nov-left-desc { display: none; }
+
+    /* Red arrow button */
+    .arrow-btn {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--pink);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; flex-shrink: 0;
+      transition: background 0.18s, transform 0.18s;
+    }
+    .arrow-btn:hover { background: var(--pink-light); transform: scale(1.08); }
+
+    /* ── RIGHT grid: 1 wide rectangle top + 2 squares below ── */
+    .nov-right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 288px 1fr;
+      gap: var(--gap);
+      height: 696px;
+    }
+
+    /* First item spans both columns */
+    .nov-item:first-child {
+      grid-column: 1 / -1;
+    }
+
+    .nov-item {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #e2e2e2;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      text-decoration: none;
+      cursor: pointer;
+      transition: filter 0.2s;
+    }
+    .nov-item:hover { filter: brightness(0.96); }
+
+    .nov-item-thumb {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 1rem 4rem;
+    }
+    .nov-item-thumb img {
+      max-width: 55%;
+      max-height: 55%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .nov-item-body {
+      position: relative;
+      z-index: 2;
+      padding: 0.9rem 1.1rem;
+      background: linear-gradient(to top, rgba(232,232,232,0.98) 0%, rgba(232,232,232,0.75) 55%, transparent 100%);
+    }
+    .nov-item-tag {
+      font-size: 0.54rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: rgba(0,0,0,0.4);
+      display: block; margin-bottom: 0.2rem;
+    }
+    .nov-item-title {
+      font-family: 'FoundersGrotesk', sans-serif;
+      font-size: 0.88rem; font-weight: 700;
+      color: #111; line-height: 1.25;
+    }
+    .nov-item-date {
+      font-size: 0.62rem; color: rgba(0,0,0,0.35);
+      display: block; margin-top: 0.25rem;
+    }
+
+    @media (max-width: 860px) {
+      .novedades-body { grid-template-columns: 1fr; padding: 0 1.5rem; }
+      .nov-right { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; }
+      .nov-left { min-height: 380px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Zona hover para reaparecer navbar -->
+  <div id="nav-hover-zone"></div>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="index.html" class="nav-logo" title="Inicio">
+      <img src="icono_esqunas_redondeadas.png" alt="SPG" style="height:47px;width:47px;border-radius:10px;display:block;object-fit:cover;"/>
+    </a>
+    <div class="nav-center">
+      <a href="index.html" class="nav-link">Inicio</a>
+      <a href="servidores.html" class="nav-link">Servidores</a>
+      <a href="archivo.html" class="nav-link">Archivo</a>
+      <a href="redes-sociales.html" class="nav-link">Redes Sociales</a>
+      <a href="https://discord.com/invite/WaSdGkwMrm" target="_blank" rel="noopener" class="nav-link">Discord <span class="ext">↗</span></a>
+      <a href="wiki.html" class="nav-link">Wiki <span class="ext">↗</span></a>
+    </div>
+    <div class="nav-right">
+      <a href="#" class="nav-btn-outline">Obtener Asistencia</a>
+      <button class="nav-icon-btn" aria-label="Buscar">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-vignette"></div>
+    <div class="hero-center-logo">
+      <img src="FULL_LOGO_2k.png" alt="SpanishProGamers" />
+    </div>
+  </section>
+
+  <!-- ══ NOVEDADES ══ -->
+  <section class="novedades-wrap" id="novedades-main">
+    <p class="novedades-heading">Novedades <a href="#" class="ver-todo">Ver todo ↗</a></p>
+
+    <div class="novedades-body">
+
+      <!-- PANEL GRANDE IZQUIERDA -->
+      <div class="nov-left">
+        <div class="nov-left-img">
+          <img src="destacado.png" alt="SPG Modpack Manager" />
+        </div>
+        <div class="nov-left-text">
+          <div class="nov-left-info">
+            <span class="nov-left-tag">Destacado</span>
+            <p class="nov-left-title">Nuevo Modpack Manager</p>
+            <p class="nov-left-date">February 2025</p>
+          </div>
+          <a href="https://www.spanishprogamers.es/estado-y-descargas" class="arrow-btn" target="_blank" aria-label="Ver más">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- CUADRÍCULA 2×2 DERECHA -->
+      <div class="nov-right">
+
+        <a href="#" class="nov-item">
+          <div class="nov-item-thumb"><img src="Hardcore_2.png" alt="Hardcore 2" /></div>
+          <div class="nov-item-body">
+            <span class="nov-item-tag">SPG Servidores</span>
+            <p class="nov-item-title">SPG Hardcore 2 — Nueva temporada ya disponible</p>
+            <span class="nov-item-date">February 19, 2026</span>
+          </div>
+        </a>
+
+        <a href="#" class="nov-item">
+          <div class="nov-item-thumb"><img src="Hardcore_2.png" alt="Hardcore 2" /></div>
+          <div class="nov-item-body">
+            <span class="nov-item-tag">SPG Comunidad</span>
+            <p class="nov-item-title">Nuevo Discord — Canales renovados y roles actualizados</p>
+            <span class="nov-item-date">February 5, 2026</span>
+          </div>
+        </a>
+
+        <a href="#" class="nov-item">
+          <div class="nov-item-thumb"><img src="Hardcore_2.png" alt="Hardcore 2" /></div>
+          <div class="nov-item-body">
+            <span class="nov-item-tag">SPG Tienda</span>
+            <p class="nov-item-title">Nuevos rangos disponibles en la tienda oficial</p>
+            <span class="nov-item-date">February 3, 2026</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ VÍDEOS / EMISIONES ══ -->
+  <style>
+    /* ── Sección vídeos ── */
+    .videos-section {
+      background: #1a1a1a;
+      padding: 0 0 5rem;
+    }
+
+    /* Cabecera con info del canal estilo YouTube */
+    .videos-channel-header {
+      padding: 2.8rem 350px 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .videos-channel-left {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+    .videos-channel-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #333;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 2px solid rgba(255,255,255,0.08);
+    }
+    .videos-channel-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .videos-channel-meta {}
+    .videos-channel-name {
+      font-family: 'FoundersGrotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+    }
+    .videos-channel-subs {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.38);
+      letter-spacing: 0.04em;
+      margin-top: 0.2rem;
+    }
+    .videos-channel-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .videos-yt-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #cc1a1a;
+      color: #fff;
+      font-family: 'FoundersGrotesk', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      padding: 0.55rem 1.2rem;
+      border-radius: 999px;
+      transition: background 0.18s, transform 0.18s;
+      white-space: nowrap;
+    }
+    .videos-yt-btn:hover { background: #e02020; transform: translateY(-1px); }
+    .videos-yt-btn svg { flex-shrink: 0; }
+
+    /* Divisor */
+    .videos-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+      margin: 0 350px 2.2rem;
+    }
+
+    /* Lista de vídeos */
+    .videos-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 0 350px;
+    }
+
+    /* Cada fila de vídeo */
+    .video-row {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 1.4rem;
+      align-items: center;
+      padding: 1.1rem 0;
+      text-decoration: none;
+      color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,0.055);
+      position: relative;
+      transition: background 0.18s;
+      border-radius: 10px;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+    .video-row:last-child { border-bottom: none; }
+    .video-row::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 10px;
+      background: rgba(255,255,255,0);
+      transition: background 0.18s;
+      pointer-events: none;
+    }
+    .video-row:hover::before { background: rgba(255,255,255,0.04); }
+
+    /* Thumbnail */
+    .video-row-thumb {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #111;
+      aspect-ratio: 16/9;
+    }
+    .video-row-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s cubic-bezier(.25,.46,.45,.94);
+    }
+    .video-row:hover .video-row-thumb img { transform: scale(1.03); }
+
+    /* Overlay play */
+    .video-row-play {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .video-row:hover .video-row-play { opacity: 1; }
+    .video-row-play-circle {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: rgba(204,26,26,0.92);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(204,26,26,0.5);
+      transform: scale(0.85);
+      transition: transform 0.2s;
+    }
+    .video-row:hover .video-row-play-circle { transform: scale(1); }
+
+    /* Número del vídeo */
+    .video-row-num {
+      position: absolute;
+      bottom: 7px; right: 9px;
+      background: rgba(0,0,0,0.75);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      padding: 2px 6px;
+      border-radius: 4px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* Info derecha */
+    .video-row-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      padding-right: 1rem;
+    }
+    .video-row-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--pink);
+    }
+    .video-row-tag-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--pink);
+      flex-shrink: 0;
+    }
+    .video-row-title {
+      font-family: 'FoundersGrotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+    .video-row-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.02em;
+    }
+    .video-row-meta-sep { opacity: 0.4; }
+
+    @media (max-width: 1100px) {
+      .videos-channel-header, .videos-divider, .videos-list { padding-left: 2rem; padding-right: 2rem; }
+      .videos-divider { margin-left: 2rem; margin-right: 2rem; }
+    }
+    @media (max-width: 860px) {
+      .videos-channel-header { padding: 2rem 1.5rem 1.5rem; }
+      .videos-divider { margin: 0 1.5rem 1.5rem; }
+      .videos-list { padding: 0 1.5rem; }
+      .video-row { grid-template-columns: 1fr; }
+      .video-row-thumb { aspect-ratio: 16/9; }
+    }
+  </style>
+
+  <section class="novedades-wrap videos-section">
+
+    <!-- Cabecera canal -->
+    <div class="videos-channel-header">
+      <div class="videos-channel-left">
+        <div class="videos-channel-avatar">
+          <img src="icono_esqunas_redondeadas.png" alt="TELEPORTER1000" onerror="this.style.background='#cc1a1a'"/>
+        </div>
+        <div class="videos-channel-meta">
+          <p class="videos-channel-name">TELEPORTER1000</p>
+          <p class="videos-channel-subs">105 suscriptores · YouTube</p>
+        </div>
+      </div>
+      <div class="videos-channel-right">
+        <a href="https://www.youtube.com/@TELEPORTER1000" target="_blank" rel="noopener" class="videos-yt-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+          Ver canal
+        </a>
+      </div>
+    </div>
+
+    <div class="videos-divider"></div>
+
+    <!-- Lista vídeos -->
+    <div class="videos-list">
+
+      <a class="video-row" href="https://www.youtube.com/watch?v=MkSV7a9sv-I&t=19s" target="_blank" rel="noopener">
+        <div class="video-row-thumb">
+          <img src="https://i.ytimg.com/vi/MkSV7a9sv-I/maxresdefault.jpg" alt="examen majada.mp4" onerror="this.src='https://i.ytimg.com/vi/MkSV7a9sv-I/hqdefault.jpg'"/>
+          <div class="video-row-play">
+            <div class="video-row-play-circle">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="6,4 20,12 6,20"/></svg>
+            </div>
+          </div>
+          <span class="video-row-num">#1</span>
+        </div>
+        <div class="video-row-info">
+          <span class="video-row-tag"><span class="video-row-tag-dot"></span>SPG · YouTube</span>
+          <p class="video-row-title">examen majada.mp4</p>
+          <div class="video-row-meta">
+            <span>TELEPORTER1000</span>
+            <span class="video-row-meta-sep">·</span>
+            <span>Último vídeo</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="video-row" href="https://www.youtube.com/watch?v=q3Tge3X56Nk&t=211s" target="_blank" rel="noopener">
+        <div class="video-row-thumb">
+          <img src="https://i.ytimg.com/vi/q3Tge3X56Nk/maxresdefault.jpg" alt="Vídeo 2" onerror="this.src='https://i.ytimg.com/vi/q3Tge3X56Nk/hqdefault.jpg'"/>
+          <div class="video-row-play">
+            <div class="video-row-play-circle">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="6,4 20,12 6,20"/></svg>
+            </div>
+          </div>
+          <span class="video-row-num">#2</span>
+        </div>
+        <div class="video-row-info">
+          <span class="video-row-tag"><span class="video-row-tag-dot"></span>SPG · YouTube</span>
+          <p class="video-row-title">Emisión en directo — SpanishProGamers</p>
+          <div class="video-row-meta">
+            <span>TELEPORTER1000</span>
+            <span class="video-row-meta-sep">·</span>
+            <span>Marzo 2025</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="video-row" href="https://www.youtube.com/watch?v=Nad11xw-RZU" target="_blank" rel="noopener">
+        <div class="video-row-thumb">
+          <img src="https://i.ytimg.com/vi/Nad11xw-RZU/maxresdefault.jpg" alt="Vídeo 3" onerror="this.src='https://i.ytimg.com/vi/Nad11xw-RZU/hqdefault.jpg'"/>
+          <div class="video-row-play">
+            <div class="video-row-play-circle">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="6,4 20,12 6,20"/></svg>
+            </div>
+          </div>
+          <span class="video-row-num">#3</span>
+        </div>
+        <div class="video-row-info">
+          <span class="video-row-tag"><span class="video-row-tag-dot"></span>SPG · YouTube</span>
+          <p class="video-row-title">Highlights de la temporada — Los mejores momentos</p>
+          <div class="video-row-meta">
+            <span>TELEPORTER1000</span>
+            <span class="video-row-meta-sep">·</span>
+            <span>Febrero 2025</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="footer-bottom-bar">
+    <span>SpanishProGamers</span>
+    <span>Madrid</span>
+    <span>MMXIX</span>
+  </div>
+
+  <script>
+    const nav = document.querySelector('nav');
+    const hoverZone = document.getElementById('nav-hover-zone');
+    let isHovering = false;
+    // 0 = transparente | 1 = translúcida | 2 = oculta
+    let navState = 0;
+    // scrollY en el momento en que se volvió translúcida
+    let transitionY = null;
+    // Cuántos px hay que bajar desde transitionY para ocultarla
+    const HIDE_AFTER_PX = 120;
+    // scrollY en el momento en que se ocultó
+    let hiddenY = null;
+
+    function applyState(s) {
+      navState = s;
+      if (s === 0) {
+        nav.classList.remove('scrolled', 'hidden');
+      } else if (s === 1) {
+        nav.classList.add('scrolled');
+        nav.classList.remove('hidden');
+      } else {
+        nav.classList.add('scrolled');
+        if (!isHovering) nav.classList.add('hidden');
+      }
+    }
+
+    // wheel: solo gestiona el paso 0→1 (transparente → translúcida)
+    window.addEventListener('wheel', (e) => {
+      if (e.deltaY > 0 && navState === 0) {
+        transitionY = window.scrollY;
+        applyState(1);
+      } else if (e.deltaY < 0) {
+        if (window.scrollY <= 0) { transitionY = null; applyState(0); }
+        else if (navState !== 1)  { applyState(1); }
+      }
+    }, { passive: true });
+
+    // scroll: gestiona el paso 1→2 (translúcida → oculta) y la vuelta al top
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y <= 0) {
+        transitionY = null;
+        applyState(0);
+        return;
+      }
+      if (navState === 1 && transitionY !== null && y >= transitionY + HIDE_AFTER_PX) {
+        hiddenY = y;
+        applyState(2);
+      }
+      // Si sube mientras está oculta: volver a translúcida
+      if (navState === 2 && hiddenY !== null && y < hiddenY) {
+        hiddenY = null;
+        transitionY = y;
+        applyState(1);
+      }
+    }, { passive: true });
+
+    hoverZone.addEventListener('mouseenter', () => { isHovering = true; nav.classList.remove('hidden'); });
+    nav.addEventListener('mouseenter',       () => { isHovering = true; nav.classList.remove('hidden'); });
+    nav.addEventListener('mouseleave',       () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); });
+    hoverZone.addEventListener('mouseleave', () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); });
+
+    // ── NOVEDADES: transición de color al hacer scroll ──
+    const novSection = document.getElementById('novedades-main');
+    const colorHero = { r: 0,   g: 0,   b: 0   };
+    const colorGrey = { r: 26,  g: 26,  b: 26  };
+
+    function lerp(a, b, t) {
+      t = Math.max(0, Math.min(1, t));
+      return Math.round(a + (b - a) * t);
+    }
+
+    function updateNovColor() {
+      const sectionH = novSection.offsetHeight;
+      const scrollY  = window.scrollY;
+      const t = scrollY / (sectionH * 0.75);
+      const r = lerp(colorHero.r, colorGrey.r, t);
+      const g = lerp(colorHero.g, colorGrey.g, t);
+      const b = lerp(colorHero.b, colorGrey.b, t);
+      novSection.style.background = `rgb(${r},${g},${b})`;
+    }
+
+    window.addEventListener('scroll', updateNovColor, { passive: true });
+    updateNovColor();
+  </script>
+</body>
+</html>
