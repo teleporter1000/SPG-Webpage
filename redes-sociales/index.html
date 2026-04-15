@@ -190,18 +190,7 @@
         inset 0 -3px 8px rgba(0,0,0,0.4);
       position: relative;
     }
-    .social-icon::after {
-      content: '';
-      position: absolute;
-      top: 8%;
-      left: 18%;
-      width: 38%;
-      height: 22%;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.22);
-      transform: rotate(-20deg);
-      pointer-events: none;
-    }
+
     .social-icon img {
       width: 100%;
       height: 100%;
@@ -301,6 +290,8 @@
       transition: background 0.18s, transform 0.15s;
     }
     .btn-visit:hover { background: #e02020; transform: translateY(-1px); }
+    .btn-visit-twitch { background: #9146FF; }
+    .btn-visit-twitch:hover { background: #a970ff; }
 
     /* ── FOOTER ── */
     .footer-bottom-bar {
@@ -380,7 +371,7 @@
           <div class="social-info">
             <div class="social-platform">YouTube</div>
             <div class="social-name">TELEPORTER1000</div>
-            <div class="social-handle">Canal: <span>@TELEPORTER1000</span></div>
+            <div class="social-meta"><span class="social-tag">Canal: @TELEPORTER1000</span></div>
           </div>
           <div class="card-btn-wrap">
             <a href="https://www.youtube.com/@teleporter1000" target="_blank" rel="noopener" class="btn-visit">Visitar Canal →</a>
@@ -395,7 +386,7 @@
           <div class="social-info">
             <div class="social-platform">YouTube</div>
             <div class="social-name">Diego_Ninja171</div>
-            <div class="social-handle">Canal: <span>@diego_ninja1712</span></div>
+            <div class="social-meta"><span class="social-tag">Canal: @diego_ninja1712</span></div>
           </div>
           <div class="card-btn-wrap">
             <a href="https://www.youtube.com/@diego_ninja1712" target="_blank" rel="noopener" class="btn-visit">Visitar Canal →</a>
@@ -410,7 +401,7 @@
           <div class="social-info">
             <div class="social-platform">YouTube</div>
             <div class="social-name">Pardillo69</div>
-            <div class="social-handle">Canal: <span>@John_Lemon_Facts</span></div>
+            <div class="social-meta"><span class="social-tag">Canal: @John_Lemon_Facts</span></div>
           </div>
           <div class="card-btn-wrap">
             <a href="https://www.youtube.com/@John_Lemon_Facts" target="_blank" rel="noopener" class="btn-visit">Visitar Canal →</a>
@@ -437,17 +428,17 @@
         <!-- Canal 1 -->
         <div class="social-card">
           <div class="social-icon icon-twitch">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z" fill="#9146FF"/>
-            </svg>
+            <img src="teleporter1000_yt.jpg" alt="TELEPORTER1000"/>
           </div>
           <div class="social-info">
             <div class="social-platform">Twitch</div>
-            <div class="social-name">SpanishProGamers</div>
-            <div class="social-handle">Canal: <span>spanishprogamers</span></div>
+            <div class="social-name">TELEPORTER1000</div>
             <div class="social-meta">
-              <span class="social-tag">Streams en directo &middot; Gaming</span>
+              <span class="social-tag">Canal: @teleporter1000</span>
             </div>
+          </div>
+          <div class="card-btn-wrap">
+            <a href="https://www.twitch.tv/teleporter1000" target="_blank" rel="noopener" class="btn-visit btn-visit-twitch">Visitar Canal →</a>
           </div>
         </div>
 
