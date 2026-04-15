@@ -141,7 +141,7 @@
        ════════════════════════════════ */
     .novedades-wrap {
       background: #1a1a1a;
-      padding-bottom: 3rem;
+      padding-bottom: 0;
     }
 
     /* La primera sección novedades — color gestionado por JS */
@@ -420,7 +420,7 @@
     /* ── Sección vídeos ── */
     .videos-section {
       background: #1a1a1a;
-      padding: 0 0 5rem;
+      padding-bottom: 3rem;
     }
 
     /* Título "Vídeos" igual que "Novedades" */
@@ -433,7 +433,8 @@
       align-items: center;
       justify-content: space-between;
       background: transparent;
-      padding: 2.8rem 350px 1.4rem;
+      padding: 1.7rem 350px 1.2rem;
+      margin-bottom: var(--gap);
       width: 100%;
     }
     .videos-heading .ver-todo {
@@ -613,18 +614,26 @@
 
   <script>
   (function () {
-    const CHANNEL_ID = 'UCuNnQqjBYvUx-KiNr4F-lxA'; // TELEPORTER1000
-    const PROXY      = 'https://api.allorigins.win/get?url=';
-    const FEED_URL   = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
-    const grid       = document.getElementById('videos-grid');
+    const CHANNEL_ID  = 'UCDJHjhqvS83CbLJ2GA5kPng'; // SpanishProGamers
+    const FEED_URL    = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
+    const CHANNEL_URL = 'https://www.youtube.com/channel/UCDJHjhqvS83CbLJ2GA5kPng';
+
+    // Lista de proxies CORS — se prueban en orden hasta que uno funcione
+    const PROXIES = [
+      url => `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
+      url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+      url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
+    ];
+
+    const grid = document.getElementById('videos-grid');
 
     function timeAgo(dateStr) {
       const diff = (Date.now() - new Date(dateStr)) / 1000;
-      if (diff < 3600)   return `hace ${Math.floor(diff/60)} min`;
-      if (diff < 86400)  return `hace ${Math.floor(diff/3600)} h`;
-      if (diff < 2592000) return `hace ${Math.floor(diff/86400)} días`;
-      if (diff < 31536000) return `hace ${Math.floor(diff/2592000)} meses`;
-      return `hace ${Math.floor(diff/31536000)} años`;
+      if (diff < 3600)    return `hace ${Math.floor(diff / 60)} min`;
+      if (diff < 86400)   return `hace ${Math.floor(diff / 3600)} h`;
+      if (diff < 2592000) return `hace ${Math.floor(diff / 86400)} días`;
+      if (diff < 31536000) return `hace ${Math.floor(diff / 2592000)} meses`;
+      return `hace ${Math.floor(diff / 31536000)} años`;
     }
 
     function playIcon() {
@@ -638,9 +647,10 @@
         <a class="video-card" href="${v.url}" target="_blank" rel="noopener">
           <div class="video-card-thumb">
             <img
-              src="https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg"
+              src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg"
               alt="${v.title}"
-              onerror="this.src='https://i.ytimg.com/vi/${v.id}/hqdefault.jpg'"
+              data-maxres="https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg"
+              onload="if(!this.dataset.upgraded){this.dataset.upgraded=1;var hi=new Image();hi.onload=function(){if(hi.naturalWidth>120)this_.src=hi.src;}.bind(this);var this_=this;hi.src=this.dataset.maxres;}"
             />
             ${playIcon()}
           </div>
@@ -654,26 +664,56 @@
 
     function renderError() {
       grid.innerHTML = `<p style="color:rgba(255,255,255,0.4);padding:2rem;grid-column:1/-1;text-align:center;">
-        No se pudieron cargar los vídeos. <a href="https://www.youtube.com/@TELEPORTER1000" target="_blank" style="color:#cc1a1a;">Ver canal ↗</a>
+        No se pudieron cargar los vídeos. <a href="${CHANNEL_URL}" target="_blank" style="color:#cc1a1a;">Ver canal ↗</a>
       </p>`;
     }
 
-    fetch(PROXY + encodeURIComponent(FEED_URL))
-      .then(r => r.json())
-      .then(data => {
-        const parser = new DOMParser();
-        const xml    = parser.parseFromString(data.contents, 'text/xml');
-        const entries = Array.from(xml.querySelectorAll('entry'));
-        const items = entries.map(e => ({
-          id:        e.querySelector('videoId')?.textContent || e.querySelector('id')?.textContent?.split(':').pop(),
-          title:     e.querySelector('title')?.textContent || '',
-          url:       e.querySelector('link')?.getAttribute('href') || '#',
-          published: e.querySelector('published')?.textContent || ''
-        }));
-        if (items.length) renderVideos(items);
-        else renderError();
-      })
-      .catch(renderError);
+    // Parsea la respuesta del proxy (allorigins devuelve {contents:...}, otros devuelven texto directo)
+    function parseXML(proxyResponse, isJSON) {
+      const text = isJSON ? proxyResponse.contents : proxyResponse;
+      const parser = new DOMParser();
+      return parser.parseFromString(text, 'text/xml');
+    }
+
+    function extractItems(xml) {
+      return Array.from(xml.querySelectorAll('entry')).map(e => ({
+        id:        e.querySelector('videoId')?.textContent
+                   || e.querySelector('id')?.textContent?.split(':').pop() || '',
+        title:     e.querySelector('title')?.textContent || '',
+        url:       e.querySelector('link')?.getAttribute('href') || '#',
+        published: e.querySelector('published')?.textContent || ''
+      }));
+    }
+
+    // Intenta cada proxy en secuencia
+    async function tryProxies() {
+      for (let i = 0; i < PROXIES.length; i++) {
+        try {
+          const proxyUrl = PROXIES[i](FEED_URL);
+          const resp = await fetch(proxyUrl);
+          if (!resp.ok) continue;
+
+          // allorigins devuelve JSON; corsproxy.io y codetabs devuelven XML directo
+          const isJSON = proxyUrl.includes('allorigins.win');
+          const data   = isJSON ? await resp.json() : await resp.text();
+          const xml    = parseXML(data, isJSON);
+
+          // Comprobar que no es un documento de error XML
+          if (xml.querySelector('parsererror')) continue;
+
+          const items = extractItems(xml);
+          if (items.length > 0) return items;
+        } catch (_) {
+          // Silencia el error y prueba el siguiente proxy
+        }
+      }
+      return null;
+    }
+
+    tryProxies().then(items => {
+      if (items) renderVideos(items);
+      else renderError();
+    });
   })();
   </script>
 
