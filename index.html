@@ -218,7 +218,7 @@
       position: relative;
       z-index: 2;
       padding: 1.8rem 2rem;
-      background: linear-gradient(to top, rgba(232,232,232,0.98) 0%, rgba(232,232,232,0.6) 60%, transparent 100%);
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
@@ -227,16 +227,16 @@
     .nov-left-info { flex: 1; }
     .nov-left-tag {
       font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em;
-      text-transform: uppercase; color: rgba(0,0,0,0.4);
+      text-transform: uppercase; color: rgba(255,255,255,0.6);
       display: block; margin-bottom: 0.4rem;
     }
     .nov-left-title {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: clamp(1.2rem, 2vw, 1.6rem);
-      font-weight: 800; color: #111; line-height: 1.2;
+      font-weight: 800; color: #fff; line-height: 1.2;
       margin-bottom: 0.3rem;
     }
-    .nov-left-date { font-size: 0.7rem; color: rgba(0,0,0,0.35); }
+    .nov-left-date { font-size: 0.7rem; color: rgba(255,255,255,0.5); }
     .nov-left-desc { display: none; }
 
     /* Red arrow button */
@@ -363,10 +363,7 @@
     <div class="novedades-body">
 
       <!-- PANEL GRANDE IZQUIERDA -->
-      <div class="nov-left">
-        <div class="nov-left-img">
-          <img src="/Zassets/destacado.png" alt="SPG Modpack Manager" />
-        </div>
+      <div class="nov-left" style="background: #111 url('/Zassets/noticia_principal.png') center center / cover no-repeat;">
         <div class="nov-left-text">
           <div class="nov-left-info">
             <span class="nov-left-tag">Destacado</span>
