@@ -121,11 +121,15 @@
       font-size: 13px; color: var(--link); text-decoration: none;
       padding: 0.22rem 0.5rem; border-radius: 4px;
       transition: background 0.12s, color 0.12s;
+      cursor: pointer;
     }
     .sidebar-link:hover { background: rgba(255,255,255,0.05); color: var(--link-hover); }
+    .sidebar-link:visited { color: var(--link); }
     .sidebar-link.active { background: rgba(200,169,110,0.12); color: var(--accent); font-weight: 600; }
     .sidebar-link.sub { padding-left: 1.1rem; font-size: 12px; color: var(--text-muted); }
+    .sidebar-link.sub:visited { color: var(--text-muted); }
     .sidebar-link.sub:hover { color: var(--link-hover); }
+    .sidebar-link.sub.active { background: transparent; color: var(--text-muted); font-weight: 400; }
     .sidebar-divider { height: 1px; background: var(--border-light); margin: 0.75rem 0; }
 
     /* ── MAIN CONTENT ── */
@@ -216,7 +220,8 @@
     .toc-toggle:hover { text-decoration: underline; }
     .toc-list { list-style: none; padding: 0; }
     .toc-list li { line-height: 1.5; }
-    .toc-list a { color: var(--link); text-decoration: none; font-size: 12.5px; display: block; padding: 0.05rem 0; }
+    .toc-list a { color: var(--link); text-decoration: none; font-size: 12.5px; display: block; padding: 0.05rem 0; cursor: pointer; }
+    .toc-list a:visited { color: var(--link); }
     .toc-list a:hover { text-decoration: underline; color: var(--link-hover); }
     .toc-list .toc-num { color: var(--text-dim); margin-right: 0.3rem; font-size: 11.5px; }
     .toc-sub { padding-left: 1.2rem; margin-top: 0.1rem; }
@@ -438,16 +443,16 @@
     <div class="sidebar-section">
       <div class="sidebar-heading">Contenido</div>
       <a href="/wiki/bosses/" class="sidebar-link active">Jefes</a>
-      <a href="#boss-1"  class="sidebar-link sub">1. Ender Dragon</a>
-      <a href="#boss-2"  class="sidebar-link sub">2. The Wither</a>
-      <a href="#boss-3"  class="sidebar-link sub">3. The Harbinger</a>
-      <a href="#boss-4"  class="sidebar-link sub">4. Netherite Monstruosity</a>
-      <a href="#boss-5"  class="sidebar-link sub">5. Ender Guardian</a>
-      <a href="#boss-6"  class="sidebar-link sub">6. Scylla</a>
-      <a href="#boss-7"  class="sidebar-link sub">7. Ancient Remnant</a>
-      <a href="#boss-8"  class="sidebar-link sub">8. Maledictus</a>
-      <a href="#boss-9"  class="sidebar-link sub">9. Leviatán</a>
-      <a href="#boss-10" class="sidebar-link sub">10. Ignis</a>
+      <a data-boss="boss-1"  class="sidebar-link sub">1. Ender Dragon</a>
+      <a data-boss="boss-2"  class="sidebar-link sub">2. The Wither</a>
+      <a data-boss="boss-3"  class="sidebar-link sub">3. The Harbinger</a>
+      <a data-boss="boss-4"  class="sidebar-link sub">4. Netherite Monstruosity</a>
+      <a data-boss="boss-5"  class="sidebar-link sub">5. Ender Guardian</a>
+      <a data-boss="boss-6"  class="sidebar-link sub">6. Scylla</a>
+      <a data-boss="boss-7"  class="sidebar-link sub">7. Ancient Remnant</a>
+      <a data-boss="boss-8"  class="sidebar-link sub">8. Maledictus</a>
+      <a data-boss="boss-9"  class="sidebar-link sub">9. Leviatán</a>
+      <a data-boss="boss-10" class="sidebar-link sub">10. Ignis</a>
     </div>
     <div class="sidebar-divider"></div>
     <div class="sidebar-section">
@@ -488,20 +493,20 @@
           <a href="#" class="toc-toggle" onclick="toggleToc(event)">[ocultar]</a>
         </div>
         <ol class="toc-list" id="toc-body">
-          <li><a href="#introduccion"><span class="toc-num">1</span>Introducción</a></li>
-          <li><a href="#leyenda"><span class="toc-num">2</span>Dificultad</a></li>
-          <li><a href="#lista"><span class="toc-num">3</span>Lista de jefes</a>
+          <li><a data-section="introduccion" class="toc-nav-link"><span class="toc-num">1</span>Introducción</a></li>
+          <li><a data-section="leyenda" class="toc-nav-link"><span class="toc-num">2</span>Dificultad</a></li>
+          <li><a data-section="lista" class="toc-nav-link"><span class="toc-num">3</span>Lista de jefes</a>
             <ol class="toc-list toc-sub">
-              <li><a href="#boss-1"><span class="toc-num">3.1</span>Ender Dragon</a></li>
-              <li><a href="#boss-2"><span class="toc-num">3.2</span>The Wither</a></li>
-              <li><a href="#boss-3"><span class="toc-num">3.3</span>The Harbinger</a></li>
-              <li><a href="#boss-4"><span class="toc-num">3.4</span>Netherite Monstruosity</a></li>
-              <li><a href="#boss-5"><span class="toc-num">3.5</span>Ender Guardian</a></li>
-              <li><a href="#boss-6"><span class="toc-num">3.6</span>Scylla</a></li>
-              <li><a href="#boss-7"><span class="toc-num">3.7</span>Ancient Remnant</a></li>
-              <li><a href="#boss-8"><span class="toc-num">3.8</span>Maledictus</a></li>
-              <li><a href="#boss-9"><span class="toc-num">3.9</span>Leviatán</a></li>
-              <li><a href="#boss-10"><span class="toc-num">3.10</span>Ignis</a></li>
+              <li><a data-boss="boss-1" class="toc-nav-link"><span class="toc-num">3.1</span>Ender Dragon</a></li>
+              <li><a data-boss="boss-2" class="toc-nav-link"><span class="toc-num">3.2</span>The Wither</a></li>
+              <li><a data-boss="boss-3" class="toc-nav-link"><span class="toc-num">3.3</span>The Harbinger</a></li>
+              <li><a data-boss="boss-4" class="toc-nav-link"><span class="toc-num">3.4</span>Netherite Monstruosity</a></li>
+              <li><a data-boss="boss-5" class="toc-nav-link"><span class="toc-num">3.5</span>Ender Guardian</a></li>
+              <li><a data-boss="boss-6" class="toc-nav-link"><span class="toc-num">3.6</span>Scylla</a></li>
+              <li><a data-boss="boss-7" class="toc-nav-link"><span class="toc-num">3.7</span>Ancient Remnant</a></li>
+              <li><a data-boss="boss-8" class="toc-nav-link"><span class="toc-num">3.8</span>Maledictus</a></li>
+              <li><a data-boss="boss-9" class="toc-nav-link"><span class="toc-num">3.9</span>Leviatán</a></li>
+              <li><a data-boss="boss-10" class="toc-nav-link"><span class="toc-num">3.10</span>Ignis</a></li>
             </ol>
           </li>
         </ol>
@@ -1050,6 +1055,19 @@
 </div>
 
 <script>
+  // Navbar state (declared early so applyState is usable everywhere)
+  const nav = document.querySelector('nav');
+  const hoverZone = document.getElementById('nav-hover-zone');
+  let isHovering = false, navState = 0, transitionY = null, hiddenY = null;
+  const HIDE_AFTER_PX = 120;
+
+  function applyState(s) {
+    navState = s;
+    if (s === 0) { nav.classList.remove('scrolled','hidden'); }
+    else if (s === 1) { nav.classList.add('scrolled'); nav.classList.remove('hidden'); }
+    else { nav.classList.add('scrolled'); if (!isHovering) nav.classList.add('hidden'); }
+  }
+
   function toggleBoss(id) {
     document.getElementById(id).classList.toggle('open');
   }
@@ -1063,19 +1081,64 @@
     link.textContent = hidden ? '[ocultar]' : '[mostrar]';
   }
 
-  // Navbar behaviour
-  const nav = document.querySelector('nav');
-  const hoverZone = document.getElementById('nav-hover-zone');
-  let isHovering = false, navState = 0, transitionY = null, hiddenY = null;
-  const HIDE_AFTER_PX = 120;
-
-  function applyState(s) {
-    navState = s;
-    if (s === 0) { nav.classList.remove('scrolled','hidden'); }
-    else if (s === 1) { nav.classList.add('scrolled'); nav.classList.remove('hidden'); }
-    else { nav.classList.add('scrolled'); if (!isHovering) nav.classList.add('hidden'); }
+  // Navigate to a section without changing the URL hash
+  function scrollToSection(sectionId) {
+    const el = document.getElementById(sectionId);
+    if (!el) return;
+    applyState(1);
+    const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 99;
+    const top = el.getBoundingClientRect().top + window.scrollY - navH - 16;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
   }
 
+  // Navigate to a boss: open its card and scroll to it
+  function scrollToBoss(bossId) {
+    const card = document.getElementById(bossId);
+    if (!card) return;
+    applyState(1);
+    // Open the boss card if not already open
+    card.classList.add('open');
+    const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 99;
+    const top = card.getBoundingClientRect().top + window.scrollY - navH - 16;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+  }
+
+  // Attach click handlers to all sidebar boss links and TOC links
+  document.addEventListener('DOMContentLoaded', function () {
+
+    // Sidebar: boss sub-links
+    document.querySelectorAll('.sidebar-link.sub[data-boss]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        scrollToBoss(this.dataset.boss);
+      });
+    });
+
+    // TOC: section links (Introducción, Dificultad, Lista de jefes)
+    document.querySelectorAll('.toc-nav-link[data-section]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        var sectionId = this.dataset.section;
+        if (sectionId === 'introduccion') {
+          applyState(0);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          scrollToSection(sectionId);
+        }
+      });
+    });
+
+    // TOC: boss links
+    document.querySelectorAll('.toc-nav-link[data-boss]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        scrollToBoss(this.dataset.boss);
+      });
+    });
+
+  });
+
+  // Navbar scroll behaviour
   window.addEventListener('wheel', (e) => {
     if (e.deltaY > 0 && navState === 0) { transitionY = window.scrollY; applyState(1); }
     else if (e.deltaY > 0 && navState === 1 && transitionY === null) { transitionY = window.scrollY - HIDE_AFTER_PX; }
@@ -1104,7 +1167,7 @@
     obs.forEach(entry => {
       if (entry.isIntersecting) {
         const id = entry.target.id;
-        sideLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+        sideLinks.forEach(l => l.classList.toggle('active', l.dataset.boss === id));
       }
     });
   }, { rootMargin: '-30% 0px -60% 0px' });
