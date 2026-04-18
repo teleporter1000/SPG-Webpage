@@ -3,642 +3,1111 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Wiki — Bosses — SpanishProGamers</title>
+  <title>Jefes (SPG 6) — Wiki SpanishProGamers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Linux+Libertine:ital,wght@0,400;0,600;0,700;1,400&family=Linux+Biolinum:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-    :root { --pink: #cc1a1a; --pink-light: #e02020; --nav-h: 99px; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0d0d0d; color: #fff; overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; }
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; padding: 0 4rem; background: transparent; transition: background 0.35s ease, backdrop-filter 0.35s ease, transform 0.4s ease; }
-    nav.scrolled { background: rgba(0,0,0,0.55); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0d;
+      --surface: rgba(255,255,255,0.04);
+      --surface2: rgba(255,255,255,0.07);
+      --border: rgba(255,255,255,0.1);
+      --border-light: rgba(255,255,255,0.06);
+      --text: #e8e6df;
+      --text-muted: rgba(255,255,255,0.6);
+      --text-dim: rgba(255,255,255,0.32);
+      --accent: #c8a96e;
+      --accent2: #6ea8c8;
+      --link: #7db5da;
+      --link-hover: #a8d0ef;
+      --red: #f87171;
+      --green: #4ade80;
+      --yellow: #facc15;
+      --nav-h: 99px;
+      --sidebar-w: 240px;
+    }
+
+    body {
+      font-family: 'Linux Libertine', Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    /* ══ NAVBAR (from index.html) ══ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 4rem;
+      background: transparent;
+      transition: background 0.35s ease, backdrop-filter 0.35s ease, transform 0.4s ease;
+    }
+    nav.scrolled { background: rgba(0,0,0,0.65); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
     nav.hidden { transform: translateY(calc(-100% - 10px)); pointer-events: none; }
     #nav-hover-zone { position: fixed; top: 0; left: 0; right: 0; height: 20px; z-index: 201; pointer-events: all; }
     .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
-    .nav-center { display: flex; align-items: center; gap: 0.1rem; position: absolute; left: 50%; transform: translateX(-50%); }
-    .nav-link { font-size: 15px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.9); text-decoration: none; padding: 0.55rem 1.1rem; display: flex; align-items: center; gap: 0.25rem; transition: color 0.18s, background 0.18s; white-space: nowrap; border-radius: 999px; }
+    .nav-center {
+      display: flex; align-items: center; gap: 0.1rem;
+      position: absolute; left: 50%; transform: translateX(-50%);
+    }
+    .nav-link {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: rgba(255,255,255,0.9); text-decoration: none;
+      padding: 0.55rem 1.1rem;
+      display: flex; align-items: center; gap: 0.25rem;
+      transition: color 0.18s, background 0.18s;
+      white-space: nowrap; border-radius: 999px;
+    }
     .nav-link:hover { color: #fff; background: rgba(255,255,255,0.15); }
     .nav-link.active { color: #fff; background: rgba(255,255,255,0.12); }
     .nav-link .ext { font-size: 0.75em; opacity: 0.7; }
     .nav-right { display: flex; align-items: center; gap: 0.8rem; }
-    .nav-btn-outline { font-size: 15px; font-weight: 700; letter-spacing: 0.02em; color: rgba(255,255,255,0.9); text-decoration: none; padding: 0.55rem 1.1rem; border: 1.5px solid rgba(255,255,255,0.45); border-radius: 999px; white-space: nowrap; transition: border-color 0.18s, color 0.18s; }
+    .nav-btn-outline {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px; font-weight: 700; letter-spacing: 0.02em;
+      color: rgba(255,255,255,0.9); text-decoration: none;
+      padding: 0.55rem 1.1rem;
+      border: 1.5px solid rgba(255,255,255,0.45); border-radius: 999px;
+      white-space: nowrap; transition: border-color 0.18s, color 0.18s;
+    }
     .nav-btn-outline:hover { border-color: #fff; color: #fff; }
-    .nav-icon-btn { background: none; border: none; color: rgba(255,255,255,0.85); cursor: pointer; padding: 0.4rem; display: flex; align-items: center; transition: color 0.2s; }
+    .nav-icon-btn {
+      background: none; border: none; color: rgba(255,255,255,0.85);
+      cursor: pointer; padding: 0.4rem; display: flex; align-items: center;
+      transition: color 0.2s;
+    }
     .nav-icon-btn:hover { color: #fff; }
     @media (max-width: 860px) { .nav-center { display: none; } }
 
-    main { flex: 1; padding-top: calc(var(--nav-h) + 3rem); padding-bottom: 6rem; padding-left: 2rem; padding-right: 2rem; display: flex; flex-direction: column; align-items: center; }
+    /* ══ WIKI LAYOUT ══ */
+    .wiki-layout {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: calc(var(--nav-h) + 2rem) 1.5rem 6rem;
+      gap: 0;
+    }
 
-    .page-header { width: 100%; max-width: 860px; margin-bottom: 3rem; text-align: center; }
-    .breadcrumb { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 1rem; }
-    .breadcrumb a { color: rgba(255,255,255,0.35); text-decoration: none; }
-    .breadcrumb a:hover { color: rgba(255,255,255,0.6); }
-    .page-header h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: -0.02em; color: #fff; margin-bottom: 1.1rem; }
-    .page-header p { font-size: 15px; line-height: 1.75; color: rgba(255,255,255,0.55); max-width: 680px; margin: 0 auto 1.5rem; }
-    .cataclysm-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; border: 1px solid rgba(255,255,255,0.15); border-radius: 999px; padding: 0.4rem 1rem; transition: border-color 0.2s, color 0.2s; }
-    .cataclysm-link:hover { border-color: rgba(255,255,255,0.35); color: rgba(255,255,255,0.8); }
-    .difficulty-legend { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; }
-    .diff-badge { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 999px; padding: 0.3rem 0.85rem; border: 1px solid; }
-    .diff-badge.easy   { color: #4ade80; border-color: rgba(74,222,128,0.3); background: rgba(74,222,128,0.07); }
-    .diff-badge.normal { color: #facc15; border-color: rgba(250,204,21,0.3); background: rgba(250,204,21,0.07); }
-    .diff-badge.hard   { color: #f87171; border-color: rgba(248,113,113,0.3); background: rgba(248,113,113,0.07); }
+    /* ── LEFT SIDEBAR (from index2) ── */
+    .wiki-sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      padding: 0 1rem 2rem 0;
+      border-right: 1px solid var(--border-light);
+      position: sticky;
+      top: calc(var(--nav-h) + 1rem);
+      align-self: flex-start;
+      max-height: calc(100vh - var(--nav-h) - 3rem);
+      overflow-y: auto;
+    }
+    .wiki-sidebar::-webkit-scrollbar { width: 4px; }
+    .wiki-sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 
-    .bosses-list { width: 100%; max-width: 860px; display: flex; flex-direction: column; gap: 1.5rem; }
+    .sidebar-section { margin-bottom: 1.5rem; }
+    .sidebar-heading {
+      font-family: 'Linux Biolinum', sans-serif;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--text-dim); padding: 0.3rem 0.5rem; margin-bottom: 0.3rem;
+    }
+    .sidebar-link {
+      display: block;
+      font-family: 'Linux Biolinum', sans-serif;
+      font-size: 13px; color: var(--link); text-decoration: none;
+      padding: 0.22rem 0.5rem; border-radius: 4px;
+      transition: background 0.12s, color 0.12s;
+    }
+    .sidebar-link:hover { background: rgba(255,255,255,0.05); color: var(--link-hover); }
+    .sidebar-link.active { background: rgba(200,169,110,0.12); color: var(--accent); font-weight: 600; }
+    .sidebar-link.sub { padding-left: 1.1rem; font-size: 12px; color: var(--text-muted); }
+    .sidebar-link.sub:hover { color: var(--link-hover); }
+    .sidebar-divider { height: 1px; background: var(--border-light); margin: 0.75rem 0; }
 
-    .boss-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.09); border-radius: 20px; overflow: hidden; transition: border-color 0.2s, background 0.2s; }
+    /* ── MAIN CONTENT ── */
+    .wiki-main {
+      flex: 1; min-width: 0;
+      padding: 0 0 3rem 2rem;
+    }
+
+    /* ── BREADCRUMB ── */
+    .wiki-breadcrumb {
+      font-family: 'Linux Biolinum', sans-serif;
+      font-size: 12px; color: var(--text-dim);
+      margin-bottom: 0.75rem;
+      display: flex; align-items: center; gap: 0.35rem;
+    }
+    .wiki-breadcrumb a { color: var(--link); text-decoration: none; }
+    .wiki-breadcrumb a:hover { text-decoration: underline; }
+
+    /* ── PAGE TITLE ── */
+    .wiki-page-title {
+      font-family: 'Linux Libertine', serif;
+      font-size: 2.1rem; font-weight: 700; color: var(--text);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem; margin-bottom: 0.6rem; line-height: 1.2;
+    }
+    .wiki-page-subtitle {
+      font-size: 13px; color: var(--text-muted);
+      font-family: 'Linux Biolinum', sans-serif;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ── INFOBOX ── */
+    .wiki-infobox {
+      float: none; margin: 0;
+      width: 270px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden;
+      font-size: 13px; font-family: 'Linux Biolinum', sans-serif;
+      clear: right;
+    }
+    .infobox-title {
+      background: var(--surface2); border-bottom: 1px solid var(--border);
+      padding: 0.55rem 0.85rem;
+      font-size: 12px; font-weight: 700; color: var(--accent);
+      text-align: center; letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .infobox-row { display: flex; border-bottom: 1px solid var(--border-light); }
+    .infobox-row:last-child { border-bottom: none; }
+    .infobox-label {
+      width: 42%; padding: 0.38rem 0.7rem;
+      color: var(--text-dim); font-weight: 600;
+      background: rgba(0,0,0,0.2);
+      font-size: 11.5px; border-right: 1px solid var(--border-light);
+    }
+    .infobox-val { flex: 1; padding: 0.38rem 0.7rem; color: var(--text-muted); font-size: 12px; }
+    .infobox-val .easy { color: var(--green); }
+    .infobox-val .hard { color: var(--red); }
+    .infobox-val .normal { color: var(--yellow); }
+
+    /* ── NOTICE BOX ── */
+    .wiki-notice {
+      background: rgba(61,107,153,0.1);
+      border: 1px solid rgba(61,107,153,0.35);
+      border-left: 3px solid #3d6b99;
+      border-radius: 8px;
+      padding: 0.65rem 1rem;
+      font-size: 13.5px; color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      display: flex; gap: 0.6rem; align-items: flex-start;
+      clear: right;
+    }
+    .wiki-notice-icon { color: var(--accent2); flex-shrink: 0; margin-top: 2px; }
+
+    /* ── TOC ── */
+    .wiki-toc {
+      float: none; margin: 0;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 0.75rem 1rem;
+      min-width: 195px; max-width: 230px;
+      font-family: 'Linux Biolinum', sans-serif; font-size: 13px;
+    }
+    .toc-title {
+      font-size: 13px; font-weight: 700; color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      display: flex; align-items: center; gap: 0.5rem; justify-content: space-between;
+    }
+    .toc-toggle { font-size: 11px; color: var(--link); cursor: pointer; text-decoration: none; }
+    .toc-toggle:hover { text-decoration: underline; }
+    .toc-list { list-style: none; padding: 0; }
+    .toc-list li { line-height: 1.5; }
+    .toc-list a { color: var(--link); text-decoration: none; font-size: 12.5px; display: block; padding: 0.05rem 0; }
+    .toc-list a:hover { text-decoration: underline; color: var(--link-hover); }
+    .toc-list .toc-num { color: var(--text-dim); margin-right: 0.3rem; font-size: 11.5px; }
+    .toc-sub { padding-left: 1.2rem; margin-top: 0.1rem; }
+    .toc-sub a { font-size: 12px; }
+
+    /* ── SECTIONS ── */
+    .wiki-section { margin-top: 1.75rem; clear: both; }
+    .wiki-h2 {
+      font-family: 'Linux Libertine', serif;
+      font-size: 1.45rem; font-weight: 700; color: var(--text);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.3rem; margin-bottom: 1rem;
+    }
+    .wiki-p { margin-bottom: 0.75rem; color: var(--text-muted); font-size: 14.5px; }
+    .wiki-p strong, b { color: var(--text); font-weight: 600; }
+    .wiki-p a { color: var(--link); text-decoration: none; }
+    .wiki-p a:hover { text-decoration: underline; }
+    .wiki-p em { font-style: italic; }
+
+    /* ── DIFFICULTY LEGEND (index2 style) ── */
+    .diff-legend {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 0.65rem 1rem;
+      font-family: 'Linux Biolinum', sans-serif; font-size: 13px;
+      margin-bottom: 1rem;
+    }
+    .diff-legend-row { display: flex; align-items: baseline; gap: 0.4rem; margin-bottom: 0.35rem; }
+    .diff-legend-row:last-child { margin-bottom: 0; }
+    .diff-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; margin-top: 2px; }
+    .diff-dot.easy { background: var(--green); }
+    .diff-dot.normal { background: var(--yellow); }
+    .diff-dot.hard { background: var(--red); }
+
+    /* ── EXTERNAL LINK PILL ── */
+    .ext-link-pill {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-family: 'Linux Biolinum', sans-serif; font-size: 12.5px;
+      color: var(--link); border: 1px solid rgba(125,181,218,0.25);
+      border-radius: 20px; padding: 0.28rem 0.8rem;
+      text-decoration: none;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .ext-link-pill:hover { border-color: var(--link); background: rgba(125,181,218,0.07); }
+
+    /* ══ BOSS CARDS (from index.html — the beautiful rounded style) ══ */
+    .bosses-list {
+      display: flex; flex-direction: column; gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .boss-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 20px; overflow: hidden;
+      transition: border-color 0.2s, background 0.2s;
+    }
     .boss-card:hover { border-color: rgba(255,255,255,0.16); background: rgba(255,255,255,0.045); }
 
-    .boss-header { display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem 1.75rem; cursor: pointer; user-select: none; }
-    .boss-number { flex-shrink: 0; width: 36px; height: 36px; border-radius: 10px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: rgba(255,255,255,0.4); }
-    .boss-banner { width: 64px; height: 64px; border-radius: 12px; object-fit: cover; flex-shrink: 0; background: rgba(255,255,255,0.05); }
+    .boss-header {
+      display: flex; align-items: center; gap: 1.25rem;
+      padding: 1.35rem 1.6rem; cursor: pointer; user-select: none;
+    }
+    .boss-number {
+      flex-shrink: 0; width: 34px; height: 34px; border-radius: 10px;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 13px; font-weight: 800; color: rgba(255,255,255,0.4);
+    }
+    .boss-banner {
+      width: 60px; height: 60px; border-radius: 12px;
+      object-fit: cover; flex-shrink: 0;
+      background: rgba(255,255,255,0.05);
+    }
     .boss-title-wrap { flex: 1; min-width: 0; }
-    .boss-title { font-size: 18px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: #fff; margin-bottom: 0.4rem; }
-    .boss-diff-row { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-    .boss-diff-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.05em; border-radius: 999px; padding: 0.2rem 0.65rem; border: 1px solid; white-space: nowrap; }
+    .boss-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 17px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase;
+      color: #fff; margin-bottom: 0.4rem;
+    }
+    .boss-diff-row { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+    .boss-diff-tag {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.05em;
+      border-radius: 999px; padding: 0.2rem 0.65rem;
+      border: 1px solid; white-space: nowrap;
+    }
     .boss-diff-tag.easy   { color: #4ade80; border-color: rgba(74,222,128,0.3); background: rgba(74,222,128,0.07); }
     .boss-diff-tag.normal { color: #facc15; border-color: rgba(250,204,21,0.3); background: rgba(250,204,21,0.07); }
     .boss-diff-tag.hard   { color: #f87171; border-color: rgba(248,113,113,0.3); background: rgba(248,113,113,0.07); }
-    .boss-toggle { flex-shrink: 0; width: 28px; height: 28px; border-radius: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.45); transition: background 0.15s, transform 0.25s; }
+    .boss-toggle {
+      flex-shrink: 0; width: 28px; height: 28px; border-radius: 8px;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.45); transition: background 0.15s, transform 0.25s;
+    }
     .boss-card.open .boss-toggle { transform: rotate(180deg); background: rgba(255,255,255,0.1); }
 
-    .boss-body { display: none; padding: 0 1.75rem 1.75rem; border-top: 1px solid rgba(255,255,255,0.07); }
+    .boss-body {
+      display: none; padding: 0 1.6rem 1.6rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
     .boss-card.open .boss-body { display: block; }
-    .boss-screenshot { width: 100%; max-height: 280px; object-fit: cover; border-radius: 12px; margin: 1.25rem 0; background: rgba(255,255,255,0.04); }
-
-    .boss-sections { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.5rem; }
+    .boss-screenshot {
+      width: 100%; max-height: 260px; object-fit: cover;
+      border-radius: 12px; margin: 1.1rem 0;
+      background: rgba(255,255,255,0.04);
+    }
+    .boss-sections {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0.85rem; margin-top: 0.4rem;
+    }
     @media (max-width: 620px) { .boss-sections { grid-template-columns: 1fr; } }
-    .boss-section { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 1rem 1.15rem; }
+    .boss-section {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px; padding: 0.9rem 1rem;
+    }
     .boss-section.full { grid-column: 1 / -1; }
-    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 0.55rem; }
-    .section-text { font-size: 13.5px; line-height: 1.7; color: rgba(255,255,255,0.65); }
+    .section-label {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(255,255,255,0.3); margin-bottom: 0.5rem;
+    }
+    .section-text {
+      font-size: 13.5px; line-height: 1.7; color: rgba(255,255,255,0.65);
+    }
     .section-text strong { color: rgba(255,255,255,0.9); font-weight: 700; }
 
-    .equip-table { width: 100%; border-collapse: collapse; margin-top: 0.4rem; }
-    .equip-table tr td { padding: 0.35rem 0.5rem; font-size: 13px; line-height: 1.5; color: rgba(255,255,255,0.65); vertical-align: top; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .equip-table { width: 100%; border-collapse: collapse; margin-top: 0.35rem; }
+    .equip-table tr td {
+      padding: 0.35rem 0.5rem; font-size: 13px; line-height: 1.5;
+      color: rgba(255,255,255,0.65); vertical-align: top;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
     .equip-table tr:last-child td { border-bottom: none; }
     .equip-table .diff-cell { width: 90px; font-weight: 700; font-size: 11px; letter-spacing: 0.05em; padding-top: 0.45rem; }
     .equip-table .diff-cell.easy   { color: #4ade80; }
     .equip-table .diff-cell.normal { color: #facc15; }
     .equip-table .diff-cell.hard   { color: #f87171; }
 
-    .rewards-list { list-style: none; margin-top: 0.4rem; }
+    .rewards-list { list-style: none; margin-top: 0.35rem; }
     .rewards-list li { font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.65); padding-left: 1rem; position: relative; }
     .rewards-list li::before { content: '→'; position: absolute; left: 0; color: rgba(255,255,255,0.3); }
 
-    .footer-bottom-bar { background: #000; padding: calc(2.2rem + 1px) calc(4rem + 1px); display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: center; position: relative; }
-    .footer-bottom-bar::before { content: ''; position: absolute; top: -60px; left: 0; right: 0; height: 60px; background: linear-gradient(to bottom, transparent, #000); pointer-events: none; }
-    .footer-bottom-bar span { font-size: 13px; color: rgba(255,255,255,0.55); letter-spacing: 0.05em; }
+    /* ══ FOOTER (from index.html) ══ */
+    .footer-bottom-bar {
+      background: #000;
+      padding: 2.2rem 4rem;
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      align-items: center;
+      position: relative;
+    }
+    .footer-bottom-bar::before {
+      content: ''; position: absolute; top: -60px; left: 0; right: 0;
+      height: 60px; background: linear-gradient(to bottom, transparent, #000);
+      pointer-events: none;
+    }
+    .footer-bottom-bar span {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 13px; color: rgba(255,255,255,0.55); letter-spacing: 0.05em;
+    }
     .footer-bottom-bar span:nth-child(2) { text-align: center; }
     .footer-bottom-bar span:nth-child(3) { text-align: right; }
+
+    /* ── CLEARFIX ── */
+    .clearfix::after { content: ''; display: table; clear: both; }
+
+    @media (max-width: 860px) {
+      .wiki-sidebar { display: none; }
+      .wiki-main { padding-left: 0; }
+      .wiki-infobox { float: none; width: 100%; margin: 0 0 1.25rem; }
+      .wiki-toc { float: none; max-width: 100%; margin: 0 0 1rem; }
+      nav { padding: 0 1.5rem; }
+      .footer-bottom-bar { padding: 2rem 1.5rem; }
+    }
   </style>
 </head>
 <body>
 
-  <div id="nav-hover-zone"></div>
-  <nav>
-    <a href="/" class="nav-logo" title="Inicio">
-      <img src="/Zassets/icono_esqunas_redondeadas.png" alt="SPG" style="height:47px;width:47px;border-radius:10px;display:block;object-fit:cover;"/>
-    </a>
-    <div class="nav-center">
-      <a href="/" class="nav-link">Inicio</a>
-      <a href="/servidores/" class="nav-link">Servidores</a>
-      <a href="/archivo/" class="nav-link">Archivo</a>
-      <a href="/redes-sociales/" class="nav-link">Redes Sociales</a>
-      <a href="https://discord.com/invite/WaSdGkwMrm" target="_blank" rel="noopener" class="nav-link">Discord <span class="ext">↗</span></a>
-      <a href="/wiki/" class="nav-link active">Wiki <span class="ext">↗</span></a>
-    </div>
-    <div class="nav-right">
-      <a href="/asistencia/" class="nav-btn-outline">Obtener Asistencia</a>
-      <button class="nav-icon-btn" aria-label="Buscar">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-      </button>
-    </div>
-  </nav>
-
-  <main>
-    <div class="page-header">
-      <div class="breadcrumb"><a href="/wiki/">Wiki</a> &nbsp;/&nbsp; Bosses</div>
-      <h1>Guía de Bosses</h1>
-      <p>En esta nueva edición hemos llevado la experiencia survival un paso más allá. Jefes ordenados de menor a mayor dificultad, con equipamiento recomendado en tres niveles. Las recomendaciones están pensadas para jugar en parejas.</p>
-      <a href="https://en.namu.wiki/w/L_Ender%27s%20Cataclysm" target="_blank" rel="noopener" class="cataclysm-link">Wiki CATACLYSM ↗</a>
-      <div class="difficulty-legend">
-        <span class="diff-badge easy">Fácil</span>
-        <span class="diff-badge normal">Recomendado</span>
-        <span class="diff-badge hard">Difícil</span>
-      </div>
-    </div>
-
-    <div class="bosses-list">
-
-      <!-- 1. ENDER DRAGON -->
-      <div class="boss-card" id="boss-1">
-        <div class="boss-header" onclick="toggleBoss('boss-1')">
-          <div class="boss-number">1</div>
-          <img class="boss-banner" src="https://lh3.googleusercontent.com/sitesv/AA5AbUDGoBTXOQ1bjIc5oEciJsJexSJ29XSk7Ew2oyz2UagAUNZwjfzc_2uzTbq_S-kd1Z24qBCWxoYJOzBcuwtuJtg3jtF-Tia6inL-DYtaHi7ZOeFtODbCpJ7aT_tRDXxnEHp3iNU34hTg0KNOxJ87vMPFHrMThioZxlMxlgbWN-AMm5aQqqgzrS9A6JCXeUv2B-D1ielen_gtnwQ7tMgR15AuGs9EoMpX-2Smdf0=w1280" alt="Ender Dragon"/>
-          <div class="boss-title-wrap">
-            <div class="boss-title">Ender Dragon</div>
-            <div class="boss-diff-row">
-              <span class="boss-diff-tag easy">Fácil: Set diamante Prot. III–IV</span>
-              <span class="boss-diff-tag normal">Rec: Set hierro Prot. IV</span>
-              <span class="boss-diff-tag hard">Difícil: Set hierro Prot. II</span>
-            </div>
-          </div>
-          <div class="boss-toggle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </div>
-        <div class="boss-body">
-          <img class="boss-screenshot" src="https://lh3.googleusercontent.com/sitesv/AA5AbUBnwi0IRA1StHvEXbDm0N43_m6TITGR95Lb4u4fvQn2C3EicLkRuY-yxAhWLMLsa0a2Do_NwcVSGXfQDQFOc1x5dCY1W6SOdgIKZODBpn-ule2Y2Dfbdh6TqdYIHnfUCgkbZIZOTrQGEpj7aOJGfcWT22itu6Qy40d1zzZHnbnwdWsJrUCQcVy1EXIwkILUrPa83Lti-4HCEI84l_E7ZBGTLE0_BpmxWC4kGIE=w1280" alt="Ender Dragon gameplay"/>
-          <div class="boss-sections">
-            <div class="boss-section">
-              <div class="section-label">Info</div>
-              <div class="section-text">Primer jefe de la progresión de SPG 6. Hay que destruir los <strong>cristales en las torres</strong> de la arena o el dragón se regenerará indefinidamente.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">¿Dónde encontrarlo?</div>
-              <div class="section-text">Nada más entrar en la <strong>dimensión del End</strong>. Se reinvoca colocando nuevos cristales del End en la estructura central.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">Equipamiento</div>
-              <div class="section-text">Al ser aéreo, complementar con <strong>escudo, arco y cubo de agua</strong>. Tiene una fase donde desciende y se puede atacar cuerpo a cuerpo.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">Recompensas</div>
-              <div class="section-text">Aparece el <strong>huevo del dragón</strong> en el centro de la arena.</div>
-            </div>
-            <div class="boss-section full">
-              <div class="section-label">Equipamiento por dificultad</div>
-              <table class="equip-table">
-                <tr><td class="diff-cell easy">Fácil</td><td>Set de diamante encantado con protección III–IV y espada de diamante filo IV–V</td></tr>
-                <tr><td class="diff-cell normal">Recomendado</td><td>Set de hierro protección IV y espada de hierro o diamante filo V</td></tr>
-                <tr><td class="diff-cell hard">Difícil</td><td>Set de hierro encantado con protección II y espada de diamante filo V</td></tr>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2. THE WITHER -->
-      <div class="boss-card" id="boss-2">
-        <div class="boss-header" onclick="toggleBoss('boss-2')">
-          <div class="boss-number">2</div>
-          <img class="boss-banner" src="https://lh3.googleusercontent.com/sitesv/AA5AbUCVRzisbgi2RAOSHe-Lj5FyJ34kusRwR8BnryX4eIacxBkVAAAYcbHtIKMS5xokncqT2T-L0nkj0rUAmhPMyAE51Yb0b3HOhqd9EwM3rwToa4SG7chs2Zo6ahbTT1Kt31H6mrwla9OBr0hKXHV-fX-TCnNCWNeAVj1rPbWaHnOb5MCtBiGpzL6W-ys=w1280" alt="The Wither"/>
-          <div class="boss-title-wrap">
-            <div class="boss-title">The Wither</div>
-            <div class="boss-diff-row">
-              <span class="boss-diff-tag easy">Fácil: Set netherita Prot. III–IV</span>
-              <span class="boss-diff-tag normal">Rec: Set diamante Prot. III–IV</span>
-              <span class="boss-diff-tag hard">Difícil: Set hierro Prot. IV</span>
-            </div>
-          </div>
-          <div class="boss-toggle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </div>
-        <div class="boss-body">
-          <img class="boss-screenshot" src="https://lh3.googleusercontent.com/sitesv/AA5AbUBlQH9rb0n1aE2AazdKPh9gmYYB8BIijYFjl5y3b6LlsyxMZfzo1UqcRiERECwgGiDk26GlbCNr6B1kWJtEleVUmZHsVm5lzQc858WMrny70K9ewfsxweMkYXxilHntBvbTO00TdcPhH__u56gQXA8EmSQUxhO6_qfFrYKlWp0kZVQB93toPZDa6g0wTz8dw-K7Dd8FJ7MujVY8_Q0tJ6iPFmQ3W689Gmp-FI0=w1280" alt="The Wither gameplay"/>
-          <div class="boss-sections">
-            <div class="boss-section">
-              <div class="section-label">Info</div>
-              <div class="section-text">Segundo jefe de la progresión. Requiere daño constante o se regenerará. Al <strong>50% de vida</strong> obtiene un escudo que lo hace inmune a proyectiles.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">¿Cómo invocarlo?</div>
-              <div class="section-text">Tres <strong>cabezas de wither</strong> encima de una T de arena de almas.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">Equipamiento</div>
-              <div class="section-text">Esencial complementar con <strong>escudo, arco y manzanas doradas</strong>.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">Recompensas</div>
-              <div class="section-text">Suelta una <strong>estrella del nether</strong> (necesaria para faro y para The Harbinger).</div>
-            </div>
-            <div class="boss-section full">
-              <div class="section-label">Equipamiento por dificultad</div>
-              <table class="equip-table">
-                <tr><td class="diff-cell easy">Fácil</td><td>Set de netherita encantado con protección III–IV y espada de netherita filo IV–V</td></tr>
-                <tr><td class="diff-cell normal">Recomendado</td><td>Set de diamante protección III–IV y espada de hierro o diamante filo III–V</td></tr>
-                <tr><td class="diff-cell hard">Difícil</td><td>Set de hierro encantado con protección IV y espada de diamante o hierro filo V</td></tr>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3. THE HARBINGER -->
-      <div class="boss-card" id="boss-3">
-        <div class="boss-header" onclick="toggleBoss('boss-3')">
-          <div class="boss-number">3</div>
-          <img class="boss-banner" src="https://lh3.googleusercontent.com/sitesv/AA5AbUDGWjYASB5TI7I7YJyHcX34cR0SaFG8AZIw2H7eRAWi_5QHdvDUcJUULRBdDqaufjhR_vmNC1Tk8Q-I6h6tjhazstzx79w3IcNhFdeKfdT2f1K9505m0-jTW1OIHXautYIiP47GnMJUZsPkIJN-pLONvT9uVe8AoW5wbCfTYZQe313Ff6vqg5wz1G9pgJn33UpS82VpAWj0jskKxoBa5L-ec1Xoi-3qGd09=w1280" alt="The Harbinger"/>
-          <div class="boss-title-wrap">
-            <div class="boss-title">The Harbinger</div>
-            <div class="boss-diff-row">
-              <span class="boss-diff-tag easy">Fácil: Set diamante Prot. III–IV</span>
-              <span class="boss-diff-tag normal">Rec: Set hierro Prot. IV</span>
-              <span class="boss-diff-tag hard">Difícil: Set hierro Prot. II</span>
-            </div>
-          </div>
-          <div class="boss-toggle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </div>
-        <div class="boss-body">
-          <img class="boss-screenshot" src="https://lh3.googleusercontent.com/sitesv/AA5AbUAhXVNx5yD_GXyzeEPu6-UREVBDvuVBNGFH-DftAzNr4WvV-mSHUPNn72jpOOqwS075c6L4zWhxfuslHV8Qet7ZPue922JBxl4_hb4IyFfiYVrNTQrcbY0EmAZ-x-b4xTBygTknHPPBobVGLQoWGsg_ugZceC2mv0Xtu_02RMhobMd_CLMimGxHF9UM6HmQ8wV93ukd5YqIZs0VT_zHukrzoYCDdfpZVo=w1280" alt="The Harbinger gameplay"/>
-          <div class="boss-sections">
-            <div class="boss-section">
-              <div class="section-label">Info</div>
-              <div class="section-text">Una <strong>máquina</strong> (no un no-muerto). Al bajar del 50% activa el <strong>Escudo Harbinger</strong>, inmune a distancia. Se recupera automáticamente cada segundo si no se le golpea.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">¿Dónde encontrarlo?</div>
-              <div class="section-text"><strong>Ancient Factory</strong>, localizable con el <strong>ojo de la mecánica</strong>. Se activa insertando una <strong>estrella del nether</strong> en su cuerpo.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">Equipamiento</div>
-              <div class="section-text">Complementar con <strong>escudo y arco</strong>.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">Recompensas</div>
-              <ul class="rewards-list">
-                <li>Disco de música</li>
-                <li>Bloque de Witherita (crafteos: Desgarradora de carne, Pistola Láser, Arma de Asalto de Wither, Yunque de Fusión Mecánico)</li>
-              </ul>
-            </div>
-            <div class="boss-section full">
-              <div class="section-label">Equipamiento por dificultad</div>
-              <table class="equip-table">
-                <tr><td class="diff-cell easy">Fácil</td><td>Set de diamante encantado con protección III–IV y espada de diamante filo IV–V</td></tr>
-                <tr><td class="diff-cell normal">Recomendado</td><td>Set de hierro protección IV y espada de hierro o diamante filo V</td></tr>
-                <tr><td class="diff-cell hard">Difícil</td><td>Set de hierro encantado con protección II y espada de diamante filo V</td></tr>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 4. NETHERITE MONSTRUOSITY -->
-      <div class="boss-card" id="boss-4">
-        <div class="boss-header" onclick="toggleBoss('boss-4')">
-          <div class="boss-number">4</div>
-          <img class="boss-banner" src="https://lh3.googleusercontent.com/sitesv/AA5AbUB-EMjeorj6qqpNftihv3WNvkzp-Uy-dJmw0W77K-KE_dCcdhugJUea-20gSkHtzOcPYKj43OveKMgZB1GTTJp65791f0juonM25c8D6536sn8NaEll9tHhaNv_SGQbvSuFTglZyu1WGEQzMUlzr_IhLkpPz8xow_wu72J0If7vsDMJV4mtpe0y-Dc8ZRQwMdtO6R81RQd4fuWvYlBFjGwD7xuoPKTkiOiPCZI=w1280" alt="Netherite Monstruosity"/>
-          <div class="boss-title-wrap">
-            <div class="boss-title">Netherite Monstruosity</div>
-            <div class="boss-diff-row">
-              <span class="boss-diff-tag easy">Fácil: Set netherita Prot. III–IV</span>
-              <span class="boss-diff-tag normal">Rec: Set diamante Prot. III–IV</span>
-              <span class="boss-diff-tag hard">Difícil: Set hierro Prot. IV</span>
-            </div>
-          </div>
-          <div class="boss-toggle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </div>
-        <div class="boss-body">
-          <img class="boss-screenshot" src="https://lh3.googleusercontent.com/sitesv/AA5AbUBUjBadLL1zt0YqWqWzQtfnME1OIJM79TEZEFxvxdKHizU65x8BBbJLuObQUlE9pyC9bb2B6h5IH3VEZpaQCM8qPCoUtHEVI0InR_nVLfZSD2awegQTtHtCBv_z-YHOthqdGVxZE8aWBM1YcSAtmuLjrCsj7I-OQ9xKlIhuGYDWTLeyJbpnilxQUHISZ1GqhQRKN1z0uKzxHagdyN4qfwUdMd_ENyGctV53CWYaQ=w1280" alt="Netherite Monstruosity gameplay"/>
-          <div class="boss-sections">
-            <div class="boss-section">
-              <div class="section-label">Info</div>
-              <div class="section-text">El jefe más grande del modpack y el mejor en defensa. La <strong>cabeza es punto débil</strong> — atacarla causa 1.5× más daño. Compuesto de Ne-Nail, piedra roja, basalto y ladrillos del Nether.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">¿Dónde encontrarlo?</div>
-              <div class="section-text">Nether, estructura <strong>soul_black_smith</strong>, localizable con el <strong>ojo de la monstruosidad</strong>. Despierta al entrar en su zona.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">Equipamiento</div>
-              <div class="section-text">Llevar <strong>arco y flechas</strong> para apuntar a la cabeza. Tapar la lava o usar <strong>pociones de resistencia al fuego</strong>.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">Recompensas</div>
-              <div class="section-text">Sin especificar aún.</div>
-            </div>
-            <div class="boss-section full">
-              <div class="section-label">Equipamiento por dificultad</div>
-              <table class="equip-table">
-                <tr><td class="diff-cell easy">Fácil</td><td>Set de netherita encantado con protección III–IV y espada de netherita filo IV–V</td></tr>
-                <tr><td class="diff-cell normal">Recomendado</td><td>Set de diamante protección III–IV y espada de hierro o diamante filo III–V</td></tr>
-                <tr><td class="diff-cell hard">Difícil</td><td>Set de hierro encantado con protección IV y espada de diamante o hierro filo V</td></tr>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 5. ENDER GUARDIAN -->
-      <div class="boss-card" id="boss-5">
-        <div class="boss-header" onclick="toggleBoss('boss-5')">
-          <div class="boss-number">5</div>
-          <img class="boss-banner" src="https://lh3.googleusercontent.com/sitesv/AA5AbUDDzr4bzDHjI1lKcGO806ECd81qZH3mihDIwk4s6MuZ8aByS2feOuc1H2X0JaIgMkxdU-2MHYrNo3_fZ31e7PLzIXiWB9p4GHwUgEKzLCF_Cdr__hIvB_0TG_6yMi_tS1Sqnbf9EsLn7MjT4aprSTQ8rR_I0Mk1QQOp_y0TQvrRJI4yy0lY-L7-dbzIkUF3kTOK0IftScCODa7_KnOoD2EFxDj9qJimhZ-z=w1280" alt="Ender Guardian"/>
-          <div class="boss-title-wrap">
-            <div class="boss-title">Ender Guardian</div>
-            <div class="boss-diff-row">
-              <span class="boss-diff-tag easy">Fácil: Set netherita Prot. III–IV</span>
-              <span class="boss-diff-tag normal">Rec: Set diamante Prot. III–IV</span>
-              <span class="boss-diff-tag hard">Difícil: Set hierro Prot. IV</span>
-            </div>
-          </div>
-          <div class="boss-toggle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </div>
-        <div class="boss-body">
-          <img class="boss-screenshot" src="https://lh3.googleusercontent.com/sitesv/AA5AbUAq-mosYpinKyhAx0hGTpKhg3HPtrMo5OyZyrEc89Ah2GqVquB36y_kYjcL8Oec3Syk7V4OxZCDKW3JarIoC3pjfKP9_ZHdrdRMd0s7RlMTOYcC_CKbzSEHQcSSxVsa3tFnx1UmZByAxVOA_ZrZ5Bdx38MXMhq6F4_1ZoelfGrqMBJIdVHWgxYLDnabBIZ6ZBPlfJweBVLRQNsI6W4aefSW130PuO9LT3aJ_uE=w1280" alt="Ender Guardian gameplay"/>
-          <div class="boss-sections">
-            <div class="boss-section">
-              <div class="section-label">Info</div>
-              <div class="section-text">El más <strong>defensivo</strong> del modpack. Fase 1: <strong>inmune a flechas</strong>. Al −50% su casco explota, entrando en fase 2: +25% velocidad, −25% defensa, ya vulnerable a distancia. Destruye el suelo en fase 2.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">¿Dónde encontrarlo?</div>
-              <div class="section-text">End, estructura <strong>ruined_citadel</strong>, localizable con el <strong>ojo del vacío</strong>. Despierta al entrar.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">Equipamiento</div>
-              <div class="section-text">Complementar con <strong>arco y escudo</strong>. En fase 1 obligatorio melé o magia.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">Recompensas</div>
-              <div class="section-text"><strong>Guantelete del Guardián</strong>: clic derecho mantenido para atraer entidades cercanas hacia ti.</div>
-            </div>
-            <div class="boss-section full">
-              <div class="section-label">Equipamiento por dificultad</div>
-              <table class="equip-table">
-                <tr><td class="diff-cell easy">Fácil</td><td>Set de netherita encantado con protección III–IV y espada de netherita filo IV–V</td></tr>
-                <tr><td class="diff-cell normal">Recomendado</td><td>Set de diamante protección III–IV y espada de hierro o diamante filo III–V</td></tr>
-                <tr><td class="diff-cell hard">Difícil</td><td>Set de hierro encantado con protección IV y espada de diamante o hierro filo V</td></tr>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 6. SCYLLA -->
-      <div class="boss-card" id="boss-6">
-        <div class="boss-header" onclick="toggleBoss('boss-6')">
-          <div class="boss-number">6</div>
-          <img class="boss-banner" src="https://lh3.googleusercontent.com/sitesv/AA5AbUCJIB5gYR5lEJ5RjCeNDKojaO9Zk1zinFhEwQu8_aAfq1wsdJGAGfZtZmbVUY5mRd9ydcikhpwd0Za6YweDeRR1oEnEFLWb5w6tzQVhTg4_Es37cLQiZjxRpcvHb93PFS_vOntvIam4IV4iUH5ChDd6RyHvTcdC9RypHc0LYBgSe2Iiv3GGGN1156s=w1280" alt="Scylla"/>
-          <div class="boss-title-wrap">
-            <div class="boss-title">Scylla</div>
-            <div class="boss-diff-row">
-              <span class="boss-diff-tag easy">Fácil: Set netherita Prot. III–IV</span>
-              <span class="boss-diff-tag normal">Rec: Set diamante Prot. III–IV</span>
-              <span class="boss-diff-tag hard">Difícil: Set hierro Prot. IV</span>
-            </div>
-          </div>
-          <div class="boss-toggle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </div>
-        <div class="boss-body">
-          <img class="boss-screenshot" src="https://lh3.googleusercontent.com/sitesv/AA5AbUDXvGh0rC51ATwLKZ3CQ41KBdY7-_amZtcJDELpn15jXKa-3r6uf5R6AmQghkgOTl2B-21Q66StfOxtmHOZKKgbo8xic9wYUsBpAvYnb-k8cxbpE1T5qZ7D0xl0eGTjJj-57BIfL-MSZLrVpBtgoGZeUqXEH_VfnH5xoPSPdiB96w9xCHIcntuGEzCxyjzV_cJr4xmGluS-7sGFvDYAnvgcN3n5nbrLFvGT1fE=w1280" alt="Scylla gameplay"/>
-          <div class="boss-sections">
-            <div class="boss-section">
-              <div class="section-label">Info</div>
-              <div class="section-text">Usa el ancla <strong>Kerunos</strong> generando rayos y ondas. El efecto <strong>húmedo</strong> ralentiza y amplifica el daño eléctrico. Acumulado ×5 puede matar instantáneamente incluso con netherita completa.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">¿Dónde encontrarla?</div>
-              <div class="section-text">Estructura <strong>acropolis</strong>, localizable con el <strong>ojo de la tormenta</strong>. Se activa interactuando con su ancla con el objeto <strong>lácrima</strong>.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">Equipamiento</div>
-              <div class="section-text">Complementar con <strong>arco y escudo</strong>. Evitar acumular el estado húmedo.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">Recompensas</div>
-              <div class="section-text">Sin especificar aún.</div>
-            </div>
-            <div class="boss-section full">
-              <div class="section-label">Equipamiento por dificultad</div>
-              <table class="equip-table">
-                <tr><td class="diff-cell easy">Fácil</td><td>Set de netherita encantado con protección III–IV y espada de netherita filo IV–V</td></tr>
-                <tr><td class="diff-cell normal">Recomendado</td><td>Set de diamante protección III–IV y espada de diamante filo III–V</td></tr>
-                <tr><td class="diff-cell hard">Difícil</td><td>Set de hierro encantado con protección IV y espada de diamante o hierro filo V</td></tr>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 7. ANCIENT REMNANT -->
-      <div class="boss-card" id="boss-7">
-        <div class="boss-header" onclick="toggleBoss('boss-7')">
-          <div class="boss-number">7</div>
-          <img class="boss-banner" src="https://lh3.googleusercontent.com/sitesv/AA5AbUDr2GUYMq8zd8Q6u2-lQfIiNgeh1JOXAb5Ih_-2C7UzxmC9cH8VX7xOaGE-51aTLucqw_KenSMCpTRKk3kMdR4T3Jpo3nacoxVnJVIFEtHc9HaynvNXG30OXQA1MbyA38TVpQYFD05oyYWru2rdXXXTTiZfi_uKDVBHXZOmuZikm4ZR4ahN4gkmyc06Js6Vtm8K-L42cqGyv-uuU1DxG1QvAWhOvVUV_wqgmNQ=w1280" alt="Ancient Remnant"/>
-          <div class="boss-title-wrap">
-            <div class="boss-title">Ancient Remnant</div>
-            <div class="boss-diff-row">
-              <span class="boss-diff-tag easy">Fácil: Set enderium Prot. III–IV</span>
-              <span class="boss-diff-tag normal">Rec: Set netherita Prot. III–IV</span>
-              <span class="boss-diff-tag hard">Difícil: Set diamante Prot. IV</span>
-            </div>
-          </div>
-          <div class="boss-toggle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </div>
-        <div class="boss-body">
-          <img class="boss-screenshot" src="https://lh3.googleusercontent.com/sitesv/AA5AbUAb42Vzqy1Ao2gbxFTr66J-StMaj32Dm6CxOrN40aRPzlLkbo0BFfef0eZdCMMb8K5c4_Rp_5Z2juMmtbl37edl0qDFyYU5hb4-tWaWMzbwhmP3LHM9UsTHESGv_EqQ12L8ays1EyDfmrnxQVTwM3Xc7KJKoJqyIkbLPNKLabCKuQnWcLVDWWO_S_gMlpvyQEwsoQKWdEB34DSQqm41gPpTJVHUein0ORFq=w1280" alt="Ancient Remnant gameplay"/>
-          <div class="boss-sections">
-            <div class="boss-section">
-              <div class="section-label">Info</div>
-              <div class="section-text">Adornos egipcios. Fase 2 (−50%): curación continua si no se le golpea. <strong>Invierte los controles</strong> del jugador. <strong>Inmune a flechas.</strong> Barra de ira: +20% daño por golpe recibido, baja 1 espacio cada 20s.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">¿Dónde encontrarlo?</div>
-              <div class="section-text">Estructura <strong>cursed_pyramid</strong>, localizable con el <strong>ojo del desierto</strong>. Se activa con el <strong>collar del desierto</strong>.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">Equipamiento</div>
-              <div class="section-text">Complementar con <strong>escudo, tótem de inmortalidad y manzanas doradas</strong>. Obligatorio melé o magia.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">Recompensas</div>
-              <div class="section-text">Sin especificar aún.</div>
-            </div>
-            <div class="boss-section full">
-              <div class="section-label">Equipamiento por dificultad</div>
-              <table class="equip-table">
-                <tr><td class="diff-cell easy">Fácil</td><td>Set de enderium encantado con protección III–IV y espada de enderium o netherita filo IV–V</td></tr>
-                <tr><td class="diff-cell normal">Recomendado</td><td>Set de netherita encantado protección III–IV y espada de netherite filo III–V</td></tr>
-                <tr><td class="diff-cell hard">Difícil</td><td>Set de diamante encantado con protección IV y espada de diamante filo V</td></tr>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 8. MALEDICTUS -->
-      <div class="boss-card" id="boss-8">
-        <div class="boss-header" onclick="toggleBoss('boss-8')">
-          <div class="boss-number">8</div>
-          <img class="boss-banner" src="https://lh3.googleusercontent.com/sitesv/AA5AbUBmJQfmqo5hqNJmePlEtn-WO6glJ1I_6WriUCaVZRoODvMi4MtxPfPGHhGfQJI44xi-nh0-J5ThCiZlRuLYehycfIdnTdGrwbAfEFVKkgKTsS3xceS9v7479SkHbMNjLiszfwnx1u7ar-4qaHRNIV-ZVfGEwPPGvkyNyg4uHJU0BkC1x24sVRtgtLOGB62QqYdqTNzf5RO_pbnyL2Px1eeaWahRe-yMAhQM8RA=w1280" alt="Maledictus"/>
-          <div class="boss-title-wrap">
-            <div class="boss-title">Maledictus</div>
-            <div class="boss-diff-row">
-              <span class="boss-diff-tag easy">Fácil: Set enderium Prot. III–IV</span>
-              <span class="boss-diff-tag normal">Rec: Set netherita Prot. IV</span>
-              <span class="boss-diff-tag hard">Difícil: Set diamante Prot. IV</span>
-            </div>
-          </div>
-          <div class="boss-toggle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </div>
-        <div class="boss-body">
-          <img class="boss-screenshot" src="https://lh3.googleusercontent.com/sitesv/AA5AbUAPRxUWzb-7VnxbLL0myzMmaJqchaWgXqgn6mlPBJe6yA_werwLj0Vel4qYXnfzse68c3behLhI0iu_cqofI-gxoVlZtQBUAtb_DYiwPri7V7-9T8PzmletfVKZ_8A8G4zRU3msgNQoYEzIge0w=w1280" alt="Maledictus gameplay"/>
-          <div class="boss-sections">
-            <div class="boss-section">
-              <div class="section-label">Info</div>
-              <div class="section-text">Muy agresivo, sin apenas pausa entre ataques. Misma <strong>barra de ira</strong> que el Ancient Remnant (+20% daño por golpe). Algunos ataques <strong>ignoran protección mágica</strong>. No se recupera durante el combate.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">¿Dónde encontrarlo?</div>
-              <div class="section-text">Estructura <strong>frosted_prison</strong>, localizable con el <strong>ojo de la maldición</strong>. Se activa interactuando con su <strong>lápida</strong>.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">Equipamiento</div>
-              <div class="section-text">Complementar con <strong>escudo o tótem de inmortalidad, manzanas doradas y flechas</strong>.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">Recompensas</div>
-              <div class="section-text">Sin especificar aún.</div>
-            </div>
-            <div class="boss-section full">
-              <div class="section-label">Equipamiento por dificultad</div>
-              <table class="equip-table">
-                <tr><td class="diff-cell easy">Fácil</td><td>Set de enderium encantado con protección III–IV y espada de enderium o netherita filo IV–V + fruta coral</td></tr>
-                <tr><td class="diff-cell normal">Recomendado</td><td>Set de netherita encantado protección IV y espada de netherite filo V</td></tr>
-                <tr><td class="diff-cell hard">Difícil</td><td>Set de diamante encantado con protección IV y espada de diamante filo V</td></tr>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 9. LEVIATÁN -->
-      <div class="boss-card" id="boss-9">
-        <div class="boss-header" onclick="toggleBoss('boss-9')">
-          <div class="boss-number">9</div>
-          <img class="boss-banner" src="https://lh3.googleusercontent.com/sitesv/AA5AbUA7Qm5krq1VW3gKGW54aJUxXfeohTRPcwtFKhHQmXmR1VwK8BPDL4pKi82-FvdBboJHy2k5KQ7ePecyVjD-CDTJLLbWHlfV1CGxrng07YTsDK8SUDCB74DIJAszAQtrpgEThCPNOWBAbxH8yILAPmkb-N_nOqSJomZjpR8sSzrWVGNOypAZxlBm=w1280" alt="Leviatán"/>
-          <div class="boss-title-wrap">
-            <div class="boss-title">Leviatán</div>
-            <div class="boss-diff-row">
-              <span class="boss-diff-tag easy">Fácil: Set enderium + fruta coral</span>
-              <span class="boss-diff-tag normal">Rec: Set netherita + tridente</span>
-              <span class="boss-diff-tag hard">Difícil: Set diamante Prot. IV</span>
-            </div>
-          </div>
-          <div class="boss-toggle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </div>
-        <div class="boss-body">
-          <img class="boss-screenshot" src="https://lh3.googleusercontent.com/sitesv/AA5AbUAtoH6LNQTZg7YGvKynGu7GPgC3tnfhW6uTrjOon4JmfFjPb-rWWRyjgurh7AEsqeLC2_-cKEIUk6lnOD9X_YVN3ztKuzLV01ko-00S1ME68tz2KVDsTjMNJ1tVQJ15yzwrG-dnC5YZUUySeQamNhGTptTaHuw8iKXGYv_Q-wjM8ysCWqSWLlad3Q67-WLPOqiUB-gKZ3SS3bWNIhtjEaU6pgrtBUWlByrx=w1280" alt="Leviatán gameplay"/>
-          <div class="boss-sections">
-            <div class="boss-section">
-              <div class="section-label">Info</div>
-              <div class="section-text">Único jefe <strong>submarino</strong>. El arco es inútil bajo el agua y el melé es difícil por su alta velocidad. Recomendable el <strong>Barddisu de coral</strong> (rendimiento similar al tridente).</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">¿Dónde encontrarlo?</div>
-              <div class="section-text">Estructura <strong>sunken_city</strong>, localizable con el <strong>ojo del abismo</strong>. Se activa con el <strong>sacrificio abisal</strong> en el altar del abismo.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">Equipamiento</div>
-              <div class="section-text">Imprescindible: <strong>manzanas doradas, tridente con propulsión acuática, tótems de inmortalidad y canalizador</strong> para respirar y ver bajo el agua.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">Recompensas</div>
-              <div class="section-text">Sin especificar aún.</div>
-            </div>
-            <div class="boss-section full">
-              <div class="section-label">Equipamiento por dificultad</div>
-              <table class="equip-table">
-                <tr><td class="diff-cell easy">Fácil</td><td>Set de enderium encantado con protección III–IV y espada de enderium o netherita filo IV–V + fruta coral</td></tr>
-                <tr><td class="diff-cell normal">Recomendado</td><td>Set de netherita encantado protección IV, espada filo V + tridente Lealtad III y Empalamiento V</td></tr>
-                <tr><td class="diff-cell hard">Difícil</td><td>Set de diamante encantado con protección IV y espada de diamante filo V</td></tr>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 10. IGNIS -->
-      <div class="boss-card" id="boss-10">
-        <div class="boss-header" onclick="toggleBoss('boss-10')">
-          <div class="boss-number">10</div>
-          <img class="boss-banner" src="https://lh3.googleusercontent.com/sitesv/AA5AbUBLQVyAf5FJ7XWsa-rrLm4srz33O4DZon8Et6mWg3w-kLwvkonvaihoILbDeggXlSXviGrXQZ9gL6Z0xor2SZaJE0Ub9i7ysi9aREYtOQ6X_l7NdDZ7_djdSpMcLt5_lovw5LNofM5UFTJMG0OWxcK2goDMPuT10Xok22Ur-ddyiiN2O7VBYLYTB3QUwAejCWiPxDvOWHd1ARfSOfE09dgn9wgZyvSH2PiBo1M=w1280" alt="Ignis"/>
-          <div class="boss-title-wrap">
-            <div class="boss-title">Ignis</div>
-            <div class="boss-diff-row">
-              <span class="boss-diff-tag easy">Fácil: Set enderium Prot. IV</span>
-              <span class="boss-diff-tag normal">Rec: Set enderium Prot. IV</span>
-              <span class="boss-diff-tag hard">Difícil: Set netherita Prot. IV</span>
-            </div>
-          </div>
-          <div class="boss-toggle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </div>
-        <div class="boss-body">
-          <img class="boss-screenshot" src="https://lh3.googleusercontent.com/sitesv/AA5AbUDLmCzqSXf2dtS_Am59zUWIT9US7VxfMPtxD87QiZGU55A9z467KjQ2CmNgbHOQfkwsscmMLdjS1WrP3Vi22mdx39sq4nhvAJ16TwTdPMKVZ5qI6tdz1J1AUk6U_lzLZPMZD1PEultiv9fGBpSO2FyCMrKWOPkEFX-oAqS9jcp9EfIm6yyDNdAiezE6_qaauf15ZU5C9S3zGJDi-d3GDGiR8HhXXepffANxRGI=w1280" alt="Ignis gameplay"/>
-          <div class="boss-sections">
-            <div class="boss-section full">
-              <div class="section-label">Info — Jefe Final</div>
-              <div class="section-text">El <strong>más poderoso</strong> del modpack. Ataca sin descanso, posee un <strong>escudo</strong> que bloquea la mayoría de ataques y al golpear recupera vida. Tiene <strong>3 fases</strong>: fuego rojo → fuego azul del alma (−66%) → explosión + fase 3 (−33%). Destruye el suelo revelando lava.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">¿Dónde encontrarlo?</div>
-              <div class="section-text">Estructura <strong>burning_arena</strong>, localizable con el <strong>ojo del fuego</strong>. Se activa con las <strong>llamas ardientes</strong> en el altar del fuego.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">Equipamiento</div>
-              <div class="section-text">Casi obligatorio: <strong>tótems de inmortalidad, manzanas doradas y pociones de resistencia al fuego</strong>.</div>
-            </div>
-            <div class="boss-section">
-              <div class="section-label">Recompensas</div>
-              <div class="section-text">Sin especificar aún.</div>
-            </div>
-            <div class="boss-section full">
-              <div class="section-label">Equipamiento por dificultad</div>
-              <table class="equip-table">
-                <tr><td class="diff-cell easy">Fácil</td><td>Set de enderium encantado protección IV y espada de enderium o netherita filo V + fruta coral</td></tr>
-                <tr><td class="diff-cell normal">Recomendado</td><td>Set de enderium encantado protección IV y espada de netherite o enderium filo V</td></tr>
-                <tr><td class="diff-cell hard">Difícil</td><td>Set de netherita encantado con protección IV y espada de diamante o netherite filo V</td></tr>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </main>
-
-  <div class="footer-bottom-bar">
-    <span>SpanishProGamers</span>
-    <span>Madrid</span>
-    <span>MMXIX</span>
+<!-- ══ NAVBAR (index.html style) ══ -->
+<div id="nav-hover-zone"></div>
+<nav>
+  <a href="/" class="nav-logo" title="Inicio">
+    <img src="/Zassets/icono_esqunas_redondeadas.png" alt="SPG" style="height:47px;width:47px;border-radius:10px;display:block;object-fit:cover;"/>
+  </a>
+  <div class="nav-center">
+    <a href="/" class="nav-link">Inicio</a>
+    <a href="/servidores/" class="nav-link">Servidores</a>
+    <a href="/archivo/" class="nav-link">Archivo</a>
+    <a href="/redes-sociales/" class="nav-link">Redes Sociales</a>
+    <a href="https://discord.com/invite/WaSdGkwMrm" target="_blank" rel="noopener" class="nav-link">Discord <span class="ext">↗</span></a>
+    <a href="/wiki/" class="nav-link active">Wiki <span class="ext">↗</span></a>
   </div>
+  <div class="nav-right">
+    <a href="/asistencia/" class="nav-btn-outline">Obtener Asistencia</a>
+    <button class="nav-icon-btn" aria-label="Buscar">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+    </button>
+  </div>
+</nav>
 
-  <script>
-    function toggleBoss(id) {
-      document.getElementById(id).classList.toggle('open');
+<!-- ══ WIKI LAYOUT ══ -->
+<div class="wiki-layout">
+
+  <!-- ─── LEFT SIDEBAR (index2 style) ─── -->
+  <aside class="wiki-sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-heading">Navegación</div>
+      <a href="/" class="sidebar-link">Portada</a>
+      <a href="/wiki/" class="sidebar-link">Wiki principal</a>
+      <a href="/servidores/" class="sidebar-link">Servidores</a>
+      <a href="/asistencia/" class="sidebar-link">Obtener Asistencia</a>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-heading">SPG 6 — Contenido</div>
+      <a href="/wiki/bosses/" class="sidebar-link active">Jefes</a>
+      <a href="#boss-1"  class="sidebar-link sub">1. Ender Dragon</a>
+      <a href="#boss-2"  class="sidebar-link sub">2. The Wither</a>
+      <a href="#boss-3"  class="sidebar-link sub">3. The Harbinger</a>
+      <a href="#boss-4"  class="sidebar-link sub">4. Netherite Monstruosity</a>
+      <a href="#boss-5"  class="sidebar-link sub">5. Ender Guardian</a>
+      <a href="#boss-6"  class="sidebar-link sub">6. Scylla</a>
+      <a href="#boss-7"  class="sidebar-link sub">7. Ancient Remnant</a>
+      <a href="#boss-8"  class="sidebar-link sub">8. Maledictus</a>
+      <a href="#boss-9"  class="sidebar-link sub">9. Leviatán</a>
+      <a href="#boss-10" class="sidebar-link sub">10. Ignis</a>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-heading">Recursos</div>
+      <a href="https://en.namu.wiki/w/L_Ender%27s%20Cataclysm" target="_blank" class="sidebar-link">Wiki Cataclysm ↗</a>
+      <a href="https://discord.com/invite/WaSdGkwMrm" target="_blank" class="sidebar-link">Discord ↗</a>
+    </div>
+  </aside>
+
+  <!-- ─── MAIN ─── -->
+  <main class="wiki-main">
+
+    <!-- Breadcrumb -->
+    <div class="wiki-breadcrumb">
+      <a href="/">Inicio</a> ›
+      <a href="/wiki/">Wiki</a> ›
+      <span>Jefes</span>
+    </div>
+
+    <h1 class="wiki-page-title">Jefes (SPG 6)</h1>
+    <p class="wiki-page-subtitle">Esta página es parte de la Wiki de SpanishProGamers — SPG 6: Cataclysm Edition</p>
+
+    <!-- Notice (primero, encima de todo) -->
+    <div class="wiki-notice">
+      <span class="wiki-notice-icon">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </span>
+      <span>Las recomendaciones de equipamiento están pensadas para jugar <strong>en parejas</strong>. Los datos de dificultad indican el equipo mínimo con el que el enfrentamiento es viable en cada nivel.</span>
+    </div>
+
+    <!-- Fila principal: TOC + Intro + Infobox -->
+    <div style="display:flex; gap:1.25rem; align-items:flex-start; margin-bottom:0.5rem;">
+
+      <!-- TOC -->
+      <div class="wiki-toc" style="float:none; margin:0; flex-shrink:0;">
+        <div class="toc-title">
+          Contenido
+          <a href="#" class="toc-toggle" onclick="toggleToc(event)">[ocultar]</a>
+        </div>
+        <ol class="toc-list" id="toc-body">
+          <li><a href="#introduccion"><span class="toc-num">1</span>Introducción</a></li>
+          <li><a href="#leyenda"><span class="toc-num">2</span>Leyenda de dificultad</a></li>
+          <li><a href="#lista"><span class="toc-num">3</span>Lista de jefes</a>
+            <ol class="toc-list toc-sub">
+              <li><a href="#boss-1"><span class="toc-num">3.1</span>Ender Dragon</a></li>
+              <li><a href="#boss-2"><span class="toc-num">3.2</span>The Wither</a></li>
+              <li><a href="#boss-3"><span class="toc-num">3.3</span>The Harbinger</a></li>
+              <li><a href="#boss-4"><span class="toc-num">3.4</span>Netherite Monstruosity</a></li>
+              <li><a href="#boss-5"><span class="toc-num">3.5</span>Ender Guardian</a></li>
+              <li><a href="#boss-6"><span class="toc-num">3.6</span>Scylla</a></li>
+              <li><a href="#boss-7"><span class="toc-num">3.7</span>Ancient Remnant</a></li>
+              <li><a href="#boss-8"><span class="toc-num">3.8</span>Maledictus</a></li>
+              <li><a href="#boss-9"><span class="toc-num">3.9</span>Leviatán</a></li>
+              <li><a href="#boss-10"><span class="toc-num">3.10</span>Ignis</a></li>
+            </ol>
+          </li>
+        </ol>
+      </div>
+
+      <!-- Intro (texto central) -->
+      <div id="introduccion" style="flex:1; min-width:0;">
+        <p class="wiki-p">La <strong>Guía de Jefes de SPG 6</strong> recoge los diez jefes principales de la temporada, ordenados de menor a mayor dificultad. En esta edición se ha añadido el modpack <strong>L'Ender's Cataclysm</strong>, que introduce siete jefes completamente nuevos con mecánicas avanzadas: fases múltiples, escudos, estados alterados y arenas especiales.</p>
+        <p class="wiki-p">Cada jefe tiene su propia estructura de invocación, localizable mediante un <em>ojo</em> específico. Consulta las secciones individuales para conocer sus recompensas, localización y equipamiento recomendado por nivel de dificultad.</p>
+        <a href="https://en.namu.wiki/w/L_Ender%27s%20Cataclysm" target="_blank" rel="noopener" class="ext-link-pill">Wiki oficial de L'Ender's Cataclysm ↗</a>
+      </div>
+
+      <!-- Infobox (derecha) -->
+      <div class="wiki-infobox" style="float:none; margin:0; flex-shrink:0;">
+        <div class="infobox-title">Guía de Jefes — SPG 6</div>
+        <div class="infobox-row">
+          <div class="infobox-label">Edición</div>
+          <div class="infobox-val">SPG 6</div>
+        </div>
+        <div class="infobox-row">
+          <div class="infobox-label">Modpack</div>
+          <div class="infobox-val">L'Ender's Cataclysm</div>
+        </div>
+        <div class="infobox-row">
+          <div class="infobox-label">Jefes</div>
+          <div class="infobox-val">10 en progresión</div>
+        </div>
+        <div class="infobox-row">
+          <div class="infobox-label">Modo recomendado</div>
+          <div class="infobox-val">Parejas</div>
+        </div>
+        <div class="infobox-row">
+          <div class="infobox-label">Dificultades</div>
+          <div class="infobox-val">
+            <span class="easy">Fácil</span> · <span class="normal">Rec.</span> · <span class="hard">Difícil</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /fila principal -->
+
+    <!-- Leyenda -->
+    <div class="wiki-section" id="leyenda">
+      <h2 class="wiki-h2">Leyenda de dificultad</h2>
+      <p class="wiki-p">Cada jefe muestra tres niveles de equipamiento recomendado. El nivel <em>Recomendado</em> es el punto de equilibrio para la mayoría de jugadores.</p>
+      <div class="diff-legend">
+        <div class="diff-legend-row">
+          <div class="diff-dot easy"></div>
+          <span style="color:#4ade80;font-weight:600;font-family:'Linux Biolinum',sans-serif;">Fácil</span>
+          <span style="color:rgba(255,255,255,0.55);font-family:'Linux Biolinum',sans-serif;font-size:13px;">— equipo mínimo para superar el jefe sin dificultad excesiva.</span>
+        </div>
+        <div class="diff-legend-row">
+          <div class="diff-dot normal"></div>
+          <span style="color:#facc15;font-weight:600;font-family:'Linux Biolinum',sans-serif;">Recomendado</span>
+          <span style="color:rgba(255,255,255,0.55);font-family:'Linux Biolinum',sans-serif;font-size:13px;">— equilibrio comodidad/reto.</span>
+        </div>
+        <div class="diff-legend-row">
+          <div class="diff-dot hard"></div>
+          <span style="color:#f87171;font-weight:600;font-family:'Linux Biolinum',sans-serif;">Difícil</span>
+          <span style="color:rgba(255,255,255,0.55);font-family:'Linux Biolinum',sans-serif;font-size:13px;">— enfrentamiento con equipo inferior al recomendado; requiere mayor habilidad.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lista de jefes -->
+    <div class="wiki-section" id="lista">
+      <h2 class="wiki-h2">Lista de jefes</h2>
+      <p class="wiki-p">Haz clic en el botón <em>[expandir]</em> de cada entrada para ver todos los detalles: imagen, mecánicas, localización, equipamiento y recompensas.</p>
+
+      <div class="bosses-list">
+
+        <!-- 1. ENDER DRAGON -->
+        <div class="boss-card" id="boss-1">
+          <div class="boss-header" onclick="toggleBoss('boss-1')">
+            <div class="boss-number">1</div>
+            <img class="boss-banner" src="https://lh3.googleusercontent.com/sitesv/AA5AbUDGoBTXOQ1bjIc5oEciJsJexSJ29XSk7Ew2oyz2UagAUNZwjfzc_2uzTbq_S-kd1Z24qBCWxoYJOzBcuwtuJtg3jtF-Tia6inL-DYtaHi7ZOeFtODbCpJ7aT_tRDXxnEHp3iNU34hTg0KNOxJ87vMPFHrMThioZxlMxlgbWN-AMm5aQqqgzrS9A6JCXeUv2B-D1ielen_gtnwQ7tMgR15AuGs9EoMpX-2Smdf0=w1280" alt="Ender Dragon"/>
+            <div class="boss-title-wrap">
+              <div class="boss-title">Ender Dragon</div>
+              <div class="boss-diff-row">
+                <span class="boss-diff-tag easy">Fácil: Set diamante Prot. III–IV</span>
+                <span class="boss-diff-tag normal">Rec: Set hierro Prot. IV</span>
+                <span class="boss-diff-tag hard">Difícil: Set hierro Prot. II</span>
+              </div>
+            </div>
+            <div class="boss-toggle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          </div>
+          <div class="boss-body">
+            <img class="boss-screenshot" src="https://lh3.googleusercontent.com/sitesv/AA5AbUBnwi0IRA1StHvEXbDm0N43_m6TITGR95Lb4u4fvQn2C3EicLkRuY-yxAhWLMLsa0a2Do_NwcVSGXfQDQFOc1x5dCY1W6SOdgIKZODBpn-ule2Y2Dfbdh6TqdYIHnfUCgkbZIZOTrQGEpj7aOJGfcWT22itu6Qy40d1zzZHnbnwdWsJrUCQcVy1EXIwkILUrPa83Lti-4HCEI84l_E7ZBGTLE0_BpmxWC4kGIE=w1280" alt="Ender Dragon gameplay"/>
+            <div class="boss-sections">
+              <div class="boss-section">
+                <div class="section-label">Info</div>
+                <div class="section-text">Primer jefe de la progresión de SPG 6. Hay que destruir los <strong>cristales en las torres</strong> de la arena o el dragón se regenerará indefinidamente.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">¿Dónde encontrarlo?</div>
+                <div class="section-text">Nada más entrar en la <strong>dimensión del End</strong>. Se reinvoca colocando nuevos cristales del End en la estructura central.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">Equipamiento</div>
+                <div class="section-text">Al ser aéreo, complementar con <strong>escudo, arco y cubo de agua</strong>. Tiene una fase donde desciende y se puede atacar cuerpo a cuerpo.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">Recompensas</div>
+                <div class="section-text">Aparece el <strong>huevo del dragón</strong> en el centro de la arena.</div>
+              </div>
+              <div class="boss-section full">
+                <div class="section-label">Equipamiento por dificultad</div>
+                <table class="equip-table">
+                  <tr><td class="diff-cell easy">Fácil</td><td>Set de diamante encantado con protección III–IV y espada de diamante filo IV–V</td></tr>
+                  <tr><td class="diff-cell normal">Recomendado</td><td>Set de hierro protección IV y espada de hierro o diamante filo V</td></tr>
+                  <tr><td class="diff-cell hard">Difícil</td><td>Set de hierro encantado con protección II y espada de diamante filo V</td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. THE WITHER -->
+        <div class="boss-card" id="boss-2">
+          <div class="boss-header" onclick="toggleBoss('boss-2')">
+            <div class="boss-number">2</div>
+            <img class="boss-banner" src="https://lh3.googleusercontent.com/sitesv/AA5AbUCVRzisbgi2RAOSHe-Lj5FyJ34kusRwR8BnryX4eIacxBkVAAAYcbHtIKMS5xokncqT2T-L0nkj0rUAmhPMyAE51Yb0b3HOhqd9EwM3rwToa4SG7chs2Zo6ahbTT1Kt31H6mrwla9OBr0hKXHV-fX-TCnNCWNeAVj1rPbWaHnOb5MCtBiGpzL6W-ys=w1280" alt="The Wither"/>
+            <div class="boss-title-wrap">
+              <div class="boss-title">The Wither</div>
+              <div class="boss-diff-row">
+                <span class="boss-diff-tag easy">Fácil: Set netherita Prot. III–IV</span>
+                <span class="boss-diff-tag normal">Rec: Set diamante Prot. III–IV</span>
+                <span class="boss-diff-tag hard">Difícil: Set hierro Prot. IV</span>
+              </div>
+            </div>
+            <div class="boss-toggle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          </div>
+          <div class="boss-body">
+            <img class="boss-screenshot" src="https://lh3.googleusercontent.com/sitesv/AA5AbUBlQH9rb0n1aE2AazdKPh9gmYYB8BIijYFjl5y3b6LlsyxMZfzo1UqcRiERECwgGiDk26GlbCNr6B1kWJtEleVUmZHsVm5lzQc858WMrny70K9ewfsxweMkYXxilHntBvbTO00TdcPhH__u56gQXA8EmSQUxhO6_qfFrYKlWp0kZVQB93toPZDa6g0wTz8dw-K7Dd8FJ7MujVY8_Q0tJ6iPFmQ3W689Gmp-FI0=w1280" alt="The Wither gameplay"/>
+            <div class="boss-sections">
+              <div class="boss-section">
+                <div class="section-label">Info</div>
+                <div class="section-text">Segundo jefe de la progresión. Requiere daño constante o se regenerará. Al <strong>50% de vida</strong> obtiene un escudo que lo hace inmune a proyectiles.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">¿Cómo invocarlo?</div>
+                <div class="section-text">Tres <strong>cabezas de wither</strong> encima de una T de arena de almas.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">Equipamiento</div>
+                <div class="section-text">Esencial complementar con <strong>escudo, arco y manzanas doradas</strong>.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">Recompensas</div>
+                <div class="section-text">Suelta una <strong>estrella del nether</strong> (necesaria para faro y para The Harbinger).</div>
+              </div>
+              <div class="boss-section full">
+                <div class="section-label">Equipamiento por dificultad</div>
+                <table class="equip-table">
+                  <tr><td class="diff-cell easy">Fácil</td><td>Set de netherita encantado con protección III–IV y espada de netherita filo IV–V</td></tr>
+                  <tr><td class="diff-cell normal">Recomendado</td><td>Set de diamante protección III–IV y espada de hierro o diamante filo III–V</td></tr>
+                  <tr><td class="diff-cell hard">Difícil</td><td>Set de hierro encantado con protección IV y espada de diamante o hierro filo V</td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. THE HARBINGER -->
+        <div class="boss-card" id="boss-3">
+          <div class="boss-header" onclick="toggleBoss('boss-3')">
+            <div class="boss-number">3</div>
+            <img class="boss-banner" src="https://lh3.googleusercontent.com/sitesv/AA5AbUDGWjYASB5TI7I7YJyHcX34cR0SaFG8AZIw2H7eRAWi_5QHdvDUcJUULRBdDqaufjhR_vmNC1Tk8Q-I6h6tjhazstzx79w3IcNhFdeKfdT2f1K9505m0-jTW1OIHXautYIiP47GnMJUZsPkIJN-pLONvT9uVe8AoW5wbCfTYZQe313Ff6vqg5wz1G9pgJn33UpS82VpAWj0jskKxoBa5L-ec1Xoi-3qGd09=w1280" alt="The Harbinger"/>
+            <div class="boss-title-wrap">
+              <div class="boss-title">The Harbinger</div>
+              <div class="boss-diff-row">
+                <span class="boss-diff-tag easy">Fácil: Set diamante Prot. III–IV</span>
+                <span class="boss-diff-tag normal">Rec: Set hierro Prot. IV</span>
+                <span class="boss-diff-tag hard">Difícil: Set hierro Prot. II</span>
+              </div>
+            </div>
+            <div class="boss-toggle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          </div>
+          <div class="boss-body">
+            <img class="boss-screenshot" src="https://lh3.googleusercontent.com/sitesv/AA5AbUAhXVNx5yD_GXyzeEPu6-UREVBDvuVBNGFH-DftAzNr4WvV-mSHUPNn72jpOOqwS075c6L4zWhxfuslHV8Qet7ZPue922JBxl4_hb4IyFfiYVrNTQrcbY0EmAZ-x-b4xTBygTknHPPBobVGLQoWGsg_ugZceC2mv0Xtu_02RMhobMd_CLMimGxHF9UM6HmQ8wV93ukd5YqIZs0VT_zHukrzoYCDdfpZVo=w1280" alt="The Harbinger gameplay"/>
+            <div class="boss-sections">
+              <div class="boss-section">
+                <div class="section-label">Info</div>
+                <div class="section-text">Una <strong>máquina</strong> (no un no-muerto). Al bajar del 50% activa el <strong>Escudo Harbinger</strong>, inmune a distancia. Se recupera automáticamente cada segundo si no se le golpea.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">¿Dónde encontrarlo?</div>
+                <div class="section-text"><strong>Ancient Factory</strong>, localizable con el <strong>ojo de la mecánica</strong>. Se activa insertando una <strong>estrella del nether</strong> en su cuerpo.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">Equipamiento</div>
+                <div class="section-text">Complementar con <strong>escudo y arco</strong>.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">Recompensas</div>
+                <ul class="rewards-list">
+                  <li>Disco de música</li>
+                  <li>Bloque de Witherita (crafteos: Desgarradora de carne, Pistola Láser, Arma de Asalto de Wither, Yunque de Fusión Mecánico)</li>
+                </ul>
+              </div>
+              <div class="boss-section full">
+                <div class="section-label">Equipamiento por dificultad</div>
+                <table class="equip-table">
+                  <tr><td class="diff-cell easy">Fácil</td><td>Set de diamante encantado con protección III–IV y espada de diamante filo IV–V</td></tr>
+                  <tr><td class="diff-cell normal">Recomendado</td><td>Set de hierro protección IV y espada de hierro o diamante filo V</td></tr>
+                  <tr><td class="diff-cell hard">Difícil</td><td>Set de hierro encantado con protección II y espada de diamante filo V</td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. NETHERITE MONSTRUOSITY -->
+        <div class="boss-card" id="boss-4">
+          <div class="boss-header" onclick="toggleBoss('boss-4')">
+            <div class="boss-number">4</div>
+            <img class="boss-banner" src="https://lh3.googleusercontent.com/sitesv/AA5AbUB-EMjeorj6qqpNftihv3WNvkzp-Uy-dJmw0W77K-KE_dCcdhugJUea-20gSkHtzOcPYKj43OveKMgZB1GTTJp65791f0juonM25c8D6536sn8NaEll9tHhaNv_SGQbvSuFTglZyu1WGEQzMUlzr_IhLkpPz8xow_wu72J0If7vsDMJV4mtpe0y-Dc8ZRQwMdtO6R81RQd4fuWvYlBFjGwD7xuoPKTkiOiPCZI=w1280" alt="Netherite Monstruosity"/>
+            <div class="boss-title-wrap">
+              <div class="boss-title">Netherite Monstruosity</div>
+              <div class="boss-diff-row">
+                <span class="boss-diff-tag easy">Fácil: Set netherita Prot. III–IV</span>
+                <span class="boss-diff-tag normal">Rec: Set diamante Prot. III–IV</span>
+                <span class="boss-diff-tag hard">Difícil: Set hierro Prot. IV</span>
+              </div>
+            </div>
+            <div class="boss-toggle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          </div>
+          <div class="boss-body">
+            <img class="boss-screenshot" src="https://lh3.googleusercontent.com/sitesv/AA5AbUBUjBadLL1zt0YqWqWzQtfnME1OIJM79TEZEFxvxdKHizU65x8BBbJLuObQUlE9pyC9bb2B6h5IH3VEZpaQCM8qPCoUtHEVI0InR_nVLfZSD2awegQTtHtCBv_z-YHOthqdGVxZE8aWBM1YcSAtmuLjrCsj7I-OQ9xKlIhuGYDWTLeyJbpnilxQUHISZ1GqhQRKN1z0uKzxHagdyN4qfwUdMd_ENyGctV53CWYaQ=w1280" alt="Netherite Monstruosity gameplay"/>
+            <div class="boss-sections">
+              <div class="boss-section">
+                <div class="section-label">Info</div>
+                <div class="section-text">El jefe más grande del modpack y el mejor en defensa. La <strong>cabeza es punto débil</strong> — atacarla causa 1.5× más daño. Compuesto de Ne-Nail, piedra roja, basalto y ladrillos del Nether.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">¿Dónde encontrarlo?</div>
+                <div class="section-text">Nether, estructura <strong>soul_black_smith</strong>, localizable con el <strong>ojo de la monstruosidad</strong>. Despierta al entrar en su zona.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">Equipamiento</div>
+                <div class="section-text">Llevar <strong>arco y flechas</strong> para apuntar a la cabeza. Tapar la lava o usar <strong>pociones de resistencia al fuego</strong>.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">Recompensas</div>
+                <div class="section-text">Sin especificar aún.</div>
+              </div>
+              <div class="boss-section full">
+                <div class="section-label">Equipamiento por dificultad</div>
+                <table class="equip-table">
+                  <tr><td class="diff-cell easy">Fácil</td><td>Set de netherita encantado con protección III–IV y espada de netherita filo IV–V</td></tr>
+                  <tr><td class="diff-cell normal">Recomendado</td><td>Set de diamante protección III–IV y espada de hierro o diamante filo III–V</td></tr>
+                  <tr><td class="diff-cell hard">Difícil</td><td>Set de hierro encantado con protección IV y espada de diamante o hierro filo V</td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. ENDER GUARDIAN -->
+        <div class="boss-card" id="boss-5">
+          <div class="boss-header" onclick="toggleBoss('boss-5')">
+            <div class="boss-number">5</div>
+            <img class="boss-banner" src="https://lh3.googleusercontent.com/sitesv/AA5AbUDDzr4bzDHjI1lKcGO806ECd81qZH3mihDIwk4s6MuZ8aByS2feOuc1H2X0JaIgMkxdU-2MHYrNo3_fZ31e7PLzIXiWB9p4GHwUgEKzLCF_Cdr__hIvB_0TG_6yMi_tS1Sqnbf9EsLn7MjT4aprSTQ8rR_I0Mk1QQOp_y0TQvrRJI4yy0lY-L7-dbzIkUF3kTOK0IftScCODa7_KnOoD2EFxDj9qJimhZ-z=w1280" alt="Ender Guardian"/>
+            <div class="boss-title-wrap">
+              <div class="boss-title">Ender Guardian</div>
+              <div class="boss-diff-row">
+                <span class="boss-diff-tag easy">Fácil: Set netherita Prot. III–IV</span>
+                <span class="boss-diff-tag normal">Rec: Set diamante Prot. III–IV</span>
+                <span class="boss-diff-tag hard">Difícil: Set hierro Prot. IV</span>
+              </div>
+            </div>
+            <div class="boss-toggle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          </div>
+          <div class="boss-body">
+            <img class="boss-screenshot" src="https://lh3.googleusercontent.com/sitesv/AA5AbUAq-mosYpinKyhAx0hGTpKhg3HPtrMo5OyZyrEc89Ah2GqVquB36y_kYjcL8Oec3Syk7V4OxZCDKW3JarIoC3pjfKP9_ZHdrdRMd0s7RlMTOYcC_CKbzSEHQcSSxVsa3tFnx1UmZByAxVOA_ZrZ5Bdx38MXMhq6F4_1ZoelfGrqMBJIdVHWgxYLDnabBIZ6ZBPlfJweBVLRQNsI6W4aefSW130PuO9LT3aJ_uE=w1280" alt="Ender Guardian gameplay"/>
+            <div class="boss-sections">
+              <div class="boss-section">
+                <div class="section-label">Info</div>
+                <div class="section-text">El más <strong>defensivo</strong> del modpack. Fase 1: <strong>inmune a flechas</strong>. Al −50% su casco explota, entrando en fase 2: +25% velocidad, −25% defensa, ya vulnerable a distancia. Destruye el suelo en fase 2.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">¿Dónde encontrarlo?</div>
+                <div class="section-text">End, estructura <strong>ruined_citadel</strong>, localizable con el <strong>ojo del vacío</strong>. Despierta al entrar.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">Equipamiento</div>
+                <div class="section-text">Complementar con <strong>arco y escudo</strong>. En fase 1 obligatorio melé o magia.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">Recompensas</div>
+                <div class="section-text"><strong>Guantelete del Guardián</strong>: clic derecho mantenido para atraer entidades cercanas hacia ti.</div>
+              </div>
+              <div class="boss-section full">
+                <div class="section-label">Equipamiento por dificultad</div>
+                <table class="equip-table">
+                  <tr><td class="diff-cell easy">Fácil</td><td>Set de netherita encantado con protección III–IV y espada de netherita filo IV–V</td></tr>
+                  <tr><td class="diff-cell normal">Recomendado</td><td>Set de diamante protección III–IV y espada de hierro o diamante filo III–V</td></tr>
+                  <tr><td class="diff-cell hard">Difícil</td><td>Set de hierro encantado con protección IV y espada de diamante o hierro filo V</td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. SCYLLA -->
+        <div class="boss-card" id="boss-6">
+          <div class="boss-header" onclick="toggleBoss('boss-6')">
+            <div class="boss-number">6</div>
+            <img class="boss-banner" src="https://lh3.googleusercontent.com/sitesv/AA5AbUCJIB5gYR5lEJ5RjCeNDKojaO9Zk1zinFhEwQu8_aAfq1wsdJGAGfZtZmbVUY5mRd9ydcikhpwd0Za6YweDeRR1oEnEFLWb5w6tzQVhTg4_Es37cLQiZjxRpcvHb93PFS_vOntvIam4IV4iUH5ChDd6RyHvTcdC9RypHc0LYBgSe2Iiv3GGGN1156s=w1280" alt="Scylla"/>
+            <div class="boss-title-wrap">
+              <div class="boss-title">Scylla</div>
+              <div class="boss-diff-row">
+                <span class="boss-diff-tag easy">Fácil: Set netherita Prot. III–IV</span>
+                <span class="boss-diff-tag normal">Rec: Set diamante Prot. III–IV</span>
+                <span class="boss-diff-tag hard">Difícil: Set hierro Prot. IV</span>
+              </div>
+            </div>
+            <div class="boss-toggle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          </div>
+          <div class="boss-body">
+            <img class="boss-screenshot" src="https://lh3.googleusercontent.com/sitesv/AA5AbUDXvGh0rC51ATwLKZ3CQ41KBdY7-_amZtcJDELpn15jXKa-3r6uf5R6AmQghkgOTl2B-21Q66StfOxtmHOZKKgbo8xic9wYUsBpAvYnb-k8cxbpE1T5qZ7D0xl0eGTjJj-57BIfL-MSZLrVpBtgoGZeUqXEH_VfnH5xoPSPdiB96w9xCHIcntuGEzCxyjzV_cJr4xmGluS-7sGFvDYAnvgcN3n5nbrLFvGT1fE=w1280" alt="Scylla gameplay"/>
+            <div class="boss-sections">
+              <div class="boss-section">
+                <div class="section-label">Info</div>
+                <div class="section-text">Usa el ancla <strong>Kerunos</strong> generando rayos y ondas. El efecto <strong>húmedo</strong> ralentiza y amplifica el daño eléctrico. Acumulado ×5 puede matar instantáneamente incluso con netherita completa.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">¿Dónde encontrarla?</div>
+                <div class="section-text">Estructura <strong>acropolis</strong>, localizable con el <strong>ojo de la tormenta</strong>. Se activa interactuando con su ancla con el objeto <strong>lácrima</strong>.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">Equipamiento</div>
+                <div class="section-text">Complementar con <strong>arco y escudo</strong>. Evitar acumular el estado húmedo.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">Recompensas</div>
+                <div class="section-text">Sin especificar aún.</div>
+              </div>
+              <div class="boss-section full">
+                <div class="section-label">Equipamiento por dificultad</div>
+                <table class="equip-table">
+                  <tr><td class="diff-cell easy">Fácil</td><td>Set de netherita encantado con protección III–IV y espada de netherita filo IV–V</td></tr>
+                  <tr><td class="diff-cell normal">Recomendado</td><td>Set de diamante protección III–IV y espada de diamante filo III–V</td></tr>
+                  <tr><td class="diff-cell hard">Difícil</td><td>Set de hierro encantado con protección IV y espada de diamante o hierro filo V</td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. ANCIENT REMNANT -->
+        <div class="boss-card" id="boss-7">
+          <div class="boss-header" onclick="toggleBoss('boss-7')">
+            <div class="boss-number">7</div>
+            <img class="boss-banner" src="https://lh3.googleusercontent.com/sitesv/AA5AbUDr2GUYMq8zd8Q6u2-lQfIiNgeh1JOXAb5Ih_-2C7UzxmC9cH8VX7xOaGE-51aTLucqw_KenSMCpTRKk3kMdR4T3Jpo3nacoxVnJVIFEtHc9HaynvNXG30OXQA1MbyA38TVpQYFD05oyYWru2rdXXXTTiZfi_uKDVBHXZOmuZikm4ZR4ahN4gkmyc06Js6Vtm8K-L42cqGyv-uuU1DxG1QvAWhOvVUV_wqgmNQ=w1280" alt="Ancient Remnant"/>
+            <div class="boss-title-wrap">
+              <div class="boss-title">Ancient Remnant</div>
+              <div class="boss-diff-row">
+                <span class="boss-diff-tag easy">Fácil: Set enderium Prot. III–IV</span>
+                <span class="boss-diff-tag normal">Rec: Set netherita Prot. III–IV</span>
+                <span class="boss-diff-tag hard">Difícil: Set diamante Prot. IV</span>
+              </div>
+            </div>
+            <div class="boss-toggle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          </div>
+          <div class="boss-body">
+            <img class="boss-screenshot" src="https://lh3.googleusercontent.com/sitesv/AA5AbUAb42Vzqy1Ao2gbxFTr66J-StMaj32Dm6CxOrN40aRPzlLkbo0BFfef0eZdCMMb8K5c4_Rp_5Z2juMmtbl37edl0qDFyYU5hb4-tWaWMzbwhmP3LHM9UsTHESGv_EqQ12L8ays1EyDfmrnxQVTwM3Xc7KJKoJqyIkbLPNKLabCKuQnWcLVDWWO_S_gMlpvyQEwsoQKWdEB34DSQqm41gPpTJVHUein0ORFq=w1280" alt="Ancient Remnant gameplay"/>
+            <div class="boss-sections">
+              <div class="boss-section">
+                <div class="section-label">Info</div>
+                <div class="section-text">Adornos egipcios. Fase 2 (−50%): curación continua si no se le golpea. <strong>Invierte los controles</strong> del jugador. <strong>Inmune a flechas.</strong> Barra de ira: +20% daño por golpe recibido, baja 1 espacio cada 20s.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">¿Dónde encontrarlo?</div>
+                <div class="section-text">Estructura <strong>cursed_pyramid</strong>, localizable con el <strong>ojo del desierto</strong>. Se activa con el <strong>collar del desierto</strong>.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">Equipamiento</div>
+                <div class="section-text">Complementar con <strong>escudo, tótem de inmortalidad y manzanas doradas</strong>. Obligatorio melé o magia.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">Recompensas</div>
+                <div class="section-text">Sin especificar aún.</div>
+              </div>
+              <div class="boss-section full">
+                <div class="section-label">Equipamiento por dificultad</div>
+                <table class="equip-table">
+                  <tr><td class="diff-cell easy">Fácil</td><td>Set de enderium encantado con protección III–IV y espada de enderium o netherita filo IV–V</td></tr>
+                  <tr><td class="diff-cell normal">Recomendado</td><td>Set de netherita encantado protección III–IV y espada de netherite filo III–V</td></tr>
+                  <tr><td class="diff-cell hard">Difícil</td><td>Set de diamante encantado con protección IV y espada de diamante filo V</td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. MALEDICTUS -->
+        <div class="boss-card" id="boss-8">
+          <div class="boss-header" onclick="toggleBoss('boss-8')">
+            <div class="boss-number">8</div>
+            <img class="boss-banner" src="https://lh3.googleusercontent.com/sitesv/AA5AbUBmJQfmqo5hqNJmePlEtn-WO6glJ1I_6WriUCaVZRoODvMi4MtxPfPGHhGfQJI44xi-nh0-J5ThCiZlRuLYehycfIdnTdGrwbAfEFVKkgKTsS3xceS9v7479SkHbMNjLiszfwnx1u7ar-4qaHRNIV-ZVfGEwPPGvkyNyg4uHJU0BkC1x24sVRtgtLOGB62QqYdqTNzf5RO_pbnyL2Px1eeaWahRe-yMAhQM8RA=w1280" alt="Maledictus"/>
+            <div class="boss-title-wrap">
+              <div class="boss-title">Maledictus</div>
+              <div class="boss-diff-row">
+                <span class="boss-diff-tag easy">Fácil: Set enderium Prot. III–IV</span>
+                <span class="boss-diff-tag normal">Rec: Set netherita Prot. IV</span>
+                <span class="boss-diff-tag hard">Difícil: Set diamante Prot. IV</span>
+              </div>
+            </div>
+            <div class="boss-toggle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          </div>
+          <div class="boss-body">
+            <img class="boss-screenshot" src="https://lh3.googleusercontent.com/sitesv/AA5AbUAPRxUWzb-7VnxbLL0myzMmaJqchaWgXqgn6mlPBJe6yA_werwLj0Vel4qYXnfzse68c3behLhI0iu_cqofI-gxoVlZtQBUAtb_DYiwPri7V7-9T8PzmletfVKZ_8A8G4zRU3msgNQoYEzIge0w=w1280" alt="Maledictus gameplay"/>
+            <div class="boss-sections">
+              <div class="boss-section">
+                <div class="section-label">Info</div>
+                <div class="section-text">Muy agresivo, sin apenas pausa entre ataques. Misma <strong>barra de ira</strong> que el Ancient Remnant (+20% daño por golpe). Algunos ataques <strong>ignoran protección mágica</strong>. No se recupera durante el combate.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">¿Dónde encontrarlo?</div>
+                <div class="section-text">Estructura <strong>frosted_prison</strong>, localizable con el <strong>ojo de la maldición</strong>. Se activa interactuando con su <strong>lápida</strong>.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">Equipamiento</div>
+                <div class="section-text">Complementar con <strong>escudo o tótem de inmortalidad, manzanas doradas y flechas</strong>.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">Recompensas</div>
+                <div class="section-text">Sin especificar aún.</div>
+              </div>
+              <div class="boss-section full">
+                <div class="section-label">Equipamiento por dificultad</div>
+                <table class="equip-table">
+                  <tr><td class="diff-cell easy">Fácil</td><td>Set de enderium encantado con protección III–IV y espada de enderium o netherita filo IV–V + fruta coral</td></tr>
+                  <tr><td class="diff-cell normal">Recomendado</td><td>Set de netherita encantado protección IV y espada de netherite filo V</td></tr>
+                  <tr><td class="diff-cell hard">Difícil</td><td>Set de diamante encantado con protección IV y espada de diamante filo V</td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9. LEVIATÁN -->
+        <div class="boss-card" id="boss-9">
+          <div class="boss-header" onclick="toggleBoss('boss-9')">
+            <div class="boss-number">9</div>
+            <img class="boss-banner" src="https://lh3.googleusercontent.com/sitesv/AA5AbUA7Qm5krq1VW3gKGW54aJUxXfeohTRPcwtFKhHQmXmR1VwK8BPDL4pKi82-FvdBboJHy2k5KQ7ePecyVjD-CDTJLLbWHlfV1CGxrng07YTsDK8SUDCB74DIJAszAQtrpgEThCPNOWBAbxH8yILAPmkb-N_nOqSJomZjpR8sSzrWVGNOypAZxlBm=w1280" alt="Leviatán"/>
+            <div class="boss-title-wrap">
+              <div class="boss-title">Leviatán</div>
+              <div class="boss-diff-row">
+                <span class="boss-diff-tag easy">Fácil: Set enderium + fruta coral</span>
+                <span class="boss-diff-tag normal">Rec: Set netherita + tridente</span>
+                <span class="boss-diff-tag hard">Difícil: Set diamante Prot. IV</span>
+              </div>
+            </div>
+            <div class="boss-toggle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          </div>
+          <div class="boss-body">
+            <img class="boss-screenshot" src="https://lh3.googleusercontent.com/sitesv/AA5AbUAtoH6LNQTZg7YGvKynGu7GPgC3tnfhW6uTrjOon4JmfFjPb-rWWRyjgurh7AEsqeLC2_-cKEIUk6lnOD9X_YVN3ztKuzLV01ko-00S1ME68tz2KVDsTjMNJ1tVQJ15yzwrG-dnC5YZUUySeQamNhGTptTaHuw8iKXGYv_Q-wjM8ysCWqSWLlad3Q67-WLPOqiUB-gKZ3SS3bWNIhtjEaU6pgrtBUWlByrx=w1280" alt="Leviatán gameplay"/>
+            <div class="boss-sections">
+              <div class="boss-section">
+                <div class="section-label">Info</div>
+                <div class="section-text">Único jefe <strong>submarino</strong>. El arco es inútil bajo el agua y el melé es difícil por su alta velocidad. Recomendable el <strong>Barddisu de coral</strong> (rendimiento similar al tridente).</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">¿Dónde encontrarlo?</div>
+                <div class="section-text">Estructura <strong>sunken_city</strong>, localizable con el <strong>ojo del abismo</strong>. Se activa con el <strong>sacrificio abisal</strong> en el altar del abismo.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">Equipamiento</div>
+                <div class="section-text">Imprescindible: <strong>manzanas doradas, tridente con propulsión acuática, tótems de inmortalidad y canalizador</strong> para respirar y ver bajo el agua.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">Recompensas</div>
+                <div class="section-text">Sin especificar aún.</div>
+              </div>
+              <div class="boss-section full">
+                <div class="section-label">Equipamiento por dificultad</div>
+                <table class="equip-table">
+                  <tr><td class="diff-cell easy">Fácil</td><td>Set de enderium encantado con protección III–IV y espada de enderium o netherita filo IV–V + fruta coral</td></tr>
+                  <tr><td class="diff-cell normal">Recomendado</td><td>Set de netherita encantado protección IV, espada filo V + tridente Lealtad III y Empalamiento V</td></tr>
+                  <tr><td class="diff-cell hard">Difícil</td><td>Set de diamante encantado con protección IV y espada de diamante filo V</td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10. IGNIS -->
+        <div class="boss-card" id="boss-10">
+          <div class="boss-header" onclick="toggleBoss('boss-10')">
+            <div class="boss-number">10</div>
+            <img class="boss-banner" src="https://lh3.googleusercontent.com/sitesv/AA5AbUBLQVyAf5FJ7XWsa-rrLm4srz33O4DZon8Et6mWg3w-kLwvkonvaihoILbDeggXlSXviGrXQZ9gL6Z0xor2SZaJE0Ub9i7ysi9aREYtOQ6X_l7NdDZ7_djdSpMcLt5_lovw5LNofM5UFTJMG0OWxcK2goDMPuT10Xok22Ur-ddyiiN2O7VBYLYTB3QUwAejCWiPxDvOWHd1ARfSOfE09dgn9wgZyvSH2PiBo1M=w1280" alt="Ignis"/>
+            <div class="boss-title-wrap">
+              <div class="boss-title">Ignis</div>
+              <div class="boss-diff-row">
+                <span class="boss-diff-tag easy">Fácil: Set enderium Prot. IV</span>
+                <span class="boss-diff-tag normal">Rec: Set enderium Prot. IV</span>
+                <span class="boss-diff-tag hard">Difícil: Set netherita Prot. IV</span>
+              </div>
+            </div>
+            <div class="boss-toggle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          </div>
+          <div class="boss-body">
+            <img class="boss-screenshot" src="https://lh3.googleusercontent.com/sitesv/AA5AbUDLmCzqSXf2dtS_Am59zUWIT9US7VxfMPtxD87QiZGU55A9z467KjQ2CmNgbHOQfkwsscmMLdjS1WrP3Vi22mdx39sq4nhvAJ16TwTdPMKVZ5qI6tdz1J1AUk6U_lzLZPMZD1PEultiv9fGBpSO2FyCMrKWOPkEFX-oAqS9jcp9EfIm6yyDNdAiezE6_qaauf15ZU5C9S3zGJDi-d3GDGiR8HhXXepffANxRGI=w1280" alt="Ignis gameplay"/>
+            <div class="boss-sections">
+              <div class="boss-section full">
+                <div class="section-label">Info — Jefe Final</div>
+                <div class="section-text">El <strong>más poderoso</strong> del modpack. Ataca sin descanso, posee un <strong>escudo</strong> que bloquea la mayoría de ataques y al golpear recupera vida. Tiene <strong>3 fases</strong>: fuego rojo → fuego azul del alma (−66%) → explosión + fase 3 (−33%). Destruye el suelo revelando lava.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">¿Dónde encontrarlo?</div>
+                <div class="section-text">Estructura <strong>burning_arena</strong>, localizable con el <strong>ojo del fuego</strong>. Se activa con las <strong>llamas ardientes</strong> en el altar del fuego.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">Equipamiento</div>
+                <div class="section-text">Casi obligatorio: <strong>tótems de inmortalidad, manzanas doradas y pociones de resistencia al fuego</strong>.</div>
+              </div>
+              <div class="boss-section">
+                <div class="section-label">Recompensas</div>
+                <div class="section-text">Sin especificar aún.</div>
+              </div>
+              <div class="boss-section full">
+                <div class="section-label">Equipamiento por dificultad</div>
+                <table class="equip-table">
+                  <tr><td class="diff-cell easy">Fácil</td><td>Set de enderium encantado protección IV y espada de enderium o netherita filo V + fruta coral</td></tr>
+                  <tr><td class="diff-cell normal">Recomendado</td><td>Set de enderium encantado protección IV y espada de netherite o enderium filo V</td></tr>
+                  <tr><td class="diff-cell hard">Difícil</td><td>Set de netherita encantado con protección IV y espada de diamante o netherite filo V</td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /bosses-list -->
+    </div><!-- /wiki-section lista -->
+
+  </main>
+</div><!-- /wiki-layout -->
+
+<!-- ══ FOOTER (from index.html) ══ -->
+<div class="footer-bottom-bar">
+  <span>SpanishProGamers</span>
+  <span>Madrid</span>
+  <span>MMXIX</span>
+</div>
+
+<script>
+  function toggleBoss(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+
+  function toggleToc(e) {
+    e.preventDefault();
+    const body = document.getElementById('toc-body');
+    const link = e.target;
+    const hidden = body.style.display === 'none';
+    body.style.display = hidden ? '' : 'none';
+    link.textContent = hidden ? '[ocultar]' : '[mostrar]';
+  }
+
+  // Navbar behaviour
+  const nav = document.querySelector('nav');
+  const hoverZone = document.getElementById('nav-hover-zone');
+  let isHovering = false, navState = 0, transitionY = null, hiddenY = null;
+  const HIDE_AFTER_PX = 120;
+
+  function applyState(s) {
+    navState = s;
+    if (s === 0) { nav.classList.remove('scrolled','hidden'); }
+    else if (s === 1) { nav.classList.add('scrolled'); nav.classList.remove('hidden'); }
+    else { nav.classList.add('scrolled'); if (!isHovering) nav.classList.add('hidden'); }
+  }
+
+  window.addEventListener('wheel', (e) => {
+    if (e.deltaY > 0 && navState === 0) { transitionY = window.scrollY; applyState(1); }
+    else if (e.deltaY > 0 && navState === 1 && transitionY === null) { transitionY = window.scrollY - HIDE_AFTER_PX; }
+    else if (e.deltaY < 0) {
+      if (window.scrollY <= 0) { transitionY = null; applyState(0); }
+      else if (navState !== 1) { applyState(1); transitionY = null; }
     }
+  }, { passive: true });
 
-    const nav = document.querySelector('nav');
-    const hoverZone = document.getElementById('nav-hover-zone');
-    let isHovering = false, navState = 0, transitionY = null, hiddenY = null;
-    const HIDE_AFTER_PX = 120;
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    if (y <= 0) { transitionY = null; applyState(0); return; }
+    if (navState === 1 && transitionY !== null && y >= transitionY + HIDE_AFTER_PX) { hiddenY = y; applyState(2); }
+    if (navState === 2 && hiddenY !== null && y < hiddenY) { hiddenY = null; transitionY = null; applyState(1); }
+  }, { passive: true });
 
-    function applyState(s) {
-      navState = s;
-      if (s === 0) { nav.classList.remove('scrolled','hidden'); }
-      else if (s === 1) { nav.classList.add('scrolled'); nav.classList.remove('hidden'); }
-      else { nav.classList.add('scrolled'); if (!isHovering) nav.classList.add('hidden'); }
-    }
+  hoverZone.addEventListener('mouseenter', () => { isHovering = true; nav.classList.remove('hidden'); });
+  nav.addEventListener('mouseenter',       () => { isHovering = true; nav.classList.remove('hidden'); });
+  nav.addEventListener('mouseleave',       () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); });
+  hoverZone.addEventListener('mouseleave', () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); });
 
-    window.addEventListener('wheel', (e) => {
-      if (e.deltaY > 0 && navState === 0) { transitionY = window.scrollY; applyState(1); }
-      else if (e.deltaY > 0 && navState === 1 && transitionY === null) { transitionY = window.scrollY - HIDE_AFTER_PX; }
-      else if (e.deltaY < 0) {
-        if (window.scrollY <= 0) { transitionY = null; applyState(0); }
-        else if (navState !== 1) { applyState(1); transitionY = null; }
+  // Sidebar active link on scroll
+  const bossCards = document.querySelectorAll('.boss-card');
+  const sideLinks = document.querySelectorAll('.wiki-sidebar .sidebar-link.sub');
+  const observer = new IntersectionObserver((obs) => {
+    obs.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        sideLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
       }
-    }, { passive: true });
-
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      if (y <= 0) { transitionY = null; applyState(0); return; }
-      if (navState === 1 && transitionY !== null && y >= transitionY + HIDE_AFTER_PX) { hiddenY = y; applyState(2); }
-      if (navState === 2 && hiddenY !== null && y < hiddenY) { hiddenY = null; transitionY = null; applyState(1); }
-    }, { passive: true });
-
-    hoverZone.addEventListener('mouseenter', () => { isHovering = true; nav.classList.remove('hidden'); });
-    nav.addEventListener('mouseenter',       () => { isHovering = true; nav.classList.remove('hidden'); });
-    nav.addEventListener('mouseleave',       () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); });
-    hoverZone.addEventListener('mouseleave', () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); });
-  </script>
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  bossCards.forEach(c => observer.observe(c));
+</script>
 </body>
 </html>
