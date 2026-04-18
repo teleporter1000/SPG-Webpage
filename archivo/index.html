@@ -96,25 +96,84 @@
       color: #111;
       margin-bottom: 1.6rem;
     }
+    /* ── BUSCADOR CON RESULTADOS ── */
+    .search-wrap {
+      position: relative;
+      margin-bottom: 1.2rem;
+    }
     .search-bar {
       display: flex;
       align-items: center;
       background: #f0f0f0;
       border-radius: 6px;
       padding: 0.65rem 1rem;
-      margin-bottom: 1.2rem;
       gap: 0.6rem;
+      transition: background 0.15s;
     }
+    .search-bar:focus-within { background: #e8e8e8; }
     .search-bar input {
       border: none;
       background: transparent;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: 0.95rem;
-      color: #555;
+      color: #333;
       width: 100%;
       outline: none;
     }
+    .search-bar input::placeholder { color: #999; }
     .search-bar svg { flex-shrink: 0; color: #888; }
+
+    .search-results {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0; right: 0;
+      background: #fff;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      z-index: 50;
+      overflow: hidden;
+      max-height: 260px;
+      overflow-y: auto;
+    }
+    .search-results.visible { display: block; }
+    .search-result-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.7rem 1rem;
+      cursor: pointer;
+      border-bottom: 1px solid #f0f0f0;
+      transition: background 0.12s;
+      gap: 0.5rem;
+    }
+    .search-result-item:last-child { border-bottom: none; }
+    .search-result-item:hover { background: #f7f7f7; }
+    .search-result-item.highlighted { background: #fef2f2; }
+    .sri-label {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #111;
+    }
+    .sri-label mark {
+      background: none;
+      color: inherit;
+      border-radius: 0;
+      padding: 0;
+      font-weight: 800;
+    }
+    .sri-tag {
+      font-size: 0.75rem;
+      color: #888;
+      white-space: nowrap;
+    }
+    .search-no-results {
+      padding: 0.9rem 1rem;
+      font-size: 0.9rem;
+      color: #999;
+      text-align: center;
+    }
 
     .sel-row {
       display: flex;
@@ -189,14 +248,17 @@
   </nav>
   <main>
     <div class="selector-card">
-      <h2>Búsqueda de mundos</h2>
+      <h2>Búsqueda manual de descargas</h2>
 
-      <!-- Barra de búsqueda (estética) -->
-      <div class="search-bar">
-        <input type="text" placeholder="Buscar por producto, tipo de producto o serie" />
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
+      <!-- Barra de búsqueda funcional -->
+      <div class="search-wrap">
+        <div class="search-bar">
+          <input type="text" id="search-input" placeholder="Buscar por temporada, juego o modpack" autocomplete="off" />
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </div>
+        <div class="search-results" id="search-results"></div>
       </div>
 
       <!-- Juego -->
@@ -210,14 +272,14 @@
 
       <!-- Servidor -->
       <div class="sel-row">
-        <select id="sel-servidor">
+        <select id="sel-servidor" disabled>
           <option value="" disabled selected>Seleccione un mundo</option>
         </select>
       </div>
 
       <!-- Sistema operativo -->
       <div class="sel-row">
-        <select id="sel-os">
+        <select id="sel-os" disabled>
           <option value="" disabled selected>Seleccione un sistema operativo</option>
           <option value="windows">Windows 11</option>
           <option value="mac">MacOS</option>
@@ -225,9 +287,9 @@
         </select>
       </div>
 
-      <!-- Versión (solo Minecraft SPG1 y SPG2) -->
-      <div class="sel-row" id="row-version" style="display:none;">
-        <select id="sel-version">
+      <!-- Versión / Descarga -->
+      <div class="sel-row" id="row-version">
+        <select id="sel-version" disabled>
           <option value="" disabled selected>Seleccione su descarga</option>
         </select>
       </div>
@@ -315,10 +377,10 @@
         0: [{ value: 'universal', label: 'Universal' }],
         1: [{ value: 'universal', label: 'Universal' }],
         2: [{ value: 'universal', label: 'Universal' }],
-        3: [{ value: 'windows', label: 'Windows 11' }, { value: 'mac', label: 'MacOS' }, { value: 'linux', label: 'Linux' }],
+        3: [{ value: 'universal', label: 'Universal' }],
       },
       ark: {
-        0: [{ value: 'windows', label: 'Windows 11' }, { value: 'mac', label: 'MacOS' }, { value: 'linux', label: 'Linux' }],
+        0: [{ value: 'universal', label: 'Universal' }],
       }
     };
 
@@ -335,6 +397,19 @@
           'modpack-mundo': ['https://drive.usercontent.google.com/download?id=1z64dMbNSb63b1-1nOWY9nZr0PsIyEw9b&export=download&authuser=0', 'https://drive.usercontent.google.com/download?id=1imlSI7eBX6X4uBJfxlNBtWZQp4czz7Lk&export=download&authuser=0'],
           'mundo':   'https://drive.usercontent.google.com/download?id=1z64dMbNSb63b1-1nOWY9nZr0PsIyEw9b&export=download&authuser=0',
           'modpack': 'https://drive.usercontent.google.com/download?id=1imlSI7eBX6X4uBJfxlNBtWZQp4czz7Lk&export=download&authuser=0'
+        },
+        3: {
+          'modpack-mundo': [
+            'https://drive.usercontent.google.com/download?id=1XNCAHGnNXRjfhC55518S-2YinN2kDOqw&export=download&authuser=0',
+            'https://drive.usercontent.google.com/download?id=1PUTtW6P8xkXE-15nllEhdY9tSjNmz0FB&export=download&authuser=0'
+          ],
+          'mundo-survival': 'https://drive.usercontent.google.com/download?id=1XNCAHGnNXRjfhC55518S-2YinN2kDOqw&export=download&authuser=0',
+          'modpack-241':    'https://drive.usercontent.google.com/download?id=1PUTtW6P8xkXE-15nllEhdY9tSjNmz0FB&export=download&authuser=0'
+        }
+      },
+      ark: {
+        0: {
+          mundo: 'https://drive.usercontent.google.com/download?id=1Ly7sD2B4F7K_4QYbMopg-Glyjx4rC3Qq&export=download&authuser=0'
         }
       }
     };
@@ -343,14 +418,22 @@
     const selServidor = document.getElementById('sel-servidor');
     const selOS       = document.getElementById('sel-os');
     const rowVersion  = document.getElementById('row-version');
+    const selVersion  = document.getElementById('sel-version');
+
+    function resetSelect(sel, placeholder) {
+      sel.innerHTML = `<option value="" disabled selected>${placeholder}</option>`;
+      sel.disabled = true;
+      sel.value = '';
+    }
 
     function poblarServidores() {
       const juego = selJuego.value;
       if (!juego) return;
       selServidor.innerHTML = `<option value="" disabled selected>Seleccione un mundo</option>` +
         servidores[juego].map((s, i) => `<option value="${i}">${s}</option>`).join('');
-      selOS.innerHTML = `<option value="" disabled selected>Seleccione un sistema operativo</option>`;
-      rowVersion.style.display = 'none';
+      selServidor.disabled = false;
+      resetSelect(selOS, 'Seleccione un sistema operativo');
+      resetSelect(selVersion, 'Seleccione su descarga');
     }
 
     function autoSelect(sel) {
@@ -368,6 +451,8 @@
       const opts  = sistemasOS[juego]?.[idx] || [{ value: 'windows', label: 'Windows 11' }, { value: 'mac', label: 'MacOS' }, { value: 'linux', label: 'Linux' }];
       selOS.innerHTML = `<option value="" disabled selected>Seleccione un sistema operativo</option>` +
         opts.map(o => `<option value="${o.value}">${o.label}</option>`).join('');
+      selOS.disabled = false;
+      resetSelect(selVersion, 'Seleccione su descarga');
       actualizarVersion();
       autoSelect(selOS);
     }
@@ -375,20 +460,26 @@
     function actualizarVersion() {
       const juego = selJuego.value;
       const idx   = parseInt(selServidor.value);
-      const selVersion = document.getElementById('sel-version');
 
       if (juego === 'minecraft' && idx === 0) {
-        rowVersion.style.display = '';
-        selVersion.innerHTML = `<option value="" disabled selected>Seleccione su descarga</option><option value="reconstruido">Mundo reconstruido</option><option value="normal">Mundo normal</option>`;
+        selVersion.innerHTML = `<option value="" disabled selected>Seleccione su descarga</option><option value="reconstruido">Mundo Reconstruido</option><option value="normal">Mundo Normal</option>`;
+        selVersion.disabled = false;
       } else if (juego === 'minecraft' && idx === 1) {
-        rowVersion.style.display = '';
-        selVersion.innerHTML = `<option value="" disabled selected>Seleccione su descarga</option><option value="mundo">Mundo</option>`;
+        selVersion.innerHTML = `<option value="" disabled selected>Seleccione su descarga</option><option value="mundo">Mundo Survival</option>`;
+        selVersion.disabled = false;
         autoSelect(selVersion);
       } else if (juego === 'minecraft' && idx === 2) {
-        rowVersion.style.display = '';
         selVersion.innerHTML = `<option value="" disabled selected>Seleccione su descarga</option><option value="modpack-mundo">Modpack + Mundo</option><option value="mundo">Mundo Survival</option><option value="modpack">Modpack 1.0 (FINAL)</option>`;
+        selVersion.disabled = false;
+      } else if (juego === 'minecraft' && idx === 3) {
+        selVersion.innerHTML = `<option value="" disabled selected>Seleccione su descarga</option><option value="modpack-mundo">Mundo + Modpack</option><option value="mundo-survival">Mundo Survival</option><option value="modpack-241">Modpack 2.4.1</option>`;
+        selVersion.disabled = false;
+      } else if (juego === 'ark' && idx === 0) {
+        selVersion.innerHTML = `<option value="" disabled selected>Seleccione su descarga</option><option value="mundo">Mundo</option>`;
+        selVersion.disabled = false;
+        autoSelect(selVersion);
       } else {
-        rowVersion.style.display = 'none';
+        resetSelect(selVersion, 'Seleccione su descarga');
       }
     }
 
@@ -403,7 +494,7 @@
     document.getElementById('btn-descargar').addEventListener('click', () => {
       const juego   = selJuego.value;
       const idx     = parseInt(selServidor.value);
-      const version = document.getElementById('sel-version').value;
+      const version = selVersion.value;
       const url     = descargas[juego]?.[idx]?.[version];
       if (!url) { alert('Descarga no disponible aún.'); return; }
       const urls = Array.isArray(url) ? url : [url];
@@ -416,6 +507,95 @@
         a.click();
         document.body.removeChild(a);
       });
+    });
+    // ── BUSCADOR ──
+    // Catálogo completo de descargas con sus metadatos para rellenar los selects
+    const catalogo = [
+      { label: 'SPG 1 - Mundo Reconstruido',  tags: ['spg1','spg 1','minecraft','mundo','reconstruido'],       juego: 'minecraft', servidor: 0, os: 'universal', version: 'reconstruido' },
+      { label: 'SPG 1 - Mundo Normal',         tags: ['spg1','spg 1','minecraft','mundo','normal'],              juego: 'minecraft', servidor: 0, os: 'universal', version: 'normal' },
+      { label: 'SPG 2 - Mundo Survival',       tags: ['spg2','spg 2','minecraft','mundo','survival'],            juego: 'minecraft', servidor: 1, os: 'universal', version: 'mundo' },
+      { label: 'SPG 3 - Mundo Survival',       tags: ['spg3','spg 3','minecraft','mundo','survival'],            juego: 'minecraft', servidor: 2, os: 'universal', version: 'mundo' },
+      { label: 'SPG 3 - Modpack 1.0',          tags: ['spg3','spg 3','minecraft','modpack','1.0','final'],       juego: 'minecraft', servidor: 2, os: 'universal', version: 'modpack' },
+      { label: 'SPG 3 - Mundo + Modpack',      tags: ['spg3','spg 3','minecraft','mundo','modpack','pack'],      juego: 'minecraft', servidor: 2, os: 'universal', version: 'modpack-mundo' },
+      { label: 'SPG 4.1 - Mundo Survival',     tags: ['spg4','spg 4','spg4.1','spg 4.1','minecraft','mundo','survival'], juego: 'minecraft', servidor: 3, os: 'universal', version: 'mundo-survival' },
+      { label: 'SPG 4.1 - Modpack 2.4.1',      tags: ['spg4','spg 4','spg4.1','spg 4.1','minecraft','modpack','2.4.1'], juego: 'minecraft', servidor: 3, os: 'universal', version: 'modpack-241' },
+      { label: 'SPG 4.1 - Mundo + Modpack',    tags: ['spg4','spg 4','spg4.1','spg 4.1','minecraft','mundo','modpack','pack'], juego: 'minecraft', servidor: 3, os: 'universal', version: 'modpack-mundo' },
+      { label: 'ARK - Fjordur - Mundo',         tags: ['ark','fjordur','mundo'],                                  juego: 'ark',       servidor: 0, os: 'universal', version: 'mundo' },
+    ];
+
+    const searchInput   = document.getElementById('search-input');
+    const searchResults = document.getElementById('search-results');
+
+    function highlight(text, query) {
+      if (!query) return text;
+      const re = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+      return text.replace(re, '<mark>$1</mark>');
+    }
+
+    function aplicarEntrada(entry) {
+      // 1. Juego
+      selJuego.value = entry.juego;
+      selJuego.dispatchEvent(new Event('change'));
+      // 2. Servidor
+      selServidor.value = entry.servidor;
+      selServidor.dispatchEvent(new Event('change'));
+      // 3. OS (ya autoseleccionado si solo hay uno, pero forzamos)
+      selOS.value = entry.os;
+      selOS.dispatchEvent(new Event('change'));
+      // 4. Versión
+      selVersion.value = entry.version;
+      // Limpiar buscador
+      searchInput.value = '';
+      searchResults.classList.remove('visible');
+      searchResults.innerHTML = '';
+    }
+
+    function renderResults(query) {
+      const q = query.trim().toLowerCase();
+      if (q.length < 1) {
+        searchResults.classList.remove('visible');
+        return;
+      }
+      const matches = catalogo.filter(e =>
+        e.label.toLowerCase().includes(q) ||
+        e.tags.some(t => t === q || t.startsWith(q + ' ') || t.startsWith(q + '.'))
+      );
+      if (matches.length === 0) {
+        searchResults.innerHTML = `<div class="search-no-results">Sin resultados para "<strong>${query}</strong>"</div>`;
+      } else {
+        searchResults.innerHTML = matches.map((e, i) => `
+          <div class="search-result-item" data-idx="${i}" tabindex="0">
+            <span class="sri-label">${highlight(e.label, query.trim())}</span>
+            <span class="sri-tag">${e.juego === 'ark' ? 'ARK' : 'Minecraft'}</span>
+          </div>`).join('');
+        searchResults.querySelectorAll('.search-result-item').forEach((el, i) => {
+          el.addEventListener('mousedown', (ev) => {
+            ev.preventDefault();
+            aplicarEntrada(matches[i]);
+          });
+        });
+      }
+      searchResults.classList.add('visible');
+    }
+
+    searchInput.addEventListener('input', (e) => renderResults(e.target.value));
+    searchInput.addEventListener('focus', (e) => { if (e.target.value) renderResults(e.target.value); });
+    searchInput.addEventListener('blur',  ()  => setTimeout(() => { searchResults.classList.remove('visible'); }, 150));
+
+    document.addEventListener('wheel', (e) => {
+      if (!searchResults.classList.contains('visible')) return;
+      if (!searchResults.contains(e.target)) return;
+      const atTop    = searchResults.scrollTop === 0;
+      const atBottom = searchResults.scrollTop + searchResults.clientHeight >= searchResults.scrollHeight - 1;
+      if ((e.deltaY < 0 && atTop) || (e.deltaY > 0 && atBottom)) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, { passive: false, capture: true });
+
+    // Cerrar resultados al hacer clic fuera
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.search-wrap')) searchResults.classList.remove('visible');
     });
   </script></body>
 </html>
