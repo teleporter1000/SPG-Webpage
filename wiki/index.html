@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Linux+Libertine:ital,wght@0,400;0,600;0,700;1,400&family=Linux+Biolinum:wght@400;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    nav, nav * { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
 
     :root {
       --bg: #0d0d0d;
@@ -46,8 +47,13 @@
       padding: 0 4rem;
       background: transparent;
       transition: background 0.35s ease, backdrop-filter 0.35s ease, transform 0.4s ease;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
-    nav.scrolled { background: rgba(0,0,0,0.65); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+    nav.scrolled {
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
     nav.hidden { transform: translateY(calc(-100% - 10px)); pointer-events: none; }
     #nav-hover-zone { position: fixed; top: 0; left: 0; right: 0; height: 20px; z-index: 201; pointer-events: all; }
     .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
