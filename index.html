@@ -158,7 +158,7 @@
       align-items: center;
       justify-content: space-between;
       background: transparent;
-      padding: 1.2rem 350px;
+      padding: 1.2rem clamp(1.5rem, 13.67%, 350px);
       margin-bottom: var(--gap);
       width: 100%;
     }
@@ -182,7 +182,7 @@
       display: grid;
       grid-template-columns: 0.9fr 1.2fr;
       gap: var(--gap);
-      padding: 0 350px 0 350px;
+      padding: 0 clamp(1.5rem, 13.67%, 350px);
     }
 
     /* ── LEFT big panel — horizontal rectangle ── */
@@ -313,6 +313,15 @@
       display: block; margin-top: 0.25rem;
     }
 
+    @media (max-width: 1400px) {
+      .novedades-heading { padding: 1.2rem 2rem; }
+      .novedades-body { padding: 0 2rem; }
+      .videos-heading { padding: 1.7rem 2rem 1.2rem; }
+      .videos-grid { padding: 0 2rem; }
+      .nov-left { height: 560px; }
+      .nov-right { height: 560px; }
+      .nov-right { grid-template-rows: 240px 1fr; }
+    }
     @media (max-width: 860px) {
       .novedades-body { grid-template-columns: 1fr; padding: 0 1.5rem; }
       .nov-right { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; }
@@ -335,8 +344,8 @@
       <a href="/servidores/" class="nav-link">Servidores</a>
       <a href="/archivo/" class="nav-link">Archivo</a>
       <a href="/redes-sociales/" class="nav-link">Redes Sociales</a>
+            <a href="/wiki/" class="nav-link">Wiki</a>
       <a href="https://discord.com/invite/WaSdGkwMrm" target="_blank" rel="noopener" class="nav-link">Discord <span class="ext">↗</span></a>
-      <a href="/wiki/" class="nav-link">Wiki <span class="ext">↗</span></a>
     </div>
     <div class="nav-right">
       <a href="/asistencia/" class="nav-btn-outline">Obtener Asistencia</a>
@@ -430,7 +439,7 @@
       align-items: center;
       justify-content: space-between;
       background: transparent;
-      padding: 1.7rem 350px 1.2rem;
+      padding: 1.7rem clamp(1.5rem, 13.67%, 350px) 1.2rem;
       margin-bottom: var(--gap);
       width: 100%;
     }
@@ -453,7 +462,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 1.2rem;
-      padding: 0 350px;
+      padding: 0 clamp(1.5rem, 13.67%, 350px);
     }
 
     /* Tarjeta de vídeo */
