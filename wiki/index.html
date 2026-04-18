@@ -130,6 +130,8 @@
     .sidebar-link.sub:visited { color: var(--text-muted); }
     .sidebar-link.sub:hover { color: var(--link-hover); }
     .sidebar-link.sub.active { background: transparent; color: var(--text-muted); font-weight: 400; }
+    .sidebar-link.sub.selected { background: rgba(255,255,255,0.05); color: var(--link-hover); }
+    .sidebar-link.selected { background: rgba(255,255,255,0.05); color: var(--link-hover); }
     .sidebar-divider { height: 1px; background: var(--border-light); margin: 0.75rem 0; }
 
     /* ── MAIN CONTENT ── */
@@ -223,6 +225,7 @@
     .toc-list a { color: var(--link); text-decoration: none; font-size: 12.5px; display: block; padding: 0.05rem 0; cursor: pointer; }
     .toc-list a:visited { color: var(--link); }
     .toc-list a:hover { text-decoration: underline; color: var(--link-hover); }
+    .toc-list a.selected { text-decoration: underline; color: var(--link-hover); }
     .toc-list .toc-num { color: var(--text-dim); margin-right: 0.3rem; font-size: 11.5px; }
     .toc-sub { padding-left: 1.2rem; margin-top: 0.1rem; }
     .toc-sub a { font-size: 12px; }
@@ -521,7 +524,7 @@
 
       <!-- Infobox (derecha) -->
       <div class="wiki-infobox" style="float:none; margin:0; flex-shrink:0;">
-        <div class="infobox-title">Guía de Jefes — SPG 6</div>
+        <div class="infobox-title">Guía de Jefes</div>
         <div class="infobox-row">
           <div class="infobox-label">Edición</div>
           <div class="infobox-val">SPG 5.2</div>
@@ -1081,22 +1084,49 @@
     link.textContent = hidden ? '[ocultar]' : '[mostrar]';
   }
 
+  // Track the currently selected nav element
+  let selectedNavEl = null;
+
+  function setSelected(el) {
+    if (selectedNavEl) selectedNavEl.classList.remove('selected');
+    selectedNavEl = el;
+    if (el) el.classList.add('selected');
+  }
+
+  // Remove selected on any user scroll
+  window.addEventListener('scroll', () => {
+    if (selectedNavEl) {
+      selectedNavEl.classList.remove('selected');
+      selectedNavEl = null;
+    }
+  }, { passive: true });
+
+  // Close all boss cards except the one being navigated to
+  function closeOtherBossCards(exceptId) {
+    document.querySelectorAll('.boss-card.open').forEach(function(card) {
+      if (card.id !== exceptId) card.classList.remove('open');
+    });
+  }
+
   // Navigate to a section without changing the URL hash
-  function scrollToSection(sectionId) {
+  function scrollToSection(sectionId, sourceEl) {
     const el = document.getElementById(sectionId);
     if (!el) return;
     applyState(1);
+    setSelected(sourceEl || null);
+    closeOtherBossCards(null); // close all boss cards when going to a non-boss section
     const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 99;
     const top = el.getBoundingClientRect().top + window.scrollY - navH - 16;
     window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
   }
 
-  // Navigate to a boss: open its card and scroll to it
-  function scrollToBoss(bossId) {
+  // Navigate to a boss: open its card, close others, and scroll to it
+  function scrollToBoss(bossId, sourceEl) {
     const card = document.getElementById(bossId);
     if (!card) return;
     applyState(1);
-    // Open the boss card if not already open
+    setSelected(sourceEl || null);
+    closeOtherBossCards(bossId);
     card.classList.add('open');
     const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 99;
     const top = card.getBoundingClientRect().top + window.scrollY - navH - 16;
@@ -1110,7 +1140,7 @@
     document.querySelectorAll('.sidebar-link.sub[data-boss]').forEach(function (link) {
       link.addEventListener('click', function (e) {
         e.preventDefault();
-        scrollToBoss(this.dataset.boss);
+        scrollToBoss(this.dataset.boss, this);
       });
     });
 
@@ -1121,9 +1151,11 @@
         var sectionId = this.dataset.section;
         if (sectionId === 'introduccion') {
           applyState(0);
+          setSelected(this);
+          closeOtherBossCards(null);
           window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
-          scrollToSection(sectionId);
+          scrollToSection(sectionId, this);
         }
       });
     });
@@ -1132,7 +1164,7 @@
     document.querySelectorAll('.toc-nav-link[data-boss]').forEach(function (link) {
       link.addEventListener('click', function (e) {
         e.preventDefault();
-        scrollToBoss(this.dataset.boss);
+        scrollToBoss(this.dataset.boss, this);
       });
     });
 
