@@ -383,7 +383,7 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-vignette"></div>
+    <div class="hero-vignette" id="hero-vignette"></div>
     <div class="hero-center-logo">
       <img src="/Zassets/full_logo_2k.png" alt="SpanishProGamers" />
     </div>
@@ -811,28 +811,47 @@
     nav.addEventListener('mouseleave',       () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); });
     hoverZone.addEventListener('mouseleave', () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); });
 
-    // ── NOVEDADES: transición de color al hacer scroll ──
-    const novSection = document.getElementById('novedades-main');
-    const colorHero = { r: 0,   g: 0,   b: 0   };
-    const colorGrey = { r: 26,  g: 26,  b: 26  };
+    // ── TRANSICIÓN DE COLOR AL HACER SCROLL ──
+    const novSection    = document.getElementById('novedades-main');
+    const heroVignette  = document.getElementById('hero-vignette');
+    const novHeading    = document.querySelector('.novedades-heading');
+    const colorBlack    = { r: 0,  g: 0,  b: 0  };
+    const colorGrey     = { r: 26, g: 26, b: 26  };
 
     function lerp(a, b, t) {
       t = Math.max(0, Math.min(1, t));
       return Math.round(a + (b - a) * t);
     }
 
-    function updateNovColor() {
-      const sectionH = novSection.offsetHeight;
-      const scrollY  = window.scrollY;
-      const t = scrollY / (sectionH * 0.75);
-      const r = lerp(colorHero.r, colorGrey.r, t);
-      const g = lerp(colorHero.g, colorGrey.g, t);
-      const b = lerp(colorHero.b, colorGrey.b, t);
-      novSection.style.background = `rgb(${r},${g},${b})`;
+    function updateScrollColors() {
+      const heroH  = document.querySelector('.hero').offsetHeight;
+      const novH   = novSection.offsetHeight;
+      const y      = window.scrollY;
+
+      // — Hero vignette: transita el gradiente inferior de negro a gris
+      //   mientras el usuario pasa el hero (0 → heroH)
+      const tHero = Math.max(0, Math.min(1, y / (heroH * 0.85)));
+      const hr = lerp(colorBlack.r, colorGrey.r, tHero);
+      const hg = lerp(colorBlack.g, colorGrey.g, tHero);
+      const hb = lerp(colorBlack.b, colorGrey.b, tHero);
+      heroVignette.style.background = `
+        linear-gradient(to top, rgb(${hr},${hg},${hb}) 0%, rgba(${hr},${hg},${hb},0.6) 12%, transparent 40%),
+        linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, transparent 15%)
+      `;
+
+      // — Novedades fondo principal
+      const tNov = Math.max(0, Math.min(1, y / (novH * 0.75)));
+      const nr = lerp(colorBlack.r, colorGrey.r, tNov);
+      const ng = lerp(colorBlack.g, colorGrey.g, tNov);
+      const nb = lerp(colorBlack.b, colorGrey.b, tNov);
+      novSection.style.background = `rgb(${nr},${ng},${nb})`;
+
+      // — Novedades heading: mismo color que la sección
+      if (novHeading) novHeading.style.background = `rgb(${nr},${ng},${nb})`;
     }
 
-    window.addEventListener('scroll', updateNovColor, { passive: true });
-    updateNovColor();
+    window.addEventListener('scroll', updateScrollColors, { passive: true });
+    updateScrollColors();
   </script>
 </body>
 </html>
