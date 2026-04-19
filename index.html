@@ -489,9 +489,8 @@
       text-decoration: none;
       color: #fff;
       border-radius: 10px;
-      transition: transform 0.2s;
+      cursor: pointer;
     }
-    .video-card:hover { transform: translateY(-3px); }
 
     /* Thumbnail */
     .video-card-thumb {
@@ -506,9 +505,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.35s cubic-bezier(.25,.46,.45,.94);
     }
-    .video-card:hover .video-card-thumb img { transform: scale(1.04); }
 
     /* Overlay play */
     .video-card-play {
@@ -582,6 +579,58 @@
     @media (max-width: 500px) {
       .videos-grid { grid-template-columns: 1fr; }
     }
+
+    /* ── Modal de vídeo ── */
+    #video-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    #video-modal.open {
+      display: flex;
+    }
+    #video-modal-inner {
+      position: relative;
+      width: 100%;
+      max-width: 960px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+    }
+    #video-modal-inner .video-ratio {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+    }
+    #video-modal-inner iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    #video-modal-close {
+      position: absolute;
+      top: -44px;
+      right: 0;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+      line-height: 1;
+      opacity: 0.75;
+      transition: opacity 0.18s;
+    }
+    #video-modal-close:hover { opacity: 1; }
   </style>
 
   <section class="novedades-wrap videos-section">
@@ -634,6 +683,16 @@
     }
   </style>
 
+  <!-- MODAL VÍDEO -->
+  <div id="video-modal">
+    <div id="video-modal-inner">
+      <button id="video-modal-close" aria-label="Cerrar">✕</button>
+      <div class="video-ratio">
+        <iframe id="video-modal-iframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
   <script>
   (function () {
     const CHANNEL_ID  = 'UCDJHjhqvS83CbLJ2GA5kPng'; // SpanishProGamers
@@ -666,7 +725,7 @@
 
     function renderVideos(items) {
       grid.innerHTML = items.slice(0, 8).map(v => `
-        <a class="video-card" href="${v.url}" target="_blank" rel="noopener">
+        <div class="video-card" data-video-id="${v.id}" data-video-title="${v.title.replace(/"/g,'&quot;')}" style="cursor:pointer;">
           <div class="video-card-thumb">
             <img
               src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg"
@@ -680,9 +739,42 @@
             <p class="video-card-title">${v.title}</p>
             <span class="video-card-meta">${timeAgo(v.published)}</span>
           </div>
-        </a>
+        </div>
       `).join('');
+
+      // Clic en cada tarjeta → abrir modal
+      grid.querySelectorAll('.video-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const id = card.dataset.videoId;
+          openVideoModal(id);
+        });
+      });
     }
+
+    // ── Lógica modal ──
+    const modal  = document.getElementById('video-modal');
+    const iframe = document.getElementById('video-modal-iframe');
+    const btnCerrar = document.getElementById('video-modal-close');
+
+    function openVideoModal(videoId) {
+      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeVideoModal() {
+      modal.classList.remove('open');
+      iframe.src = '';
+      document.body.style.overflow = '';
+    }
+
+    btnCerrar.addEventListener('click', closeVideoModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeVideoModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeVideoModal();
+    });
 
     function renderError() {
       grid.innerHTML = `<p style="color:rgba(255,255,255,0.4);padding:2rem;grid-column:1/-1;text-align:center;">
