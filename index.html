@@ -229,25 +229,33 @@
       position: relative;
       z-index: 2;
       padding: 1.8rem 2rem;
-      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+      background: transparent;
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
       gap: 1rem;
     }
     .nov-left-info { flex: 1; }
-    .nov-left-tag {
-      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em;
-      text-transform: uppercase; color: rgba(255,255,255,0.6);
-      display: block; margin-bottom: 0.4rem;
-    }
+    .nov-left-tag { display: none; }
     .nov-left-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: clamp(1.2rem, 2vw, 1.6rem);
-      font-weight: 800; color: #fff; line-height: 1.2;
-      margin-bottom: 0.3rem;
+      font-size: clamp(0.82rem, 1.1vw, 1rem);
+      font-weight: 700; color: #111; line-height: 1;
+      background: #fff;
+      padding: 0.85rem 0.85rem 0.85rem 1.3rem;
+      border-radius: 999px;
+      margin-bottom: 0;
     }
-    .nov-left-date { font-size: 0.7rem; color: rgba(255,255,255,0.5); }
+    .nov-left-title .pill-arrow {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 1.5rem; height: 1.5rem;
+      background: transparent; border-radius: 50%; flex-shrink: 0;
+    }
+    .nov-left-title .pill-arrow svg { display: block; }
+    .nov-left-date { display: none; }
     .nov-left-desc { display: none; }
 
     /* Red arrow button */
@@ -306,23 +314,28 @@
     .nov-item-body {
       position: relative;
       z-index: 2;
-      padding: 0.9rem 1.1rem;
-      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.45) 60%, transparent 100%);
+      padding: 1rem 1.1rem;
+      background: transparent;
     }
-    .nov-item-tag {
-      font-size: 0.54rem; font-weight: 700; letter-spacing: 0.15em;
-      text-transform: uppercase; color: rgba(255,255,255,0.6);
-      display: block; margin-bottom: 0.2rem;
-    }
+    .nov-item-tag { display: none; }
     .nov-item-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 0.88rem; font-weight: 700;
-      color: #fff; line-height: 1.25;
+      font-size: clamp(0.82rem, 1.1vw, 1rem); font-weight: 700;
+      color: #111; line-height: 1;
+      background: #fff;
+      padding: 0.85rem 0.85rem 0.85rem 1.3rem;
+      border-radius: 999px;
     }
-    .nov-item-date {
-      font-size: 0.62rem; color: rgba(255,255,255,0.45);
-      display: block; margin-top: 0.25rem;
+    .nov-item-title .pill-arrow {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 1.5rem; height: 1.5rem;
+      background: transparent; border-radius: 50%; flex-shrink: 0;
     }
+    .nov-item-title .pill-arrow svg { display: block; }
+    .nov-item-date { display: none; }
 
     @media (max-width: 1400px) {
       .novedades-heading { padding: 1.2rem 2rem; }
@@ -387,14 +400,9 @@
         <div class="nov-left-text">
           <div class="nov-left-info">
             <span class="nov-left-tag">Destacado</span>
-            <p class="nov-left-title">Descarga de SPG 4.1 Ya Disponible</p>
+            <p class="nov-left-title">Descarga de SPG 4.1 Ya Disponible <span class="pill-arrow"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="7 5 19 5 19 17"/></svg></span></p>
             <p class="nov-left-date">18/04/2026</p>
           </div>
-          <a href="https://www.spanishprogamers.es/estado-y-descargas" class="arrow-btn" target="_blank" aria-label="Ver más">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-            </svg>
-          </a>
         </div>
       </div>
 
@@ -404,7 +412,7 @@
         <a href="#" class="nov-item" style="background: #111 url('/Zassets/noticia_larga.png') center center / cover no-repeat;">
           <div class="nov-item-body">
             <span class="nov-item-tag">Utilidades</span>
-            <p class="nov-item-title">Nuevo Modpack Manager</p>
+            <p class="nov-item-title">Nuevo Modpack Manager <span class="pill-arrow"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="7 5 19 5 19 17"/></svg></span></p>
             <span class="nov-item-date">10/04/2026</span>
           </div>
         </a>
@@ -412,7 +420,7 @@
         <a href="#" class="nov-item" style="background: #111 url('/Zassets/Hardcore_2.png') center center / cover no-repeat;">
           <div class="nov-item-body">
             <span class="nov-item-tag">Comunidad</span>
-            <p class="nov-item-title">Página Web Rediseñada</p>
+            <p class="nov-item-title">Página Web Rediseñada <span class="pill-arrow"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="7 5 19 5 19 17"/></svg></span></p>
             <span class="nov-item-date">20/04/2026</span>
           </div>
         </a>
@@ -420,7 +428,7 @@
         <a href="#" class="nov-item" style="background: #111 url('/Zassets/Hardcore_2.png') center center / cover no-repeat;">
           <div class="nov-item-body">
             <span class="nov-item-tag">Servidores</span>
-            <p class="nov-item-title">SPG 5.2 Abierto</p>
+            <p class="nov-item-title">SPG 5.2 Abierto <span class="pill-arrow"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="7 5 19 5 19 17"/></svg></span></p>
             <span class="nov-item-date">21/04/2026</span>
           </div>
         </a>
