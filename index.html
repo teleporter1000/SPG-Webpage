@@ -518,16 +518,10 @@
       transition: opacity 0.2s;
     }
     .video-card:hover .video-card-play { opacity: 1; }
-    .video-card-play-circle {
-      width: 44px; height: 44px;
-      border-radius: 50%;
-      background: rgba(204,26,26,0.92);
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 20px rgba(204,26,26,0.5);
-      transform: scale(0.85);
-      transition: transform 0.2s;
+    .video-card-play-yt {
+      width: 62px; height: 44px;
+      filter: drop-shadow(0 2px 10px rgba(0,0,0,0.6));
     }
-    .video-card:hover .video-card-play-circle { transform: scale(1); }
 
     /* Duración */
     .video-card-dur {
@@ -718,9 +712,12 @@
     }
 
     function playIcon() {
-      return `<div class="video-card-play"><div class="video-card-play-circle">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><polygon points="6,4 20,12 6,20"/></svg>
-      </div></div>`;
+      return `<div class="video-card-play">
+        <svg class="video-card-play-yt" viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+          <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74 .06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#FF0000"/>
+          <path d="M27 14.5v19l18.5-9.5z" fill="#fff"/>
+        </svg>
+      </div>`;
     }
 
     function renderVideos(items) {
