@@ -127,6 +127,7 @@
       border-radius: 18px;
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
       gap: 1.2rem;
       padding: 1.25rem 1.5rem;
       transition: border-color 0.2s, background 0.2s;
@@ -163,6 +164,11 @@
       flex-direction: column;
       gap: 0.3rem;
     }
+    /* On narrow screens: logo + info stay together on first row, downloads wrap below */
+    @media (max-width: 620px) {
+      .server-logo, .server-logo-placeholder { width: 64px; height: 64px; }
+      .server-name { font-size: 17px; }
+    }
     .server-game {
       font-size: 11px;
       font-weight: 600;
@@ -186,12 +192,11 @@
     .server-ip span { color: rgba(255,255,255,0.75); }
     .server-meta {
       display: flex;
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
       gap: 0.4rem 0.5rem;
       margin-top: 0.3rem;
       align-items: center;
       min-width: 0;
-      overflow: hidden;
     }
     .server-tag {
       font-size: 12px;
@@ -203,10 +208,7 @@
       border-radius: 999px;
       padding: 0.2rem 0.75rem;
       white-space: nowrap;
-      flex-shrink: 1;
-      min-width: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      flex-shrink: 0;
     }
     .server-status {
       font-size: 12px;
@@ -262,6 +264,19 @@
       width: 1px;
       background: rgba(255,255,255,0.1);
     }
+    /* Narrow: downloads drops below logo+info, left border hidden */
+    @media (max-width: 620px) {
+      .server-downloads {
+        width: 100%;
+        margin-left: 0;
+        padding-left: 0;
+        align-items: flex-start;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .server-downloads::before { display: none; }
+    }
     .server-downloads-label {
       font-size: 11px;
       font-weight: 600;
@@ -293,6 +308,15 @@
     }
     .footer-bottom-bar span:nth-child(2) { text-align: center; }
     .footer-bottom-bar span:nth-child(3) { text-align: right; }
+    @media (max-width: 600px) {
+      .footer-bottom-bar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 2rem 1.5rem;
+      }
+    }
   </style>
 </head>
 <body>
