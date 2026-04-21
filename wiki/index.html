@@ -410,13 +410,57 @@
     /* ── CLEARFIX ── */
     .clearfix::after { content: ''; display: table; clear: both; }
 
+    /* intro-row: flex-wrap para que TOC e infobox bajen solos
+       si no hay sitio, sin aplastar nunca el texto central */
+    .intro-row {
+      flex-wrap: wrap;
+    }
+    .intro-row .wiki-toc {
+      flex-shrink: 0;
+    }
+    .intro-row #introduccion {
+      min-width: 260px;
+    }
+    .intro-row .wiki-infobox {
+      flex-shrink: 0;
+    }
+
     @media (max-width: 860px) {
       .wiki-sidebar { display: none; }
       .wiki-main { padding-left: 0; }
-      .wiki-infobox { float: none; width: 100%; margin: 0 0 1.25rem; }
-      .wiki-toc { float: none; max-width: 100%; margin: 0 0 1rem; }
       nav { padding: 0 1.5rem; }
       .footer-bottom-bar { padding: 2rem 1.5rem; }
+    }
+
+    /* Móvil: columna, infobox arriba, luego TOC, luego texto */
+    @media (max-width: 560px) {
+      .intro-row {
+        flex-direction: column;
+      }
+      .intro-row .wiki-infobox {
+        order: 1;
+        width: 100% !important;
+        margin: 0 0 1rem !important;
+      }
+      .intro-row .wiki-toc {
+        order: 2;
+        max-width: 100% !important;
+        width: 100% !important;
+        margin: 0 0 1rem !important;
+      }
+      .intro-row #introduccion {
+        order: 3;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .footer-bottom-bar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 2rem 1.5rem;
+      }
     }
   </style>
 </head>
@@ -507,7 +551,7 @@
     </div>
 
     <!-- Fila principal: TOC + Intro + Infobox -->
-    <div style="display:flex; gap:1.25rem; align-items:flex-start; margin-bottom:0.5rem;">
+    <div class="intro-row" style="display:flex; gap:1.25rem; align-items:flex-start; margin-bottom:0.5rem;">
 
       <!-- TOC -->
       <div class="wiki-toc" style="float:none; margin:0; flex-shrink:0;">
