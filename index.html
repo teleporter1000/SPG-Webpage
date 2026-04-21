@@ -65,6 +65,12 @@
       pointer-events: all;
     }
     .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .nav-logo .logo-desktop { display: block; }
+    .nav-logo .logo-mobile  { display: none; }
+    @media (max-width: 860px) {
+      .nav-logo .logo-desktop { display: none; }
+      .nav-logo .logo-mobile  { display: block; }
+    }
     .nav-center {
       display: flex; align-items: center; gap: 0.1rem;
       position: absolute; left: 50%; transform: translateX(-50%);
@@ -131,102 +137,76 @@
     .nav-hamburger.open span:nth-child(3) { transform: translateX(-50%) translateY(-4px); }
 
     /* Dropdown panel */
-    /* Overlay oscuro detrás del panel */
-    .nav-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 197;
-      background: rgba(0,0,0,0.45);
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
-      animation: overlayIn 0.25s ease;
-    }
-    .nav-overlay.open { display: block; }
-    @keyframes overlayIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
+    /* Overlay — not needed with full-screen panel */
+    .nav-overlay { display: none !important; }
 
-    /* Panel lateral */
+    /* Panel lateral — full screen */
     .nav-dropdown {
       position: fixed;
-      top: 0; left: 0;
-      width: 72vw; max-width: 300px;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100%;
       height: 100vh;
       z-index: 198;
-      background: #0f0f0f;
-      border-right: 1px solid rgba(255,255,255,0.08);
+      background: #111;
       padding-top: 80px;
       display: flex;
       flex-direction: column;
       overflow-y: auto;
       transform: translateX(-100%);
-      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       will-change: transform;
     }
     .nav-dropdown.open { transform: translateX(0); }
 
-    /* Section label inside dropdown */
-    .dd-section-label {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
-      text-transform: uppercase; color: rgba(255,255,255,0.28);
-      padding: 1.2rem 0.5rem 0.4rem;
+    /* Navbar gray when menu open */
+    nav.menu-open {
+      background: #2a2a2a !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
     }
+
+    .dd-section-label { display: none; }
 
     .nav-dropdown a {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 15px; font-weight: 600; letter-spacing: 0.02em;
-      color: rgba(255,255,255,0.78);
+      font-size: 1.35rem; font-weight: 800; letter-spacing: 0.01em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
       text-decoration: none;
-      padding: 0.78rem 0.85rem;
-      border-radius: 12px;
-      display: flex; align-items: center; gap: 0.85rem;
+      padding: 1.1rem 1.8rem;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       transition: background 0.15s, color 0.15s;
-      position: relative;
     }
-    .nav-dropdown a:hover { background: rgba(255,255,255,0.06); color: #fff; }
+    .nav-dropdown a:first-of-type { border-top: 1px solid rgba(255,255,255,0.08); }
+    .nav-dropdown a:hover { background: rgba(255,255,255,0.05); }
     .nav-dropdown a.active { color: #fff; }
 
-    /* Icon pill */
-    .dd-icon {
-      width: 34px; height: 34px; border-radius: 9px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.09);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; color: rgba(255,255,255,0.55);
-      font-size: 15px; line-height: 1;
-    }
+    /* Icon pill — hidden in new style */
+    .dd-icon { display: none; }
     .dd-label { flex: 1; }
-    .dd-arrow { color: rgba(255,255,255,0.2); font-size: 13px; margin-left: auto; }
+    .dd-arrow { color: rgba(255,255,255,0.25); font-size: 18px; font-weight: 400; }
 
     /* Divider */
-    .dd-divider {
-      height: 1px;
-      background: rgba(255,255,255,0.07);
-      margin: 0.5rem 0;
-    }
+    .dd-divider { display: none; }
 
     /* Assist CTA button */
     .nav-dropdown .dd-assist {
-      margin-top: 1rem;
-      padding: 0.95rem 1.2rem !important;
-      background: rgba(255,255,255,0.05) !important;
-      border: 1.5px solid rgba(255,255,255,0.18) !important;
-      border-radius: 14px !important;
+      margin: 1.5rem 1.8rem 0 !important;
+      padding: 1rem 1.5rem !important;
+      background: #fff !important;
+      border: none !important;
+      border-top: none !important;
+      border-bottom: none !important;
+      border-radius: 999px !important;
       justify-content: center !important;
-      font-size: 14px; font-weight: 700;
-      letter-spacing: 0.03em;
-      color: rgba(255,255,255,0.85) !important;
-      gap: 0.5rem;
-      transition: background 0.15s, border-color 0.15s, color 0.15s !important;
+      font-size: 1rem; font-weight: 700;
+      letter-spacing: 0.02em;
+      color: #111 !important;
+      text-transform: uppercase;
+      transition: background 0.15s !important;
     }
-    .nav-dropdown .dd-assist:hover {
-      background: rgba(255,255,255,0.1) !important;
-      border-color: rgba(255,255,255,0.45) !important;
-      color: #fff !important;
-    }
+    .nav-dropdown .dd-assist:hover { background: #e0e0e0 !important; }
 
     /* Mobile nav layout: hamburger left, logo center, search right */
     @media (max-width: 860px) {
@@ -536,7 +516,8 @@
     </button>
 
     <a href="/" class="nav-logo" title="Inicio">
-      <img src="/Zassets/icono_esqunas_redondeadas.png" alt="SPG" style="height:47px;width:47px;border-radius:10px;display:block;object-fit:cover;"/>
+      <img class="logo-desktop" src="/Zassets/icono_esqunas_redondeadas.png" alt="SPG" style="height:47px;width:47px;border-radius:10px;display:block;object-fit:cover;"/>
+      <img class="logo-mobile"  src="/Zassets/icono_web_app.png" alt="SPG" style="height:36px;width:36px;border-radius:8px;display:block;object-fit:cover;"/>
     </a>
     <div class="nav-center">
       <a href="/" class="nav-link">Inicio</a>
@@ -1069,12 +1050,14 @@
       overlay.classList.add('open');
       hamburger.classList.add('open');
       nav.classList.add('scrolled');
+      nav.classList.add('menu-open');
     }
 
     function closeMenu() {
       dropdown.classList.remove('open');
       overlay.classList.remove('open');
       hamburger.classList.remove('open');
+      nav.classList.remove('menu-open');
     }
 
     hamburger.addEventListener('click', function(e) {
