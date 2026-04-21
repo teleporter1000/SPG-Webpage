@@ -245,12 +245,12 @@
     .social-handle span { color: rgba(255,255,255,0.75); }
     .social-meta {
       display: flex;
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
       gap: 0.4rem 0.5rem;
       margin-top: 0.3rem;
-      align-items: center;
+      align-items: flex-start;
       min-width: 0;
-      overflow: hidden;
+      width: 100%;
     }
     .social-tag {
       font-size: 12px;
@@ -261,11 +261,11 @@
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 999px;
       padding: 0.2rem 0.75rem;
-      white-space: nowrap;
+      white-space: normal;
+      word-break: break-word;
       flex-shrink: 1;
       min-width: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      max-width: 100%;
     }
     .social-cta {
       display: none;
@@ -276,6 +276,45 @@
       align-items: center;
       justify-content: center;
       padding-left: 1rem;
+    }
+
+    /* ── MOBILE LAYOUT (≤ 560px) ── */
+    @media (max-width: 560px) {
+      .social-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 1.25rem 1rem;
+        gap: 0.75rem;
+      }
+      .social-icon {
+        width: 80px;
+        height: 80px;
+      }
+      .social-info {
+        width: 100%;
+        align-items: center;
+      }
+      .social-platform,
+      .social-name,
+      .social-handle {
+        text-align: center;
+      }
+      .social-meta {
+        justify-content: center;
+        text-align: center;
+      }
+      .card-btn-wrap {
+        width: 100%;
+        padding-left: 0;
+        justify-content: center;
+        border-top: 1px solid rgba(255,255,255,0.08);
+        padding-top: 0.75rem;
+      }
+      .btn-visit {
+        width: 100%;
+        justify-content: center;
+      }
     }
     .btn-row {
       display: none;
