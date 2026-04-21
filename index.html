@@ -140,29 +140,35 @@
     /* Overlay — not needed with full-screen panel */
     .nav-overlay { display: none !important; }
 
-    /* Panel lateral — full screen */
+    /* Panel desplegable — full screen, animación desde arriba */
     .nav-dropdown {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       width: 100%;
       height: 100vh;
-      z-index: 198;
+      z-index: 199;
       background: #111;
       padding-top: 80px;
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
       overflow-y: auto;
-      transform: translateX(-100%);
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateY(-100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
       will-change: transform;
     }
-    .nav-dropdown.open { transform: translateX(0); }
+    .nav-dropdown.open { transform: translateY(0); }
+    .nav-dropdown::-webkit-scrollbar { width: 3px; }
+    .nav-dropdown::-webkit-scrollbar-track { background: transparent; }
+    .nav-dropdown::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 99px; }
+    .nav-dropdown::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
 
-    /* Navbar gray when menu open */
+    /* Navbar gray when menu open — stays above dropdown */
     nav.menu-open {
       background: #2a2a2a !important;
       backdrop-filter: none !important;
       -webkit-backdrop-filter: none !important;
+      z-index: 200 !important;
     }
 
     .dd-section-label { display: none; }
@@ -211,15 +217,18 @@
     /* Mobile nav layout: hamburger left, logo center, search right */
     @media (max-width: 860px) {
       nav { padding: 0 1.25rem; height: 80px; }
-      .nav-hamburger { display: flex; }
+      .nav-hamburger { display: flex; width: 34px; height: 34px; }
+      .nav-hamburger span { width: 16px; }
       .nav-logo {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
       }
+      .nav-logo .logo-mobile { height: 58px !important; width: 58px !important; border-radius: 13px !important; }
       /* Hide only the text button, keep the search icon */
       .nav-btn-outline { display: none; }
       .nav-spacer { display: none; }
+      .nav-icon-btn svg { width: 16px !important; height: 16px !important; }
     }
     @media (min-width: 861px) {
       .nav-spacer { display: none; }
@@ -1051,6 +1060,7 @@
       hamburger.classList.add('open');
       nav.classList.add('scrolled');
       nav.classList.add('menu-open');
+      document.body.style.overflow = 'hidden';
     }
 
     function closeMenu() {
@@ -1058,6 +1068,7 @@
       overlay.classList.remove('open');
       hamburger.classList.remove('open');
       nav.classList.remove('menu-open');
+      document.body.style.overflow = '';
     }
 
     hamburger.addEventListener('click', function(e) {
@@ -1103,8 +1114,11 @@
       }
     }
 
-    // wheel: solo gestiona el paso 0→1 (transparente → translúcida)
+    const isMobile = () => window.innerWidth <= 860;
+
+    // wheel: solo gestiona el paso 0→1 (transparente → translúcida) — SOLO DESKTOP
     window.addEventListener('wheel', (e) => {
+      if (isMobile()) return;
       if (e.deltaY > 0 && navState === 0) {
         transitionY = window.scrollY;
         applyState(1);
@@ -1117,9 +1131,22 @@
       }
     }, { passive: true });
 
-    // scroll: gestiona el paso 1→2 (translúcida → oculta) y la vuelta al top
+    // scroll: en móvil siempre translúcida y visible; en desktop gestiona ocultar/mostrar
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
+
+      // MÓVIL: navbar siempre scrolled (translúcida) y nunca hidden
+      if (isMobile()) {
+        if (y <= 0) {
+          nav.classList.remove('scrolled', 'hidden');
+        } else {
+          nav.classList.add('scrolled');
+          nav.classList.remove('hidden');
+        }
+        return;
+      }
+
+      // DESKTOP
       if (y <= 0) {
         transitionY = null;
         applyState(0);
