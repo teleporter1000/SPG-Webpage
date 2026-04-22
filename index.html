@@ -2,10 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
-  <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-  <meta name="theme-color" content="#000000"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SpanishProGamers</title>
   
   <!-- Icono para navegadores de escritorio y compatibles -->
@@ -36,20 +33,16 @@
       overflow-x: hidden;
     }
 
-    /* safe-area handled via nav padding-top + env(safe-area-inset-top) */
-
     /* ── NAVBAR ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 200;
-      height: calc(var(--nav-h) + env(safe-area-inset-top));
-      padding-top: env(safe-area-inset-top);
+      height: var(--nav-h);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-left: 4rem;
-      padding-right: 4rem;
+      padding: 0 4rem;
       background: transparent;
       transition: background 0.35s ease, backdrop-filter 0.35s ease, transform 0.4s ease;
     }
@@ -223,7 +216,7 @@
 
     /* Mobile nav layout: hamburger left, logo center, search right */
     @media (max-width: 860px) {
-      nav { padding-left: 1.25rem; padding-right: 1.25rem; height: calc(80px + env(safe-area-inset-top)); padding-top: env(safe-area-inset-top); }
+      nav { padding: 0 1.25rem; height: 80px; }
       .nav-hamburger { display: flex; width: 34px; height: 34px; margin-bottom: 2px; }
       .nav-hamburger span { width: 16px; }
       .nav-logo {
@@ -231,11 +224,8 @@
         left: 50%;
         transform: translateX(-50%) translateY(-2px);
       }
-<<<<<<< HEAD
-      .nav-logo .logo-mobile { height: 43px !important; width: 43px !important; border-radius: 13px !important; }
-=======
       .nav-logo .logo-mobile { height: 58px !important; width: 58px !important; border-radius: 13px !important; }
->>>>>>> parent of 2931246 (Update new logo)
+      .nav-logo .logo-mobile { height: 61px !important; width: 61px !important; border-radius: 13px !important; }
       /* Hide only the text button, keep the search icon */
       .nav-btn-outline { display: none; }
       .nav-spacer { display: none; }
@@ -245,16 +235,6 @@
     @media (min-width: 861px) {
       .nav-spacer { display: none; }
       .nav-dropdown { display: none !important; }
-    }
-
-    /* iOS PWA — fondo negro navbar en standalone */
-    @media all and (display-mode: standalone) {
-      nav {
-        background: #000 !important;
-      }
-      nav.scrolled {
-        background: rgba(0,0,0,0.85) !important;
-      }
     }
 
     /* ── HERO ── */
@@ -269,7 +249,6 @@
       position: relative; width: 100%; height: calc(100vh - var(--hero-bottom-gap)); min-height: 580px;
       overflow: hidden;
       background: #0d0d0d url('/Zassets/backbanner.png') center top / cover no-repeat;
-      padding-top: calc(var(--nav-h) + env(safe-area-inset-top));
     }
     .hero-vignette {
       position: absolute; inset: 0; z-index: 4;
@@ -536,8 +515,6 @@
   </style>
 </head>
 <body>
-  <!-- Overlay negro para la status bar del notch en iOS PWA -->
-  <div class="ios-statusbar"></div>
 
   <!-- Zona hover para reaparecer navbar -->
   <div id="nav-hover-zone"></div>
@@ -552,6 +529,7 @@
     <a href="/" class="nav-logo" title="Inicio">
       <img class="logo-desktop" src="/Zassets/icono_esqunas_redondeadas.png" alt="SPG" style="height:47px;width:47px;border-radius:10px;object-fit:cover;"/>
       <img class="logo-mobile"  src="/Zassets/icono_web_app.png" alt="SPG" style="height:47px;width:47px;border-radius:10px;object-fit:cover;"/>
+      <img class="logo-mobile"  src="/Zassets/icono_web_app.png" alt="SPG" style="object-fit:contain;"/>
     </a>
     <div class="nav-center">
       <a href="/" class="nav-link">Inicio</a>
