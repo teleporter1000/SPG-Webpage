@@ -2,7 +2,10 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <meta name="theme-color" content="#000000"/>
   <title>SpanishProGamers</title>
   
   <!-- Icono para navegadores de escritorio y compatibles -->
@@ -43,6 +46,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 4rem;
+      padding-top: env(safe-area-inset-top);
       background: transparent;
       transition: background 0.35s ease, backdrop-filter 0.35s ease, transform 0.4s ease;
     }
@@ -224,7 +228,7 @@
         left: 50%;
         transform: translateX(-50%) translateY(-2px);
       }
-      .nav-logo .logo-mobile { height: 61px !important; width: 61px !important; border-radius: 13px !important; }
+      .nav-logo .logo-mobile { height: 43px !important; width: 43px !important; border-radius: 13px !important; }
       /* Hide only the text button, keep the search icon */
       .nav-btn-outline { display: none; }
       .nav-spacer { display: none; }
@@ -234,6 +238,20 @@
     @media (min-width: 861px) {
       .nav-spacer { display: none; }
       .nav-dropdown { display: none !important; }
+    }
+
+    /* iOS PWA — notch negro y safe area */
+    @media all and (display-mode: standalone) {
+      nav {
+        background: #000 !important;
+        padding-top: env(safe-area-inset-top);
+      }
+      nav.scrolled {
+        background: rgba(0,0,0,0.85) !important;
+      }
+      .nav-dropdown {
+        padding-top: calc(80px + env(safe-area-inset-top));
+      }
     }
 
     /* ── HERO ── */
