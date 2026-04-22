@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
   <meta name="theme-color" content="#000000"/>
   <title>SpanishProGamers</title>
   
@@ -36,19 +36,6 @@
       overflow-x: hidden;
     }
 
-    /* Tapa negra para el notch/dynamic island en iOS — funciona en Safari y web app */
-    @supports (padding: env(safe-area-inset-top)) {
-      body::before {
-        content: '';
-        position: fixed;
-        top: 0; left: 0; right: 0;
-        height: env(safe-area-inset-top);
-        background: #000;
-        z-index: 99999;
-        pointer-events: none;
-      }
-    }
-
     /* ── NAVBAR ── */
     nav {
       position: fixed;
@@ -59,7 +46,6 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 4rem;
-      padding-top: env(safe-area-inset-top);
       background: transparent;
       transition: background 0.35s ease, backdrop-filter 0.35s ease, transform 0.4s ease;
     }
@@ -253,17 +239,13 @@
       .nav-dropdown { display: none !important; }
     }
 
-    /* iOS PWA — safe area en navbar y dropdown */
+    /* iOS PWA — fondo negro navbar en standalone */
     @media all and (display-mode: standalone) {
       nav {
         background: #000 !important;
-        padding-top: env(safe-area-inset-top);
       }
       nav.scrolled {
         background: rgba(0,0,0,0.85) !important;
-      }
-      .nav-dropdown {
-        padding-top: calc(80px + env(safe-area-inset-top));
       }
     }
 
