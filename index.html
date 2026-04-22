@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SpanishProGamers</title>
   
   <!-- Icono para navegadores de escritorio y compatibles -->
@@ -15,31 +15,7 @@
   <link rel="apple-touch-icon" sizes="512x512" href="AppLogo.png">
   <link rel="icon" type="image/png" sizes="192x192" href="AppLogo.png">
 
-  <!-- iOS: pinta la zona de la Dynamic Island / status bar de negro -->
   <meta name="theme-color" content="#000000">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-  <style>
-    /* ── iOS Dynamic Island fix ──
-       html fondo negro = zona de status bar negra.
-       env(safe-area-inset-top) baja la navbar por debajo de la Dynamic Island. */
-    html {
-      background: #000;
-    }
-
-    @media (max-width: 860px) {
-      nav {
-        top: env(safe-area-inset-top, 0px) !important;
-      }
-      #nav-hover-zone {
-        top: env(safe-area-inset-top, 0px) !important;
-      }
-      .nav-dropdown {
-        padding-top: calc(80px + env(safe-area-inset-top, 0px)) !important;
-      }
-    }
-  </style>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
 
@@ -537,6 +513,60 @@
       .nov-right { grid-template-columns: 1fr; }
     }
   </style>
+
+  <script>
+    // iOS Dynamic Island / notch fix
+    // Detecta si es un iPhone con notch/Dynamic Island y añade padding al body
+    (function() {
+      var ua = navigator.userAgent;
+      if (!/iPhone/.test(ua)) return;
+      if (window.innerWidth > 860) return;
+
+      // Usamos un div temporal para leer el safe-area-inset-top real
+      // Primero necesitamos viewport-fit=cover en el meta viewport
+      var vp = document.querySelector('meta[name="viewport"]');
+      if (vp) vp.content = 'width=device-width, initial-scale=1.0, viewport-fit=cover';
+
+      // Leemos el inset con un div temporal tras el reflow
+      document.addEventListener('DOMContentLoaded', function() {
+        var probe = document.createElement('div');
+        probe.style.cssText = 'position:fixed;top:env(safe-area-inset-top,0px);left:0;width:1px;height:1px;pointer-events:none;';
+        document.body.appendChild(probe);
+
+        var inset = probe.getBoundingClientRect().top;
+        document.body.removeChild(probe);
+
+        if (inset <= 0) return; // no notch, nada que hacer
+
+        // Añadimos un bloque negro fijo que tapa la zona de la Dynamic Island
+        var bar = document.createElement('div');
+        bar.style.cssText = [
+          'position:fixed',
+          'top:0',
+          'left:0',
+          'right:0',
+          'height:' + inset + 'px',
+          'background:#000',
+          'z-index:999999',
+          'pointer-events:none'
+        ].join(';');
+        document.body.appendChild(bar);
+
+        // Bajamos la navbar
+        var nav = document.querySelector('nav');
+        if (nav) nav.style.top = inset + 'px';
+
+        var hoverZone = document.getElementById('nav-hover-zone');
+        if (hoverZone) hoverZone.style.top = inset + 'px';
+
+        // Bajamos el menú desplegable
+        var dropdown = document.getElementById('nav-dropdown');
+        if (dropdown) {
+          dropdown.style.paddingTop = (80 + inset) + 'px';
+        }
+      });
+    })();
+  </script>
 </head>
 <body>
 
