@@ -50,11 +50,11 @@
       justify-content: space-between;
       padding-left: 4rem;
       padding-right: 4rem;
-      background: #000;
+      background: transparent;
       transition: background 0.35s ease, backdrop-filter 0.35s ease, transform 0.4s ease;
     }
     nav.scrolled {
-      background: rgba(0,0,0,0.75);
+      background: rgba(0,0,0,0.55);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
     }
@@ -223,7 +223,7 @@
 
     /* Mobile nav layout: hamburger left, logo center, search right */
     @media (max-width: 860px) {
-      nav { padding: 0 1.25rem; height: 80px; }
+      nav { padding-left: 1.25rem; padding-right: 1.25rem; height: calc(80px + env(safe-area-inset-top)); padding-top: env(safe-area-inset-top); }
       .nav-hamburger { display: flex; width: 34px; height: 34px; margin-bottom: 2px; }
       .nav-hamburger span { width: 16px; }
       .nav-logo {
@@ -265,6 +265,7 @@
       position: relative; width: 100%; height: calc(100vh - var(--hero-bottom-gap)); min-height: 580px;
       overflow: hidden;
       background: #0d0d0d url('/Zassets/backbanner.png') center top / cover no-repeat;
+      padding-top: calc(var(--nav-h) + env(safe-area-inset-top));
     }
     .hero-vignette {
       position: absolute; inset: 0; z-index: 4;
