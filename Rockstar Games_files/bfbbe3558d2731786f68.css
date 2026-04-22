@@ -1,67 +1,67 @@
 @layer foundry_8kowh40;
 @layer foundry_8kowh40 {
-  .siteFooterContainer .foundry_8kowh41 {
+  .foundry_8kowh41 {
     all: unset;
   }
 }
-.siteFooterContainer .foundry_1d5mo5m0 {
+.foundry_1d5mo5m0 {
   outline-width: 2px;
   outline-style: solid;
   outline-offset: 4px;
   outline-color: transparent;
 }
-.siteFooterContainer .foundry_1d5mo5m0:focus-visible {
+.foundry_1d5mo5m0:focus-visible {
   outline-color: var(--foundry-alias-color-border-focus-e58b07c7);
 }
-.siteFooterContainer .foundry_1qqcnuao {
+.foundry_1qqcnuao {
   color: var(--foundry_1qqcnua2);
   border-color: var(--foundry_1qqcnua1);
   background-color: var(--foundry_1qqcnua0);
   outline-color: var(--foundry_1qqcnua3);
 }
-.siteFooterContainer .foundry_1qqcnuao:hover {
+.foundry_1qqcnuao:hover {
   color: var(--foundry_1qqcnua6);
   border-color: var(--foundry_1qqcnua5);
   background-color: var(--foundry_1qqcnua4);
   outline-color: var(--foundry_1qqcnua7);
 }
-.siteFooterContainer .foundry_1qqcnuao[data-pressed="true"] {
+.foundry_1qqcnuao[data-pressed="true"] {
   color: var(--foundry_1qqcnuae);
   border-color: var(--foundry_1qqcnuad);
   background-color: var(--foundry_1qqcnuac);
   outline-color: var(--foundry_1qqcnuaf);
 }
-.siteFooterContainer .foundry_1qqcnuao:focus-visible {
+.foundry_1qqcnuao:focus-visible {
   color: var(--foundry_1qqcnuaa);
   border-color: var(--foundry_1qqcnua9);
   background-color: var(--foundry_1qqcnua8);
   outline-color: var(--foundry_1qqcnuab);
 }
-.siteFooterContainer .foundry_1qqcnuao[data-pressed="true"]:focus-visible {
+.foundry_1qqcnuao[data-pressed="true"]:focus-visible {
   color: var(--foundry_1qqcnuae);
   border-color: var(--foundry_1qqcnuad);
   background-color: var(--foundry_1qqcnuac);
   outline-color: var(--foundry_1qqcnuab);
 }
-.siteFooterContainer .foundry_1qqcnuao[data-loading="true"], .siteFooterContainer .foundry_1qqcnuao[data-pressed="true"][data-loading="true"] {
+.foundry_1qqcnuao[data-loading="true"], .foundry_1qqcnuao[data-pressed="true"][data-loading="true"] {
   color: var(--foundry_1qqcnuam);
   border-color: var(--foundry_1qqcnual);
   background-color: var(--foundry_1qqcnuak);
   outline-color: var(--foundry_1qqcnuan);
 }
-.siteFooterContainer .foundry_1qqcnuao[data-loading="true"]:focus-visible {
+.foundry_1qqcnuao[data-loading="true"]:focus-visible {
   color: var(--foundry_1qqcnuam);
   border-color: var(--foundry_1qqcnual);
   background-color: var(--foundry_1qqcnuak);
   outline-color: var(--foundry_1qqcnuab);
 }
-.siteFooterContainer .foundry_1qqcnuao:disabled {
+.foundry_1qqcnuao:disabled {
   color: var(--foundry_1qqcnuai);
   border-color: var(--foundry_1qqcnuah);
   background-color: var(--foundry_1qqcnuag);
   outline-color: var(--foundry_1qqcnuaj);
 }
-.siteFooterContainer .foundry_1qqcnuap {
+.foundry_1qqcnuap {
   --foundry_1qqcnua0: var(--foundry-global-color-alpha-adaptive-90-a416f5ef);
   --foundry_1qqcnua1: var(--foundry_1qqcnua0);
   --foundry_1qqcnua2: var(--foundry-global-color-grey-adaptive-100-ed36bf65);
@@ -87,7 +87,7 @@
   --foundry_1qqcnuai: var(--foundry-alias-color-text-disabled-6c1b5f99);
   --foundry_1qqcnuaj: transparent;
 }
-.siteFooterContainer .foundry_1qqcnuaq {
+.foundry_1qqcnuaq {
   --foundry_1qqcnua0: transparent;
   --foundry_1qqcnua1: var(--foundry-global-color-alpha-adaptive-50-f61afb4a);
   --foundry_1qqcnua2: var(--foundry-global-color-grey-adaptive-1000-020dfb1f);
@@ -114,10 +114,10 @@
   --foundry_1qqcnuaj: transparent;
   background-clip: padding-box;
 }
-.siteFooterContainer .foundry_1qqcnuaq:hover, .siteFooterContainer .foundry_1qqcnuaq[data-pressed="true"], .siteFooterContainer .foundry_1qqcnuaq:focus-visible, .siteFooterContainer .foundry_1qqcnuaq[data-loading="true"] {
+.foundry_1qqcnuaq:hover, .foundry_1qqcnuaq[data-pressed="true"], .foundry_1qqcnuaq:focus-visible, .foundry_1qqcnuaq[data-loading="true"] {
   backdrop-filter: blur(13px);
 }
-.siteFooterContainer .foundry_1qqcnuar {
+.foundry_1qqcnuar {
   --foundry_1qqcnua0: var(--foundry-global-color-alpha-adaptive-10-2f911b2f);
   --foundry_1qqcnua1: var(--foundry_1qqcnua0);
   --foundry_1qqcnua2: var(--foundry-global-color-grey-adaptive-1000-020dfb1f);
@@ -145,7 +145,7 @@
   background-clip: padding-box;
   backdrop-filter: blur(13px);
 }
-.siteFooterContainer .foundry_1qqcnuas {
+.foundry_1qqcnuas {
   --foundry_1qqcnua0: transparent;
   --foundry_1qqcnua1: var(--foundry_1qqcnua0);
   --foundry_1qqcnua2: var(--foundry-global-color-alpha-adaptive-95-68274c65);
@@ -172,10 +172,10 @@
   --foundry_1qqcnuaj: transparent;
   background-clip: padding-box;
 }
-.siteFooterContainer .foundry_1qqcnuas:hover, .siteFooterContainer .foundry_1qqcnuas[data-pressed="true"], .siteFooterContainer .foundry_1qqcnuas:focus-visible, .siteFooterContainer .foundry_1qqcnuas[data-loading="true"] {
+.foundry_1qqcnuas:hover, .foundry_1qqcnuas[data-pressed="true"], .foundry_1qqcnuas:focus-visible, .foundry_1qqcnuas[data-loading="true"] {
   backdrop-filter: blur(13px);
 }
-.siteFooterContainer .foundry_1qqcnuat {
+.foundry_1qqcnuat {
   --foundry_1qqcnua0: var(--foundry-global-color-blue-static-1000-cc0c4d91);
   --foundry_1qqcnua1: var(--foundry_1qqcnua0);
   --foundry_1qqcnua2: var(--foundry-global-color-white-static-100-d44db539);
@@ -201,7 +201,7 @@
   --foundry_1qqcnuai: var(--foundry-alias-color-text-disabled-6c1b5f99);
   --foundry_1qqcnuaj: transparent;
 }
-.siteFooterContainer .foundry_1qqcnuau {
+.foundry_1qqcnuau {
   --foundry_1qqcnua0: var(--foundry-global-color-red-static-900-55f69265);
   --foundry_1qqcnua1: var(--foundry_1qqcnua0);
   --foundry_1qqcnua2: var(--foundry-global-color-white-static-100-d44db539);
@@ -227,7 +227,7 @@
   --foundry_1qqcnuai: var(--foundry-alias-color-text-disabled-6c1b5f99);
   --foundry_1qqcnuaj: transparent;
 }
-.siteFooterContainer .foundry_1qqcnuav {
+.foundry_1qqcnuav {
   --foundry_1qqcnua3: transparent;
   --foundry_1qqcnua7: transparent;
   --foundry_1qqcnuab: var(--foundry-alias-color-border-focus-e58b07c7);
@@ -238,7 +238,7 @@
   --foundry_1qqcnuai: var(--foundry-alias-color-text-disabled-6c1b5f99);
   --foundry_1qqcnuaj: transparent;
 }
-.siteFooterContainer .foundry_1qqcnuaw {
+.foundry_1qqcnuaw {
   --foundry_1qqcnua0: transparent;
   --foundry_1qqcnua1: var(--foundry_1qqcnua0);
   --foundry_1qqcnua2: var(--foundry-global-color-alpha-adaptive-85-130819b2);
@@ -264,11 +264,11 @@
   --foundry_1qqcnuai: var(--foundry-alias-color-text-disabled-6c1b5f99);
   --foundry_1qqcnuaj: transparent;
 }
-.siteFooterContainer .foundry_tdsdcd0 {
+.foundry_tdsdcd0 {
   -webkit-font-smoothing: antialiased;
   font-feature-settings: 'ss01' on, 'salt' on;
 }
-.siteFooterContainer .foundry_tdsdcd1 {
+.foundry_tdsdcd1 {
   font-family: var(--foundry_nu8bkp0);
   line-height: var(--foundry-global-font-line-height-110-f2a1d21c);
   font-style: normal;
@@ -276,70 +276,70 @@
   font-size: var(--foundry-alias-font-size-heading-display-a2892c71);
   letter-spacing: var(--foundry-global-font-letter-spacing-neg-75-247e228b);
 }
-.siteFooterContainer .foundry_tdsdcd2 {
+.foundry_tdsdcd2 {
   font-style: normal;
   font-weight: var(--foundry-alias-font-weight-bold-751d319e);
   font-family: var(--foundry_nu8bkp0);
 }
-.siteFooterContainer .foundry_tdsdcd4 {
+.foundry_tdsdcd4 {
   font-size: var(--foundry-alias-font-size-heading-01-1e8a0727);
   line-height: var(--foundry-global-font-line-height-110-f2a1d21c);
   letter-spacing: var(--foundry-global-font-letter-spacing-neg-75-247e228b);
 }
-.siteFooterContainer .foundry_tdsdcd5 {
+.foundry_tdsdcd5 {
   font-size: var(--foundry-alias-font-size-heading-02-0fd2c0d9);
   line-height: var(--foundry-global-font-line-height-110-f2a1d21c);
   letter-spacing: var(--foundry-global-font-letter-spacing-neg-75-247e228b);
 }
-.siteFooterContainer .foundry_tdsdcd6 {
+.foundry_tdsdcd6 {
   font-size: var(--foundry-alias-font-size-heading-03-9a73c535);
   line-height: var(--foundry-global-font-line-height-120-114ddbcd);
   letter-spacing: var(--foundry-global-font-letter-spacing-0-11d3b242);
 }
-.siteFooterContainer .foundry_tdsdcd7 {
+.foundry_tdsdcd7 {
   font-size: var(--foundry-alias-font-size-heading-04-1fdd08c0);
   line-height: var(--foundry-global-font-line-height-120-114ddbcd);
   letter-spacing: var(--foundry-global-font-letter-spacing-25-e01b7d49);
 }
-.siteFooterContainer .foundry_tdsdcd8 {
+.foundry_tdsdcd8 {
   font-size: var(--foundry-alias-font-size-heading-05-beb13840);
   line-height: var(--foundry-global-font-line-height-130-1468e63f);
   letter-spacing: var(--foundry-global-font-letter-spacing-25-e01b7d49);
 }
-.siteFooterContainer .foundry_tdsdcd9 {
+.foundry_tdsdcd9 {
   font-size: var(--foundry-alias-font-size-heading-06-40a06748);
   line-height: var(--foundry-global-font-line-height-130-1468e63f);
   letter-spacing: var(--foundry-global-font-letter-spacing-25-e01b7d49);
 }
-.siteFooterContainer .foundry_tdsdcda {
+.foundry_tdsdcda {
   font-family: var(--foundry_nu8bkp1);
   font-style: normal;
   font-weight: var(--foundry-alias-font-weight-regular-c2af3245);
   line-height: var(--foundry-global-font-line-height-150-dc282d1f);
   letter-spacing: var(--foundry-global-font-letter-spacing-neg-150-d0c75081);
 }
-.siteFooterContainer .foundry_tdsdcdc {
+.foundry_tdsdcdc {
   font-size: var(--foundry-alias-font-size-body-body-lg-bec4de18);
 }
-.siteFooterContainer .foundry_tdsdcdd {
+.foundry_tdsdcdd {
   font-size: var(--foundry-alias-font-size-body-body-md-caf3b782);
 }
-.siteFooterContainer .foundry_tdsdcde {
+.foundry_tdsdcde {
   font-size: var(--foundry-alias-font-size-body-body-sm-2a8e6da3);
 }
-.siteFooterContainer .foundry_tdsdcdf {
+.foundry_tdsdcdf {
   font-size: var(--foundry-alias-font-size-body-body-xs-cf241758);
 }
-.siteFooterContainer .foundry_tdsdcdh {
+.foundry_tdsdcdh {
   font-weight: var(--foundry-alias-font-weight-bold-751d319e);
   letter-spacing: var(--foundry-global-font-letter-spacing-neg-50-2f64a6bc);
 }
-.siteFooterContainer .foundry_tdsdcdi {
+.foundry_tdsdcdi {
   font-weight: var(--foundry-alias-font-weight-bold-751d319e);
   text-decoration-line: underline;
   letter-spacing: var(--foundry-global-font-letter-spacing-neg-50-2f64a6bc);
 }
-.siteFooterContainer .foundry_tdsdcdj {
+.foundry_tdsdcdj {
   font-family: var(--foundry_nu8bkp1);
   font-style: normal;
   font-weight: var(--foundry-alias-font-weight-regular-c2af3245);
@@ -347,22 +347,22 @@
   letter-spacing: var(--foundry-global-font-letter-spacing-200-3d4cc27a);
   text-transform: uppercase;
 }
-.siteFooterContainer .foundry_tdsdcdl {
+.foundry_tdsdcdl {
   font-size: var(--foundry-alias-font-size-body-body-lg-bec4de18);
 }
-.siteFooterContainer .foundry_tdsdcdm {
+.foundry_tdsdcdm {
   font-size: var(--foundry-alias-font-size-body-body-md-caf3b782);
 }
-.siteFooterContainer .foundry_tdsdcdn {
+.foundry_tdsdcdn {
   font-size: var(--foundry-alias-font-size-body-body-sm-2a8e6da3);
 }
-.siteFooterContainer .foundry_tdsdcdo {
+.foundry_tdsdcdo {
   font-size: var(--foundry-alias-font-size-body-body-xs-cf241758);
 }
-.siteFooterContainer .foundry_tdsdcdq {
+.foundry_tdsdcdq {
   font-weight: var(--foundry-alias-font-weight-bold-751d319e);
 }
-.siteFooterContainer .foundry_tdsdcdr {
+.foundry_tdsdcdr {
   font-family: var(--foundry_nu8bkp2), 'SF Mono', 'Monaco', 'DejaVu Sans Mono';
   line-height: var(--foundry-global-font-line-height-150-dc282d1f);
   font-style: normal;
@@ -370,7 +370,7 @@
   font-size: var(--foundry-alias-font-size-body-code-17a5a27f);
   letter-spacing: var(--foundry-global-font-letter-spacing-0-11d3b242);
 }
-.siteFooterContainer .foundry_tdsdcdu {
+.foundry_tdsdcdu {
   font-weight: var(--foundry-alias-font-weight-bold-751d319e);
 }
 
@@ -379,7 +379,7 @@
     font-style: normal;
     font-display: swap;
     font-weight: 400;
-    src: url(https://media-rockstargames-com.akamaized.net/mfe6/prod/__common/fonts/63cfc284c204bd1597bc68464e18042b.woff) format("woff");
+    src: url(../daffe25cf3a522a0662b.woff) format("woff");
 }
 
 @font-face {
@@ -396,7 +396,7 @@
     font-style: italic;
     font-display: swap;
     font-weight: 400;
-    src: url(https://media-rockstargames-com.akamaized.net/mfe6/prod/__common/fonts/ddff8a927395b3bbeb442818124b332e.woff) format("woff");
+    src: url(../1c23ad3bd8f4ac8d4f58.woff) format("woff");
 }
 
 @font-face {
@@ -413,7 +413,7 @@
     font-style: normal;
     font-display: swap;
     font-weight: 700;
-    src: url(https://media-rockstargames-com.akamaized.net/mfe6/prod/__common/fonts/064abecda5d2f269d95fa7fd0f340e87.woff) format("woff");
+    src: url(../43c87a78e295c91e475d.woff) format("woff");
 }
 
 @font-face {
@@ -430,7 +430,7 @@
     font-style: normal;
     font-display: swap;
     font-weight: 400;
-    src: url(https://media-rockstargames-com.akamaized.net/mfe6/prod/__common/fonts/8a7bed18c779bf815ff56c24ab6207e5.woff) format("woff");
+    src: url(../6b4afd4ea33471c760f2.woff) format("woff");
 }
 
 @font-face {
@@ -447,7 +447,7 @@
     font-style: normal;
     font-display: swap;
     font-weight: 700;
-    src: url(https://media-rockstargames-com.akamaized.net/mfe6/prod/__common/fonts/2182248632b4e44ebf3764bc8ac7aba2.woff) format("woff");
+    src: url(../019a37634dda55c34e74.woff) format("woff");
 }
 
 @font-face {
@@ -464,7 +464,7 @@
     font-style: normal;
     font-display: swap;
     font-weight: 400;
-    src: url(https://media-rockstargames-com.akamaized.net/mfe6/prod/__common/fonts/7ad84c2813f87a82c6a0e99155374469.woff) format("woff");
+    src: url(../faa346fc3020a87f49b1.woff) format("woff");
 }
 
 @font-face {
@@ -481,7 +481,7 @@
     font-style: italic;
     font-display: swap;
     font-weight: 400;
-    src: url(https://media-rockstargames-com.akamaized.net/mfe6/prod/__common/fonts/456fa3c812ea53d87ef804ee8a5cf56f.woff) format("woff");
+    src: url(../2767f7cc3c639a182ca6.woff) format("woff");
 }
 
 @font-face {
@@ -498,7 +498,7 @@
     font-style: normal;
     font-display: swap;
     font-weight: 700;
-    src: url(https://media-rockstargames-com.akamaized.net/mfe6/prod/__common/fonts/54d7959b8dc5988297af29247518fccc.woff) format("woff");
+    src: url(../6ea149ee3998e6c9dbef.woff) format("woff");
 }
 
 @font-face {
@@ -515,7 +515,7 @@
     font-style: italic;
     font-display: swap;
     font-weight: 700;
-    src: url(https://media-rockstargames-com.akamaized.net/mfe6/prod/__common/fonts/bc54229b8bf9e63b8a1525c51be60a84.woff) format("woff");
+    src: url(../68129baab5008359c896.woff) format("woff");
 }
 
 @font-face {
@@ -532,7 +532,7 @@
     font-style: normal;
     font-display: swap;
     font-weight: 400;
-    src: url(https://media-rockstargames-com.akamaized.net/mfe6/prod/__common/fonts/c31221106dc90ced1c3479d73a5fe115.woff) format("woff");
+    src: url(../1ed88468d8b70e957b21.woff) format("woff");
 }
 
 @font-face {
@@ -549,7 +549,7 @@
     font-style: normal;
     font-display: swap;
     font-weight: 700;
-    src: url(https://media-rockstargames-com.akamaized.net/mfe6/prod/__common/fonts/76a3f4e73b6671642a161e05923a968b.woff) format("woff");
+    src: url(../cccb1c6ec3ccbbaaa90c.woff) format("woff");
 }
 
 @font-face {
@@ -566,7 +566,7 @@
     font-style: normal;
     font-display: swap;
     font-weight: 400;
-    src: url(https://media-rockstargames-com.akamaized.net/mfe6/prod/__common/fonts/0cd5b1e38f54ef83942d288ce01980e6.woff) format("woff");
+    src: url(../dd17c827fc404f1fab82.woff) format("woff");
 }
 
 @font-face {
@@ -583,7 +583,7 @@
     font-style: normal;
     font-display: swap;
     font-weight: 700;
-    src: url(https://media-rockstargames-com.akamaized.net/mfe6/prod/__common/fonts/010014d365bcd4b2fedd44df3f0e9728.woff) format("woff");
+    src: url(../13f9fb885f7b59a9ca64.woff) format("woff");
 }
 
 @font-face {
@@ -600,7 +600,7 @@
     font-style: normal;
     font-display: swap;
     font-weight: 400;
-    src: url(https://media-rockstargames-com.akamaized.net/mfe6/prod/__common/fonts/8517df1baaad4b49346c1293b195088a.woff) format("woff");
+    src: url(../60625dd9dcbb711cebd5.woff) format("woff");
 }
 
 @font-face {
@@ -617,7 +617,7 @@
     font-style: normal;
     font-display: swap;
     font-weight: 700;
-    src: url(https://media-rockstargames-com.akamaized.net/mfe6/prod/__common/fonts/0782dca93011dc6ab08f338b6c31e1d6.woff) format("woff");
+    src: url(../b76b22f5feed95af23eb.woff) format("woff");
 }
 
 @font-face {
@@ -634,7 +634,7 @@
     font-style: normal;
     font-display: swap;
     font-weight: 400;
-    src: url(https://media-rockstargames-com.akamaized.net/mfe6/prod/__common/fonts/90ef908f0a56e2fa2b7d9b2056d81bcc.woff) format("woff");
+    src: url(../7459dd4e77bc2f260f9a.woff) format("woff");
 }
 
 @font-face {
@@ -651,7 +651,7 @@
     font-style: normal;
     font-display: swap;
     font-weight: 700;
-    src: url(https://media-rockstargames-com.akamaized.net/mfe6/prod/__common/fonts/f3472849022d6ce77ee5fc572d732db8.woff) format("woff");
+    src: url(../304d5c39e2b624111334.woff) format("woff");
 }
 
 @font-face {
@@ -663,42 +663,42 @@
   line-gap-override: 0%;
 }
 
-.siteFooterContainer .foundry_nu8bkp3 {
+.foundry_nu8bkp3 {
   --foundry_nu8bkp0: Helvetica Now Display, Helvetica Now Display fallback;
   --foundry_nu8bkp1: Helvetica Now Text, Helvetica Now Text fallback;
   --foundry_nu8bkp2: Consolas, Consolas fallback;
 }
-.siteFooterContainer .foundry_nu8bkp3:lang(jp) {
+.foundry_nu8bkp3:lang(jp) {
   --foundry_nu8bkp0: Noto Sans JP, Noto Sans JP fallback;
   --foundry_nu8bkp1: Noto Sans JP, Noto Sans JP fallback;
   --foundry_nu8bkp2: Consolas, Consolas fallback;
 }
-.siteFooterContainer .foundry_nu8bkp3:lang(kr) {
+.foundry_nu8bkp3:lang(kr) {
   --foundry_nu8bkp0: Noto Sans KR, Noto Sans KR fallback;
   --foundry_nu8bkp1: Noto Sans KR, Noto Sans KR fallback;
   --foundry_nu8bkp2: Consolas, Consolas fallback;
 }
-.siteFooterContainer .foundry_nu8bkp3:lang(zh-TW) {
+.foundry_nu8bkp3:lang(zh-TW) {
   --foundry_nu8bkp0: Noto Sans TC, Noto Sans TC fallback;
   --foundry_nu8bkp1: Noto Sans TC, Noto Sans TC fallback;
   --foundry_nu8bkp2: Consolas, Consolas fallback;
 }
-.siteFooterContainer .foundry_nu8bkp3:lang(zh-CN) {
+.foundry_nu8bkp3:lang(zh-CN) {
   --foundry_nu8bkp0: Noto Sans SC, Noto Sans SC fallback;
   --foundry_nu8bkp1: Noto Sans SC, Noto Sans SC fallback;
   --foundry_nu8bkp2: Consolas, Consolas fallback;
 }
-.siteFooterContainer .foundry_nu8bkp3:lang(ru) {
+.foundry_nu8bkp3:lang(ru) {
   --foundry_nu8bkp0: Helvetica Neue LT W1G, Helvetica Neue LT W1G fallback;
   --foundry_nu8bkp1: Helvetica Neue LT W1G, Helvetica Neue LT W1G fallback;
   --foundry_nu8bkp2: Consolas, Consolas fallback;
 }
-.siteFooterContainer .foundry_nu8bkp3:lang(pl) {
+.foundry_nu8bkp3:lang(pl) {
   --foundry_nu8bkp0: Helvetica Neue LT W1G, Helvetica Neue LT W1G fallback;
   --foundry_nu8bkp1: Helvetica Neue LT W1G, Helvetica Neue LT W1G fallback;
   --foundry_nu8bkp2: Consolas, Consolas fallback;
 }
-.siteFooterContainer .foundry_nu8bkp4 {
+.foundry_nu8bkp4 {
   --foundry-global-border-radius-0-df9394ed: 0px;
   --foundry-global-border-radius-25-00f8ef97: 2px;
   --foundry-global-border-radius-50-5b3f01bf: 4px;
@@ -873,7 +873,7 @@
   --foundry-alias-font-line-height-heading-5379287f: 130%;
   --foundry-alias-font-line-height-body-3e320cc8: 150%;
 }
-.siteFooterContainer .foundry_nu8bkp5 {
+.foundry_nu8bkp5 {
   --foundry-global-color-grey-static-25-05dae190: #fdfdfd;
   --foundry-global-color-grey-static-50-767699a7: #fdfdfd;
   --foundry-global-color-grey-static-75-a2172132: #fdfdfd;
@@ -1171,7 +1171,7 @@
   --foundry-alias-color-brand-rdr-red-d730e332: #CC0000;
   --foundry-alias-color-brand-rockstar-gold-28436c1a: #fcaf17;
 }
-.siteFooterContainer .foundry_nu8bkp6 {
+.foundry_nu8bkp6 {
   --foundry-global-color-grey-static-25-05dae190: #fdfdfd;
   --foundry-global-color-grey-static-50-767699a7: #fdfdfd;
   --foundry-global-color-grey-static-75-a2172132: #fdfdfd;
@@ -1470,24 +1470,208 @@
   --foundry-alias-color-brand-rockstar-gold-28436c1a: #fcaf17;
 }
 @media screen and (max-width: 1024px) {
-  .siteFooterContainer .foundry_nu8bkp4 {
+  .foundry_nu8bkp4 {
     --foundry-platform-scales-ratio-65afb887: 1;
   }
 }
 @media screen and (min-width: 1024px) and (max-width: 1920px) {
-  .siteFooterContainer .foundry_nu8bkp4 {
+  .foundry_nu8bkp4 {
     --foundry-platform-scales-ratio-65afb887: 1.125;
   }
 }
 @media screen and (min-width: 1920px) and (max-width: 2560px) {
-  .siteFooterContainer .foundry_nu8bkp4 {
+  .foundry_nu8bkp4 {
     --foundry-platform-scales-ratio-65afb887: 1.25;
   }
 }
 @media screen and (min-width: 2560px) {
-  .siteFooterContainer .foundry_nu8bkp4 {
+  .foundry_nu8bkp4 {
     --foundry-platform-scales-ratio-65afb887: 1.375;
   }
 }
+@layer foundry_v1yii70;
+@layer foundry_v1yii70 {
+  .foundry_v1yii72 {
+    width: var(--foundry-global-spacing-dimensions-200-2fbf5420);
+    height: var(--foundry-global-spacing-dimensions-200-2fbf5420);
+  }
+  .foundry_v1yii73 {
+    width: var(--foundry-global-spacing-dimensions-250-1db78665);
+    height: var(--foundry-global-spacing-dimensions-250-1db78665);
+  }
+  .foundry_v1yii74 {
+    width: var(--foundry-global-spacing-dimensions-300-8149e8c1);
+    height: var(--foundry-global-spacing-dimensions-300-8149e8c1);
+  }
+  .foundry_v1yii75 {
+    width: var(--foundry-global-spacing-dimensions-400-b120da78);
+    height: var(--foundry-global-spacing-dimensions-400-b120da78);
+  }
+}
+@keyframes foundry_9dxgbc4 {
+  0% {
+    top: -40%;
+    left: -40%;
+  }
+  92% {
+    top: 75%;
+    left: 100%;
+  }
+  100% {
+    top: 75%;
+    left: 100%;
+  }
+}
+@keyframes foundry_9dxgbc5 {
+  0% {
+    background: var(--foundry_9dxgbc0, var(--foundry-global-color-grey-adaptive-200-fb12d031));
+  }
+  22% {
+    background: var(--foundry_9dxgbc0, var(--foundry-global-color-grey-adaptive-200-fb12d031));
+  }
+  42% {
+    background: var(--foundry_9dxgbc1, var(--foundry-global-color-grey-adaptive-300-02700b85));
+  }
+  92% {
+    background: var(--foundry_9dxgbc0, var(--foundry-global-color-grey-adaptive-200-fb12d031));
+  }
+  100% {
+    background: var(--foundry_9dxgbc0, var(--foundry-global-color-grey-adaptive-200-fb12d031));
+  }
+}
+@keyframes foundry_9dxgbc6 {
+  0% {
+    opacity: 0.2;
+  }
+  22% {
+    opacity: 0.2;
+  }
+  42% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+.foundry_9dxgbc7 {
+  position: relative;
+}
+.foundry_9dxgbc8 {
+  width: var(--foundry-global-spacing-dimensions-800-bbdfa298);
+  height: var(--foundry-global-spacing-dimensions-800-bbdfa298);
+}
+.foundry_9dxgbc9 {
+  width: var(--foundry-global-spacing-dimensions-1100-aca957c8);
+  height: var(--foundry-global-spacing-dimensions-1100-aca957c8);
+}
+.foundry_9dxgbca {
+  width: var(--foundry-global-spacing-dimensions-1600-b5e74cd0);
+  height: var(--foundry-global-spacing-dimensions-1600-b5e74cd0);
+}
+.foundry_9dxgbcb {
+  width: var(--foundry-global-spacing-dimensions-3000-27404208);
+  height: var(--foundry-global-spacing-dimensions-3000-27404208);
+}
+.foundry_9dxgbcc {
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  -webkit-mask-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGF5ZXJfMiIgZGF0YS1uYW1lPSJMYXllciAyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjcuNTkgMTI4LjgzIj4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiAjMjEyMDIwOwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8ZyBpZD0iTGF5ZXJfMS0yIiBkYXRhLW5hbWU9IkxheWVyIDEiPgogICAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNTQuODQsMTI4LjgzbDEzLjgyLTI5LjcxLTcuNDgtNy44OWMtNS41My01LjgzLTcuMjEtNy42LTcuNjctOC4yNWwtLjA4LjA2Yy0xLjIxLTEuNjItMS40OS01LjU0LTEuNDktNi43OSwwLTEuOTYuMTItMy45NC4yNS02LjA0LjE1LTIuNDIuMzEtNC45Mi4zMS03Ljc4LDAtNy4xMi0zLjEzLTEwLjI5LTEwLjE3LTEwLjI5aC0xMy43OWwtNi4xOCwyOS4yNUgwTDE3LjE5LDBoNDAuNThjMTMuMjYsMCwyNi44MiwyLjU0LDI2LjgyLDIxLjM0LDAsMTIuNDYtNi4yMywyMC40NC0xNy41OSwyMi42NCw0Ljk5LDEuOCw3LjE0LDUuOTEsNy4xNCwxMy4zOSwwLDMuMTEtLjA5LDUuNzktLjE4LDguMzktLjA4LDIuMjYtLjE1LDQuNC0uMTUsNi41NiwwLDIuNzkuNzIsNy4wMywyLjMsOS45MmgyLjM5bDE2LjQyLTI3Ljc0LDQuNDQsMjcuOTNoMjguMjJsLTI1LjQ3LDE3LjgzLDQuMDgsMjcuODUtMjEuODctMTYuOC0yOS41LDE3LjUzWk01NC4yMSw4Mi40M2MuNDUuNDksMTAuMjMsMTAuOCwxNS40MSwxNi4yNmwuMjMuMjUtMTIuNzQsMjcuMzksMjcuMy0xNi4yMiwyMC40NSwxNS43MS0zLjgxLTI2LjAyLDIzLjM3LTE2LjM2aC0yNS45bC00LjE0LTI2LjAzLTE1LjMsMjUuODRoLTMuNTRsLS4xNC0uMjVjLTEuNzgtMy4wNy0yLjU4LTcuNTctMi41OC0xMC42NywwLTIuMTguMDctNC4zMi4xNS02LjYuMDktMi41OS4xOC01LjI3LjE4LTguMzYsMC03LjgtMi4zMS0xMS41My03Ljk4LTEyLjlsLS4zOC0uMDl2LTEuMDZsLjQzLS4wNmMxNS4xOS0yLjExLDE4LjM4LTEzLjA5LDE4LjM4LTIxLjkyLDAtMTcuOTItMTMuMDUtMjAuMzQtMjUuODItMjAuMzRIMThMMS4yMyw4MC40aDIwLjMzbDYuMTgtMjkuMjVoMTQuNmM3LjUxLDAsMTEuMTcsMy42OSwxMS4xNywxMS4yOSwwLDIuODktLjE2LDUuNDEtLjMxLDcuODQtLjEzLDIuMDgtLjI1LDQuMDUtLjI1LDUuOTcsMCwxLjguNCw0Ljk5LDEuMjcsNi4xN1pNNDguNzEsMzcuMDloLTE3LjU4bDQuMjctMjAuMzhoMTYuMTljNy45NCwwLDExLjk3LDIuOTcsMTEuOTcsOC44NCwwLDcuNjYtNSwxMS41NC0xNC44NSwxMS41NFpNMzIuMzYsMzYuMDloMTYuMzVjOS4zMiwwLDEzLjg1LTMuNDUsMTMuODUtMTAuNTQsMC01LjI4LTMuNTktNy44NC0xMC45Ny03Ljg0aC0xNS4zOGwtMy44NSwxOC4zOFoiLz4KICA8L2c+Cjwvc3ZnPg==);
+          mask-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGF5ZXJfMiIgZGF0YS1uYW1lPSJMYXllciAyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjcuNTkgMTI4LjgzIj4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiAjMjEyMDIwOwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8ZyBpZD0iTGF5ZXJfMS0yIiBkYXRhLW5hbWU9IkxheWVyIDEiPgogICAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNTQuODQsMTI4LjgzbDEzLjgyLTI5LjcxLTcuNDgtNy44OWMtNS41My01LjgzLTcuMjEtNy42LTcuNjctOC4yNWwtLjA4LjA2Yy0xLjIxLTEuNjItMS40OS01LjU0LTEuNDktNi43OSwwLTEuOTYuMTItMy45NC4yNS02LjA0LjE1LTIuNDIuMzEtNC45Mi4zMS03Ljc4LDAtNy4xMi0zLjEzLTEwLjI5LTEwLjE3LTEwLjI5aC0xMy43OWwtNi4xOCwyOS4yNUgwTDE3LjE5LDBoNDAuNThjMTMuMjYsMCwyNi44MiwyLjU0LDI2LjgyLDIxLjM0LDAsMTIuNDYtNi4yMywyMC40NC0xNy41OSwyMi42NCw0Ljk5LDEuOCw3LjE0LDUuOTEsNy4xNCwxMy4zOSwwLDMuMTEtLjA5LDUuNzktLjE4LDguMzktLjA4LDIuMjYtLjE1LDQuNC0uMTUsNi41NiwwLDIuNzkuNzIsNy4wMywyLjMsOS45MmgyLjM5bDE2LjQyLTI3Ljc0LDQuNDQsMjcuOTNoMjguMjJsLTI1LjQ3LDE3LjgzLDQuMDgsMjcuODUtMjEuODctMTYuOC0yOS41LDE3LjUzWk01NC4yMSw4Mi40M2MuNDUuNDksMTAuMjMsMTAuOCwxNS40MSwxNi4yNmwuMjMuMjUtMTIuNzQsMjcuMzksMjcuMy0xNi4yMiwyMC40NSwxNS43MS0zLjgxLTI2LjAyLDIzLjM3LTE2LjM2aC0yNS45bC00LjE0LTI2LjAzLTE1LjMsMjUuODRoLTMuNTRsLS4xNC0uMjVjLTEuNzgtMy4wNy0yLjU4LTcuNTctMi41OC0xMC42NywwLTIuMTguMDctNC4zMi4xNS02LjYuMDktMi41OS4xOC01LjI3LjE4LTguMzYsMC03LjgtMi4zMS0xMS41My03Ljk4LTEyLjlsLS4zOC0uMDl2LTEuMDZsLjQzLS4wNmMxNS4xOS0yLjExLDE4LjM4LTEzLjA5LDE4LjM4LTIxLjkyLDAtMTcuOTItMTMuMDUtMjAuMzQtMjUuODItMjAuMzRIMThMMS4yMyw4MC40aDIwLjMzbDYuMTgtMjkuMjVoMTQuNmM3LjUxLDAsMTEuMTcsMy42OSwxMS4xNywxMS4yOSwwLDIuODktLjE2LDUuNDEtLjMxLDcuODQtLjEzLDIuMDgtLjI1LDQuMDUtLjI1LDUuOTcsMCwxLjguNCw0Ljk5LDEuMjcsNi4xN1pNNDguNzEsMzcuMDloLTE3LjU4bDQuMjctMjAuMzhoMTYuMTljNy45NCwwLDExLjk3LDIuOTcsMTEuOTcsOC44NCwwLDcuNjYtNSwxMS41NC0xNC44NSwxMS41NFpNMzIuMzYsMzYuMDloMTYuMzVjOS4zMiwwLDEzLjg1LTMuNDUsMTMuODUtMTAuNTQsMC01LjI4LTMuNTktNy44NC0xMC45Ny03Ljg0aC0xNS4zOGwtMy44NSwxOC4zOFoiLz4KICA8L2c+Cjwvc3ZnPg==);
+  -webkit-mask-size: cover;
+          mask-size: cover;
+  position: relative;
+  background: var(--foundry_9dxgbc0, var(--foundry-global-color-grey-adaptive-200-fb12d031));
+  animation-name: foundry_9dxgbc5;
+  animation-duration: 2.15s;
+  animation-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+}
+.foundry_9dxgbcc:after {
+  content: "";
+  background: linear-gradient(232deg, var(--foundry_9dxgbc3, var(--foundry-global-color-grey-adaptive-1000-020dfb1f)) 20%, var(--foundry_9dxgbc2, var(--foundry-global-color-alpha-adaptive-35-f9b0b74d)) 70%);
+  filter: blur(5px);
+  transform: skew(-45deg, 45deg);
+  position: absolute;
+  top: -40%;
+  left: -40%;
+  width: 25%;
+  height: 60%;
+  z-index: -1;
+  animation-name: foundry_9dxgbc4;
+  animation-duration: 2.15s;
+  animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+}
+.foundry_9dxgbcd {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGF5ZXJfMiIgZGF0YS1uYW1lPSJMYXllciAyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjcuNTkgMTI4LjgzIj4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiAjMjEyMDIwOwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8ZyBpZD0iTGF5ZXJfMS0yIiBkYXRhLW5hbWU9IkxheWVyIDEiPgogICAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNTQuODQsMTI4LjgzbDEzLjgyLTI5LjcxLTcuNDgtNy44OWMtNS41My01LjgzLTcuMjEtNy42LTcuNjctOC4yNWwtLjA4LjA2Yy0xLjIxLTEuNjItMS40OS01LjU0LTEuNDktNi43OSwwLTEuOTYuMTItMy45NC4yNS02LjA0LjE1LTIuNDIuMzEtNC45Mi4zMS03Ljc4LDAtNy4xMi0zLjEzLTEwLjI5LTEwLjE3LTEwLjI5aC0xMy43OWwtNi4xOCwyOS4yNUgwTDE3LjE5LDBoNDAuNThjMTMuMjYsMCwyNi44MiwyLjU0LDI2LjgyLDIxLjM0LDAsMTIuNDYtNi4yMywyMC40NC0xNy41OSwyMi42NCw0Ljk5LDEuOCw3LjE0LDUuOTEsNy4xNCwxMy4zOSwwLDMuMTEtLjA5LDUuNzktLjE4LDguMzktLjA4LDIuMjYtLjE1LDQuNC0uMTUsNi41NiwwLDIuNzkuNzIsNy4wMywyLjMsOS45MmgyLjM5bDE2LjQyLTI3Ljc0LDQuNDQsMjcuOTNoMjguMjJsLTI1LjQ3LDE3LjgzLDQuMDgsMjcuODUtMjEuODctMTYuOC0yOS41LDE3LjUzWk01NC4yMSw4Mi40M2MuNDUuNDksMTAuMjMsMTAuOCwxNS40MSwxNi4yNmwuMjMuMjUtMTIuNzQsMjcuMzksMjcuMy0xNi4yMiwyMC40NSwxNS43MS0zLjgxLTI2LjAyLDIzLjM3LTE2LjM2aC0yNS45bC00LjE0LTI2LjAzLTE1LjMsMjUuODRoLTMuNTRsLS4xNC0uMjVjLTEuNzgtMy4wNy0yLjU4LTcuNTctMi41OC0xMC42NywwLTIuMTguMDctNC4zMi4xNS02LjYuMDktMi41OS4xOC01LjI3LjE4LTguMzYsMC03LjgtMi4zMS0xMS41My03Ljk4LTEyLjlsLS4zOC0uMDl2LTEuMDZsLjQzLS4wNmMxNS4xOS0yLjExLDE4LjM4LTEzLjA5LDE4LjM4LTIxLjkyLDAtMTcuOTItMTMuMDUtMjAuMzQtMjUuODItMjAuMzRIMThMMS4yMyw4MC40aDIwLjMzbDYuMTgtMjkuMjVoMTQuNmM3LjUxLDAsMTEuMTcsMy42OSwxMS4xNywxMS4yOSwwLDIuODktLjE2LDUuNDEtLjMxLDcuODQtLjEzLDIuMDgtLjI1LDQuMDUtLjI1LDUuOTcsMCwxLjguNCw0Ljk5LDEuMjcsNi4xN1pNNDguNzEsMzcuMDloLTE3LjU4bDQuMjctMjAuMzhoMTYuMTljNy45NCwwLDExLjk3LDIuOTcsMTEuOTcsOC44NCwwLDcuNjYtNSwxMS41NC0xNC44NSwxMS41NFpNMzIuMzYsMzYuMDloMTYuMzVjOS4zMiwwLDEzLjg1LTMuNDUsMTMuODUtMTAuNTQsMC01LjI4LTMuNTktNy44NC0xMC45Ny03Ljg0aC0xNS4zOGwtMy44NSwxOC4zOFoiLz4KICA8L2c+Cjwvc3ZnPg==) no-repeat center/cover;
+  filter: drop-shadow(0 0 var(--foundry-global-spacing-dimensions-25-eec1a90b) var(--foundry_9dxgbc1, var(--foundry-global-color-grey-adaptive-300-02700b85)));
+  z-index: -2;
+  animation-name: foundry_9dxgbc6;
+  animation-duration: 2.15s;
+  animation-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+}
+@keyframes foundry_1d33zd10 {
+  0% {
+    stroke-dasharray: 10 42.1;
+    stroke-dashoffset: 10;
+  }
+  100% {
+    stroke-dasharray: 10 42.1;
+    stroke-dashoffset: 62.1;
+  }
+}
+.foundry_1d33zd11 {
+  transform: rotate(270deg);
+}
+.foundry_1d33zd12 {
+  height: var(--foundry-global-spacing-dimensions-200-2fbf5420);
+  width: var(--foundry-global-spacing-dimensions-200-2fbf5420);
+}
+.foundry_1d33zd13 {
+  height: var(--foundry-global-spacing-dimensions-300-8149e8c1);
+  width: var(--foundry-global-spacing-dimensions-300-8149e8c1);
+}
+.foundry_1d33zd14 {
+  height: var(--foundry-global-spacing-dimensions-400-b120da78);
+  width: var(--foundry-global-spacing-dimensions-400-b120da78);
+}
+.foundry_1d33zd15 {
+  height: var(--foundry-global-spacing-dimensions-600-552f3071);
+  width: var(--foundry-global-spacing-dimensions-600-552f3071);
+}
+.foundry_1d33zd16 {
+  height: var(--foundry-global-spacing-dimensions-700-523e51c1);
+  width: var(--foundry-global-spacing-dimensions-700-523e51c1);
+}
+.foundry_1d33zd17 {
+  height: var(--foundry-global-spacing-dimensions-800-bbdfa298);
+  width: var(--foundry-global-spacing-dimensions-800-bbdfa298);
+}
+.foundry_1d33zd18 {
+  stroke: var(--foundry-global-color-alpha-adaptive-15-695b3a30);
+  stroke-width: 2.5;
+}
+.foundry_1d33zd19 {
+  stroke: currentcolor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  animation-name: foundry_1d33zd10;
+  animation-duration: 1.3s;
+  animation-timing-function: cubic-bezier(0.65, 0.05, 0.36, 1);
+  animation-iteration-count: infinite;
+}
 
-/*# sourceMappingURL=22f1c31f76e5daa482213b9606d3ec8a.css.map*/
+/*# sourceMappingURL=bfbbe3558d2731786f68.css.map*/
