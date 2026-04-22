@@ -17,22 +17,31 @@
 
   <style>
     /* ── iOS Safe Area / Dynamic Island fix (móvil únicamente) ── */
-    @media (max-width: 860px) {
-      body {
-        /* Empuja todo el contenido por debajo de la Dynamic Island */
-        padding-top: env(safe-area-inset-top, 0px);
-        background-color: #000;
-      }
-      /* La zona de relleno que queda sobre la navbar hereda el negro del body */
-      nav {
-        top: env(safe-area-inset-top, 0px);
-      }
-      #nav-hover-zone {
-        top: env(safe-area-inset-top, 0px);
-      }
-      /* El panel de menú también empieza desde arriba correcto */
-      .nav-dropdown {
-        padding-top: calc(80px + env(safe-area-inset-top, 0px));
+    /* Barra negra fija que tapa la Dynamic Island / notch — oculta en desktop */
+    #ios-safe-area-bar { display: none; }
+
+    @supports (padding-top: env(safe-area-inset-top)) {
+      @media (max-width: 860px) {
+        #ios-safe-area-bar {
+          display: block;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: env(safe-area-inset-top, 0px);
+          background: #000;
+          z-index: 9999;
+          pointer-events: none;
+        }
+        nav {
+          top: env(safe-area-inset-top, 0px) !important;
+        }
+        #nav-hover-zone {
+          top: env(safe-area-inset-top, 0px) !important;
+        }
+        .nav-dropdown {
+          padding-top: calc(80px + env(safe-area-inset-top, 0px)) !important;
+        }
       }
     }
   </style>
@@ -535,6 +544,9 @@
   </style>
 </head>
 <body>
+
+  <!-- iOS Dynamic Island / notch safe area overlay (solo móvil vía CSS) -->
+  <div id="ios-safe-area-bar" aria-hidden="true"></div>
 
   <!-- Zona hover para reaparecer navbar -->
   <div id="nav-hover-zone"></div>
