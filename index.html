@@ -15,33 +15,28 @@
   <link rel="apple-touch-icon" sizes="512x512" href="AppLogo.png">
   <link rel="icon" type="image/png" sizes="192x192" href="AppLogo.png">
 
-  <style>
-    /* ── iOS Safe Area / Dynamic Island fix (móvil únicamente) ── */
-    /* Barra negra fija que tapa la Dynamic Island / notch — oculta en desktop */
-    #ios-safe-area-bar { display: none; }
+  <!-- iOS: pinta la zona de la Dynamic Island / status bar de negro -->
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    @supports (padding-top: env(safe-area-inset-top)) {
-      @media (max-width: 860px) {
-        #ios-safe-area-bar {
-          display: block;
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: env(safe-area-inset-top, 0px);
-          background: #000;
-          z-index: 9999;
-          pointer-events: none;
-        }
-        nav {
-          top: env(safe-area-inset-top, 0px) !important;
-        }
-        #nav-hover-zone {
-          top: env(safe-area-inset-top, 0px) !important;
-        }
-        .nav-dropdown {
-          padding-top: calc(80px + env(safe-area-inset-top, 0px)) !important;
-        }
+  <style>
+    /* ── iOS Dynamic Island fix ──
+       html fondo negro = zona de status bar negra.
+       env(safe-area-inset-top) baja la navbar por debajo de la Dynamic Island. */
+    html {
+      background: #000;
+    }
+
+    @media (max-width: 860px) {
+      nav {
+        top: env(safe-area-inset-top, 0px) !important;
+      }
+      #nav-hover-zone {
+        top: env(safe-area-inset-top, 0px) !important;
+      }
+      .nav-dropdown {
+        padding-top: calc(80px + env(safe-area-inset-top, 0px)) !important;
       }
     }
   </style>
@@ -544,9 +539,6 @@
   </style>
 </head>
 <body>
-
-  <!-- iOS Dynamic Island / notch safe area overlay (solo móvil vía CSS) -->
-  <div id="ios-safe-area-bar" aria-hidden="true"></div>
 
   <!-- Zona hover para reaparecer navbar -->
   <div id="nav-hover-zone"></div>
