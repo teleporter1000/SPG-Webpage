@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
   <meta name="theme-color" content="#000000"/>
   <title>SpanishProGamers</title>
   
@@ -36,40 +36,25 @@
       overflow-x: hidden;
     }
 
-    /* Overlay negro para notch/dynamic island en iOS — técnica: div fuera del viewport */
-    .ios-statusbar {
-      position: fixed;
-      left: 0;
-      right: 0;
-      top: -80px;
-      height: 80px;
-      overflow: hidden;
-      z-index: 99999;
-      pointer-events: none;
-    }
-    .ios-statusbar::before {
-      content: '';
-      position: absolute;
-      left: 0; right: 0; top: 0;
-      height: 150%;
-      background-color: #000;
-    }
+    /* safe-area handled via nav padding-top + env(safe-area-inset-top) */
 
     /* ── NAVBAR ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 200;
-      height: var(--nav-h);
+      height: calc(var(--nav-h) + env(safe-area-inset-top));
+      padding-top: env(safe-area-inset-top);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 4rem;
-      background: transparent;
+      padding-left: 4rem;
+      padding-right: 4rem;
+      background: #000;
       transition: background 0.35s ease, backdrop-filter 0.35s ease, transform 0.4s ease;
     }
     nav.scrolled {
-      background: rgba(0,0,0,0.55);
+      background: rgba(0,0,0,0.75);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
     }
