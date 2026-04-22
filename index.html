@@ -28,8 +28,8 @@
     }
 
     html {
-      overscroll-behavior-y: none;
       background: #000;
+      overscroll-behavior-y: none;
     }
 
     body {
@@ -50,13 +50,13 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 4rem;
-      background: transparent;
+      background: #000;
       transition: background 0.35s ease, backdrop-filter 0.35s ease, transform 0.4s ease;
     }
     nav.scrolled {
-      background: rgba(0,0,0,0.55);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: #000;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
     }
     nav.hidden {
       transform: translateY(calc(-100% - 10px));
@@ -253,7 +253,7 @@
       --hero-bottom-gap: 100px;
     }
     .hero {
-      position: relative; width: 100%; height: calc(100vh - var(--hero-bottom-gap)); min-height: 580px;
+      position: relative; width: 100%; height: calc(100vh - var(--nav-h) - var(--hero-bottom-gap)); min-height: 480px;
       overflow: hidden;
       background: #0d0d0d url('/Zassets/backbanner.png') center top / cover no-repeat;
     }
@@ -590,6 +590,7 @@
   </div>
 
   <!-- HERO -->
+  <div style="height: var(--nav-h); width: 100%;"></div>
   <section class="hero">
     <div class="hero-vignette" id="hero-vignette"></div>
     <div class="hero-center-logo">
