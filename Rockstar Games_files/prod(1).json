@@ -1,0 +1,31 @@
+{
+    "microFrontends": {
+        "@rockstargames/modules-core-header": [
+            {
+                "url": "https://media-rockstargames-com.akamaized.net/mfe6/prod/@rockstargames/modules-core-header/19.1.5/e881c1de8b708924cda1bb01aee6b88bb0e0faa7f267315fe70d8c21d9cb5448/remote-entry.js",
+                "metadata": {
+                    "version": "19.1.5",
+                    "gitHead": "42a9b4fb106f8899e12392587a0276164846db37"
+                }
+            }
+        ],
+        "@rockstargames/modules-core-footer": [
+            {
+                "url": "https://media-rockstargames-com.akamaized.net/mfe6/prod/@rockstargames/modules-core-footer/8.1.5/8ff3ce59792d5bf61c4af751069b3d06faf574d0badc8819a7f9dc2f466b6182/remote-entry.js",
+                "metadata": {
+                    "version": "8.1.5",
+                    "gitHead": "42a9b4fb106f8899e12392587a0276164846db37"
+                }
+            }
+        ],
+        "@rockstargames/remote-banner": [
+            {
+                "url": "https://media-rockstargames-com.akamaized.net/mfe6/prod/@rockstargames/remote-banner/1.2.1/6825f993c008f85107baeaa4a6fa139dc36445e8/remote-entry.js",
+                "metadata": {
+                    "version": "1.2.1",
+                    "gitHead": "6825f993c008f85107baeaa4a6fa139dc36445e8"
+                }
+            }
+        ]
+    }
+}
