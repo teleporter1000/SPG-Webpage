@@ -18,7 +18,8 @@
   <!-- Web App: pantalla completa y barra de estado negra en iOS (todos los modelos) -->
   <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta name="mobile-web-app-capable" content="yes"/>
-  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="theme-color" content="#000000"/>
 
   <style>  </style>
   <style>
@@ -72,7 +73,7 @@
     .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
     .nav-logo .logo-desktop { display: block; }
     .nav-logo .logo-mobile  { display: none; }
-    @media (max-width: 860px) {
+    @media (max-width: 1050px) {
       .nav-logo .logo-desktop { display: none; }
       .nav-logo .logo-mobile  { display: block; }
     }
@@ -112,7 +113,10 @@
       cursor: pointer; padding: 0.4rem; display: flex; align-items: center; transition: color 0.2s;
     }
     .nav-icon-btn:hover { color: #fff; }
-    @media (max-width: 860px) { .nav-center { display: none; } }
+    @media (max-width: 1050px) { .nav-center { display: none; } }
+
+    /* Ocultar botón Obtener Asistencia cuando empieza a solaparse con los links centrales */
+    @media (max-width: 1250px) and (min-width: 1051px) { .nav-btn-outline { display: none; } }
 
     /* ── HAMBURGER MENU ── */
     .nav-hamburger {
@@ -220,7 +224,7 @@
     .nav-dropdown .dd-assist:hover { background: rgba(255,255,255,0.07) !important; border-color: #fff !important; }
 
     /* Mobile nav layout: hamburger left, logo center, search right */
-    @media (max-width: 860px) {
+    @media (max-width: 1050px) {
       nav {
         padding: env(safe-area-inset-top) calc(1.25rem + env(safe-area-inset-right)) 0 calc(1.25rem + env(safe-area-inset-left));
         height: calc(80px + env(safe-area-inset-top));
@@ -243,7 +247,7 @@
       :root { --nav-h: calc(80px + env(safe-area-inset-top)); }
       .nav-dropdown { padding-top: calc(80px + env(safe-area-inset-top)); }
     }
-    @media (min-width: 861px) {
+    @media (min-width: 1051px) {
       .nav-spacer { display: none; }
       .nav-dropdown { display: none !important; }
     }
@@ -1114,7 +1118,7 @@
       }
     }
 
-    const isMobile = () => window.innerWidth <= 860;
+    const isMobile = () => window.innerWidth <= 1050;
 
     // wheel: solo gestiona el paso 0→1 (transparente → translúcida) — SOLO DESKTOP
     window.addEventListener('wheel', (e) => {
