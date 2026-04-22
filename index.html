@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
   <meta name="theme-color" content="#000000"/>
   <title>SpanishProGamers</title>
   
@@ -34,6 +34,25 @@
       background: #0d0d0d;
       color: #fff;
       overflow-x: hidden;
+    }
+
+    /* Overlay negro para notch/dynamic island en iOS — técnica: div fuera del viewport */
+    .ios-statusbar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: -80px;
+      height: 80px;
+      overflow: hidden;
+      z-index: 99999;
+      pointer-events: none;
+    }
+    .ios-statusbar::before {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 150%;
+      background-color: #000;
     }
 
     /* ── NAVBAR ── */
@@ -527,6 +546,8 @@
   </style>
 </head>
 <body>
+  <!-- Overlay negro para la status bar del notch en iOS PWA -->
+  <div class="ios-statusbar"></div>
 
   <!-- Zona hover para reaparecer navbar -->
   <div id="nav-hover-zone"></div>
