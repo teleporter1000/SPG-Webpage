@@ -147,7 +147,7 @@
       width: 100%;
       height: 100vh;
       z-index: 199;
-      background: #111;
+      background: #000;
       padding-top: 80px;
       display: flex;
       flex-direction: column;
@@ -163,9 +163,9 @@
     .nav-dropdown::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 99px; }
     .nav-dropdown::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
 
-    /* Navbar gray when menu open — stays above dropdown */
+    /* Navbar bar when menu open */
     nav.menu-open {
-      background: #2a2a2a !important;
+      background: #222222 !important;
       backdrop-filter: none !important;
       -webkit-backdrop-filter: none !important;
       z-index: 200 !important;
@@ -177,57 +177,58 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: 1.35rem; font-weight: 800; letter-spacing: 0.01em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.9);
+      color: #cecece;
       text-decoration: none;
       padding: 1.1rem 1.8rem;
       display: flex; align-items: center; justify-content: space-between;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      border: none;
       transition: background 0.15s, color 0.15s;
     }
-    .nav-dropdown a:first-of-type { border-top: 1px solid rgba(255,255,255,0.08); }
-    .nav-dropdown a:hover { background: rgba(255,255,255,0.05); }
+    .nav-dropdown a:first-of-type { border: none; }
+    .nav-dropdown a:hover { background: rgba(255,255,255,0.05); color: #fff; }
     .nav-dropdown a.active { color: #fff; }
 
     /* Icon pill — hidden in new style */
     .dd-icon { display: none; }
     .dd-label { flex: 1; }
-    .dd-arrow { color: rgba(255,255,255,0.25); font-size: 18px; font-weight: 400; }
+    .dd-arrow { color: #cecece; font-size: 18px; font-weight: 400; opacity: 0.5; }
 
     /* Divider */
     .dd-divider { display: none; }
 
-    /* Assist CTA button */
+    /* Assist CTA button — outline style */
     .nav-dropdown .dd-assist {
       margin: 1.5rem 1.8rem 0 !important;
       padding: 1rem 1.5rem !important;
-      background: #fff !important;
-      border: none !important;
-      border-top: none !important;
-      border-bottom: none !important;
+      background: transparent !important;
+      border: 1.5px solid #cecece !important;
+      border-top: 1.5px solid #cecece !important;
+      border-bottom: 1.5px solid #cecece !important;
       border-radius: 999px !important;
       justify-content: center !important;
       font-size: 1rem; font-weight: 700;
       letter-spacing: 0.02em;
-      color: #111 !important;
+      color: #fff !important;
       text-transform: uppercase;
-      transition: background 0.15s !important;
+      transition: background 0.15s, border-color 0.15s !important;
     }
-    .nav-dropdown .dd-assist:hover { background: #e0e0e0 !important; }
+    .nav-dropdown .dd-assist:hover { background: rgba(255,255,255,0.07) !important; border-color: #fff !important; }
 
     /* Mobile nav layout: hamburger left, logo center, search right */
     @media (max-width: 860px) {
       nav { padding: 0 1.25rem; height: 80px; }
-      .nav-hamburger { display: flex; width: 34px; height: 34px; }
+      .nav-hamburger { display: flex; width: 34px; height: 34px; margin-bottom: 2px; }
       .nav-hamburger span { width: 16px; }
       .nav-logo {
         position: absolute;
         left: 50%;
-        transform: translateX(-50%);
+        transform: translateX(-50%) translateY(-2px);
       }
       .nav-logo .logo-mobile { height: 58px !important; width: 58px !important; border-radius: 13px !important; }
       /* Hide only the text button, keep the search icon */
       .nav-btn-outline { display: none; }
       .nav-spacer { display: none; }
+      .nav-icon-btn { margin-bottom: 2px; }
       .nav-icon-btn svg { width: 16px !important; height: 16px !important; }
     }
     @media (min-width: 861px) {
@@ -556,37 +557,24 @@
   <div class="nav-dropdown" id="nav-dropdown">
     <div class="dd-section-label">Navegación</div>
     <a href="/">
-      <span class="dd-icon">🏠</span>
       <span class="dd-label">Inicio</span>
-      <span class="dd-arrow">›</span>
     </a>
     <a href="/servidores/">
-      <span class="dd-icon">⚔️</span>
       <span class="dd-label">Servidores</span>
-      <span class="dd-arrow">›</span>
     </a>
     <a href="/archivo/">
-      <span class="dd-icon">📁</span>
       <span class="dd-label">Archivo</span>
-      <span class="dd-arrow">›</span>
     </a>
     <a href="/redes-sociales/">
-      <span class="dd-icon">📡</span>
       <span class="dd-label">Redes Sociales</span>
-      <span class="dd-arrow">›</span>
     </a>
     <a href="/wiki/">
-      <span class="dd-icon">📖</span>
       <span class="dd-label">Wiki</span>
-      <span class="dd-arrow">›</span>
     </a>
     <div class="dd-divider"></div>
     <a href="https://discord.com/invite/WaSdGkwMrm" target="_blank" rel="noopener">
-      <span class="dd-icon">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
-      </span>
       <span class="dd-label">Discord</span>
-      <span class="dd-arrow" style="opacity:0.35;font-size:11px;">↗</span>
+      <span class="dd-arrow">›</span>
     </a>
     <a href="/asistencia/" class="dd-assist">
       Obtener Asistencia
