@@ -64,6 +64,12 @@
       z-index: 201;
       pointer-events: all;
     }
+    /* En móvil, la zona de hover también debe empezar desde el borde real de la pantalla */
+    @media (max-width: 860px) {
+      #nav-hover-zone {
+        height: calc(20px + env(safe-area-inset-top));
+      }
+    }
     .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
     .nav-logo .logo-desktop { display: block; }
     .nav-logo .logo-mobile  { display: none; }
@@ -109,19 +115,6 @@
     .nav-icon-btn:hover { color: #fff; }
     @media (max-width: 860px) { .nav-center { display: none; } }
 
-    /* ── DYNAMIC ISLAND / SAFE AREA (iOS) ── */
-    /* Solo en móvil: añade el safe-area-inset-top para respetar la Dynamic Island y el notch */
-    @media (max-width: 860px) {
-      nav {
-        padding-top: env(safe-area-inset-top);
-        height: calc(var(--nav-h) + env(safe-area-inset-top));
-      }
-      /* El dropdown también debe empujar su contenido hacia abajo para no quedar bajo la isla */
-      .nav-dropdown {
-        padding-top: calc(var(--nav-h) + env(safe-area-inset-top));
-      }
-    }
-
     /* ── HAMBURGER MENU ── */
     .nav-hamburger {
       display: none;
@@ -161,7 +154,8 @@
       height: 100vh;
       z-index: 199;
       background: #000;
-      padding-top: 80px;
+      /* padding-top base: cubre la navbar (80px) + la safe area de iOS */
+      padding-top: calc(80px + env(safe-area-inset-top));
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
@@ -229,7 +223,20 @@
 
     /* Mobile nav layout: hamburger left, logo center, search right */
     @media (max-width: 860px) {
-      nav { padding: 0 1.25rem; height: 80px; }
+      /*
+       * ── DYNAMIC ISLAND / NOTCH FIX (iOS safe area) ──
+       * Técnica idéntica a la de Rockstar Games:
+       * La nav se posiciona con top: env(safe-area-inset-top) para arrancar
+       * justo DEBAJO de la Dynamic Island / notch — nunca por encima.
+       * Su altura sigue siendo 80px (el contenido visible real).
+       * En dispositivos sin notch, env(safe-area-inset-top) = 0px → sin cambios.
+       * En iPhone con Dynamic Island (~59px) → la nav baja automáticamente.
+       */
+      nav {
+        padding: 0 1.25rem;
+        top: env(safe-area-inset-top);
+        height: 80px;
+      }
       .nav-hamburger { display: flex; width: 34px; height: 34px; margin-bottom: 2px; }
       .nav-hamburger span { width: 16px; }
       .nav-logo {
@@ -524,6 +531,17 @@
     }
     @media (max-width: 500px) {
       .nov-right { grid-template-columns: 1fr; }
+    }
+
+    /*
+     * ── SAFE AREA: padding inferior del body ──
+     * Evita que el contenido del pie quede bajo el home indicator de iOS.
+     * Solo afecta a móviles con viewport-fit=cover.
+     */
+    @media (max-width: 860px) {
+      body {
+        padding-bottom: env(safe-area-inset-bottom);
+      }
     }
   </style>
 </head>
