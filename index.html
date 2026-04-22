@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>SpanishProGamers</title>
   
   <!-- Icono para navegadores de escritorio y compatibles -->
@@ -31,6 +31,17 @@
       background: #0d0d0d;
       color: #fff;
       overflow-x: hidden;
+    }
+
+    /* ── iOS SAFE AREA (Dynamic Island / notch) ── */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: env(safe-area-inset-top);
+      background: #000;
+      z-index: 9999;
+      pointer-events: none;
     }
 
     /* ── NAVBAR ── */
