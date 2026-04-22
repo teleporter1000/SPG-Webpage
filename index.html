@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SpanishProGamers</title>
   
   <!-- Icono para navegadores de escritorio y compatibles -->
@@ -31,24 +31,6 @@
       background: #0d0d0d;
       color: #fff;
       overflow-x: hidden;
-    }
-
-    /* ── BLOQUE NEGRO ISLA DINÁMICA ── */
-    #safe-area-block {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: env(safe-area-inset-top);
-      background: #000;
-      z-index: 300;
-      pointer-events: none;
-    }
-    @media (max-width: 860px) {
-      nav {
-        top: env(safe-area-inset-top) !important;
-      }
-      #nav-hover-zone {
-        top: env(safe-area-inset-top) !important;
-      }
     }
 
     /* ── NAVBAR ── */
@@ -267,6 +249,12 @@
       position: relative; width: 100%; height: calc(100vh - var(--hero-bottom-gap)); min-height: 580px;
       overflow: hidden;
       background: #0d0d0d url('/Zassets/backbanner.png') center top / cover no-repeat;
+    }
+    @supports (-webkit-touch-callout: none) {
+      /* iOS: usa -webkit-fill-available para excluir la zona de la Dynamic Island */
+      .hero {
+        height: calc(-webkit-fill-available - var(--hero-bottom-gap));
+      }
     }
     .hero-vignette {
       position: absolute; inset: 0; z-index: 4;
@@ -533,9 +521,6 @@
   </style>
 </head>
 <body>
-
-  <!-- Bloque negro Dynamic Island iOS -->
-  <div id="safe-area-block"></div>
 
   <!-- Zona hover para reaparecer navbar -->
   <div id="nav-hover-zone"></div>
