@@ -37,12 +37,12 @@
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 200;
+      z-index: 400;
       height: var(--nav-h);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 4rem;
+      padding: 0 calc(4rem + env(safe-area-inset-right)) 0 calc(4rem + env(safe-area-inset-left));
       background: transparent;
       transition: background 0.35s ease, backdrop-filter 0.35s ease, transform 0.4s ease;
     }
@@ -215,20 +215,11 @@
     .nav-dropdown .dd-assist:hover { background: rgba(255,255,255,0.07) !important; border-color: #fff !important; }
 
     /* Mobile nav layout: hamburger left, logo center, search right */
-    /* ── SAFE-AREA FIX: iPhone notch / Dynamic Island (solo móvil) ── */
     @media (max-width: 860px) {
       nav {
-        padding-top: env(safe-area-inset-top);
+        padding: env(safe-area-inset-top) calc(1.25rem + env(safe-area-inset-right)) 0 calc(1.25rem + env(safe-area-inset-left));
         height: calc(80px + env(safe-area-inset-top));
       }
-      /* El contenido del hero no debe quedar tapado por la navbar ampliada */
-      :root { --nav-h: calc(80px + env(safe-area-inset-top)); }
-      /* El dropdown arranca desde el top real incluyendo la safe-area */
-      .nav-dropdown { padding-top: calc(80px + env(safe-area-inset-top)); }
-    }
-
-    @media (max-width: 860px) {
-      nav { padding: 0 1.25rem; height: calc(80px + env(safe-area-inset-top)); }
       .nav-hamburger { display: flex; width: 34px; height: 34px; margin-bottom: 2px; }
       .nav-hamburger span { width: 16px; }
       .nav-logo {
@@ -243,6 +234,9 @@
       .nav-spacer { display: none; }
       .nav-icon-btn { margin-bottom: 2px; }
       .nav-icon-btn svg { width: 16px !important; height: 16px !important; }
+      /* Ajuste del dropdown y variable --nav-h para móvil con notch */
+      :root { --nav-h: calc(80px + env(safe-area-inset-top)); }
+      .nav-dropdown { padding-top: calc(80px + env(safe-area-inset-top)); }
     }
     @media (min-width: 861px) {
       .nav-spacer { display: none; }
