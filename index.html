@@ -33,15 +33,22 @@
       overflow-x: hidden;
     }
 
-    /* ── iOS SAFE AREA (Dynamic Island / notch) ── */
-    body::before {
-      content: '';
+    /* ── BLOQUE NEGRO ISLA DINÁMICA ── */
+    #safe-area-block {
       position: fixed;
       top: 0; left: 0; right: 0;
       height: env(safe-area-inset-top);
       background: #000;
-      z-index: 9999;
+      z-index: 300;
       pointer-events: none;
+    }
+    @media (max-width: 860px) {
+      nav {
+        top: env(safe-area-inset-top) !important;
+      }
+      #nav-hover-zone {
+        top: env(safe-area-inset-top) !important;
+      }
     }
 
     /* ── NAVBAR ── */
@@ -526,6 +533,9 @@
   </style>
 </head>
 <body>
+
+  <!-- Bloque negro Dynamic Island iOS -->
+  <div id="safe-area-block"></div>
 
   <!-- Zona hover para reaparecer navbar -->
   <div id="nav-hover-zone"></div>
