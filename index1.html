@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
+  <title>SpanishProGamers</title>
+  
+  <!-- Icono para navegadores de escritorio y compatibles -->
+  <link rel="icon" href="favicon.png" type="image/x-icon">
+
+  <!-- Icono para navegadores de escritorio y compatibles -->
+  <link rel="icon" href="favicon.png" type="image/x-icon">
+
+  <!-- Iconos para dispositivos móviles (iOS y Android) -->
+  <link rel="apple-touch-icon" sizes="512x512" href="AppLogo.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="AppLogo.png">
+
+  <!-- Web App: pantalla completa y barra de estado negra en iOS (todos los modelos) -->
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="theme-color" content="#000000"/>
+
+  <style>  </style>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+
+    :root {
+      --pink: #cc1a1a;
+      --pink-light: #e02020;
+      --nav-h: 99px;
+      --gap: 20px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #000000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 400;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 calc(4rem + env(safe-area-inset-right)) 0 calc(4rem + env(safe-area-inset-left));
+      background: transparent;
+      transition: background 0.35s ease, backdrop-filter 0.35s ease, transform 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    nav.hidden {
+      transform: translateY(calc(-100% - 10px));
+      pointer-events: none;
+    }
+
+    /* Zona invisible en la parte superior que reactiva la navbar */
+    #nav-hover-zone {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 20px;
+      z-index: 201;
+      pointer-events: all;
+    }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .nav-logo .logo-desktop { display: block; }
+    .nav-logo .logo-mobile  { display: none; }
+    @media (max-width: 1050px) {
+      .nav-logo .logo-desktop { display: none; }
+      .nav-logo .logo-mobile  { display: block; }
+    }
+    .nav-center {
+      display: flex; align-items: center; gap: 0.1rem;
+      position: absolute; left: 50%; transform: translateX(-50%);
+    }
+    .nav-link {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: rgba(255,255,255,0.9);
+      text-decoration: none; padding: 0.55rem 1.1rem;
+      display: flex; align-items: center; gap: 0.25rem;
+      transition: color 0.18s, background 0.18s;
+      white-space: nowrap; border-radius: 999px;
+    }
+    .nav-link:hover { color: #fff; background: rgba(255,255,255,0.15); }
+    .nav-link.active { color: #fff; background: rgba(255,255,255,0.12); }
+    .nav-link .ext { font-size: 0.75em; opacity: 0.7; }
+    .nav-right { display: flex; align-items: center; gap: 0.8rem; }
+    .nav-btn-outline {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      padding: 0.55rem 1.1rem;
+      border: 1.5px solid rgba(255,255,255,0.45);
+      border-radius: 999px;
+      white-space: nowrap;
+      transition: border-color 0.18s, color 0.18s;
+    }
+    .nav-btn-outline:hover { border-color: #fff; color: #fff; }
+    .nav-icon-btn {
+      background: none; border: none; color: rgba(255,255,255,0.85);
+      cursor: pointer; padding: 0.4rem; display: flex; align-items: center; transition: color 0.2s;
+    }
+    .nav-icon-btn:hover { color: #fff; }
+    @media (max-width: 1050px) { .nav-center { display: none; } }
+
+    /* Ocultar botón Obtener Asistencia cuando empieza a solaparse con los links centrales */
+    @media (max-width: 1250px) and (min-width: 1051px) { .nav-btn-outline { display: none; } }
+
+    /* ── HAMBURGER MENU ── */
+    .nav-hamburger {
+      display: none;
+      background: none; border: none;
+      color: rgba(255,255,255,0.9);
+      cursor: pointer; padding: 0.4rem;
+      align-items: center; justify-content: center;
+      width: 28px; height: 28px;
+      position: relative;
+      transition: color 0.2s;
+      flex-shrink: 0;
+    }
+    .nav-hamburger:hover { color: #fff; }
+    .nav-hamburger span {
+      position: absolute;
+      left: 50%; transform: translateX(-50%);
+      width: 14px; height: 2px;
+      background: currentColor; border-radius: 1px;
+      transition: transform 0.25s ease, opacity 0.15s ease;
+    }
+    .nav-hamburger span:nth-child(1) { top: calc(50% - 5px); transform: translateX(-50%); }
+    .nav-hamburger span:nth-child(2) { top: calc(50% - 1px); transform: translateX(-50%); }
+    .nav-hamburger span:nth-child(3) { top: calc(50% + 3px); transform: translateX(-50%); }
+    .nav-hamburger.open span:nth-child(1) { transform: translateX(-50%) translateY(4px); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: translateX(-50%); transition: transform 0s, opacity 0.15s ease 0.2s; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateX(-50%) translateY(-4px); }
+
+    /* Dropdown panel */
+    /* Overlay — not needed with full-screen panel */
+    .nav-overlay { display: none !important; }
+
+    /* Panel desplegable — full screen, animación desde arriba */
+    .nav-dropdown {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 199;
+      background: #000;
+      padding-top: 80px;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      overflow-y: auto;
+      transform: translateY(-100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+    .nav-dropdown.open { transform: translateY(0); }
+    .nav-dropdown::-webkit-scrollbar { width: 3px; }
+    .nav-dropdown::-webkit-scrollbar-track { background: transparent; }
+    .nav-dropdown::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 99px; }
+    .nav-dropdown::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
+
+    /* Navbar bar when menu open */
+    nav.menu-open {
+      background: #222222 !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      z-index: 200 !important;
+    }
+
+    .dd-section-label { display: none; }
+
+    .nav-dropdown a {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 1.35rem; font-weight: 800; letter-spacing: 0.01em;
+      text-transform: uppercase;
+      color: #cecece;
+      text-decoration: none;
+      padding: 1.1rem 1.8rem;
+      display: flex; align-items: center; justify-content: space-between;
+      border: none;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-dropdown a:first-of-type { border: none; }
+    .nav-dropdown a:hover { background: rgba(255,255,255,0.05); color: #fff; }
+    .nav-dropdown a.active { color: #fff; }
+
+    /* Icon pill — hidden in new style */
+    .dd-icon { display: none; }
+    .dd-label { flex: 1; }
+    .dd-arrow { color: #cecece; font-size: 18px; font-weight: 400; opacity: 0.5; }
+
+    /* Divider */
+    .dd-divider { display: none; }
+
+    /* Assist CTA button — outline style */
+    .nav-dropdown .dd-assist {
+      margin: 1.5rem 1.8rem 0 !important;
+      padding: 1rem 1.5rem !important;
+      background: transparent !important;
+      border: 1.5px solid #cecece !important;
+      border-top: 1.5px solid #cecece !important;
+      border-bottom: 1.5px solid #cecece !important;
+      border-radius: 999px !important;
+      justify-content: center !important;
+      font-size: 1rem; font-weight: 700;
+      letter-spacing: 0.02em;
+      color: #fff !important;
+      text-transform: uppercase;
+      transition: background 0.15s, border-color 0.15s !important;
+    }
+    .nav-dropdown .dd-assist:hover { background: rgba(255,255,255,0.07) !important; border-color: #fff !important; }
+
+    /* Mobile nav layout: hamburger left, logo center, search right */
+    @media (max-width: 1050px) {
+      nav {
+        padding: env(safe-area-inset-top) calc(1.25rem + env(safe-area-inset-right)) 0 calc(1.25rem + env(safe-area-inset-left));
+        height: calc(80px + env(safe-area-inset-top));
+      }
+      .nav-hamburger { display: flex; width: 34px; height: 34px; margin-bottom: 2px; }
+      .nav-hamburger span { width: 16px; }
+      .nav-logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%) translateY(-2px);
+      }
+      .nav-logo .logo-mobile { height: 58px !important; width: 58px !important; border-radius: 13px !important; }
+      .nav-logo .logo-mobile { height: 61px !important; width: 61px !important; border-radius: 13px !important; }
+      /* Hide only the text button, keep the search icon */
+      .nav-btn-outline { display: none; }
+      .nav-spacer { display: none; }
+      .nav-icon-btn { margin-bottom: 2px; }
+      .nav-icon-btn svg { width: 16px !important; height: 16px !important; }
+      /* Ajuste del dropdown y variable --nav-h para móvil con notch */
+      :root { --nav-h: calc(80px + env(safe-area-inset-top)); }
+      .nav-dropdown { padding-top: calc(80px + env(safe-area-inset-top)); }
+    }
+    @media (min-width: 1051px) {
+      .nav-spacer { display: none; }
+      .nav-dropdown { display: none !important; }
+    }
+
+    /* ── HERO ── */
+    :root {
+      --pink: #cc1a1a;
+      --pink-light: #e02020;
+      --nav-h: 99px;
+      --gap: 20px;
+      --hero-bottom-gap: 100px;
+    }
+    .hero {
+      position: relative; width: 100%; height: calc(100vh - var(--hero-bottom-gap)); min-height: 580px;
+      overflow: hidden;
+      background: #0d0d0d url('/Zassets/backbanner.png') center top / cover no-repeat;
+    }
+    .hero-vignette {
+      position: absolute; inset: 0; z-index: 4;
+      background:
+        linear-gradient(to top, #000 0%, rgba(0,0,0,0.6) 12%, transparent 40%),
+        linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, transparent 15%);
+    }
+    .hero-center-logo {
+      position: absolute; top: 20%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 6; pointer-events: none; max-width: 1400px; width: 95%;
+    }
+    .hero-center-logo img {
+      width: 100%; height: auto; display: block;
+      filter: drop-shadow(0 4px 32px rgba(0,0,0,0.7));
+      mix-blend-mode: screen;
+    }
+
+    /* ── FOOTER ── */
+    .footer-bottom-bar {
+      background: #000;
+      padding: 2.2rem 4rem;
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: center;
+    }
+    .footer-bottom-bar::before {
+      content: ''; position: absolute; top: -140px; left: 0; right: 0; height: 140px;
+      background: linear-gradient(to bottom, transparent, #000); pointer-events: none;
+    }
+    .footer-bottom-bar span {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.05em;
+    }
+    .footer-bottom-bar span:nth-child(1) { text-align: left; }
+    .footer-bottom-bar span:nth-child(2) { text-align: center; }
+    .footer-bottom-bar span:nth-child(3) { text-align: right; }
+    @media (max-width: 600px) {
+      .footer-bottom-bar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 2rem 1.5rem;
+      }
+    }
+
+    /* ════════════════════════════════
+       NOVEDADES — Rockstar Store grid
+       ════════════════════════════════ */
+    .novedades-wrap {
+      background: #1a1a1a;
+      padding-bottom: 0;
+    }
+
+    /* La primera sección novedades — color gestionado por JS */
+    #novedades-main {
+      background: rgb(0, 0, 0);
+    }
+
+    .novedades-heading {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 2.2rem; font-weight: 800;
+      letter-spacing: -0.01em;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: transparent;
+      padding: 1.2rem clamp(1.5rem, 13.67%, 350px);
+      margin-bottom: var(--gap);
+      width: 100%;
+    }
+
+    .novedades-heading .ver-todo {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      opacity: 0.85;
+      transition: opacity 0.18s;
+    }
+    .novedades-heading .ver-todo:hover { opacity: 1; }
+
+    /* Outer grid: mismos márgenes que el heading, proporción 787 (izq) vs 1045 (der) */
+    .novedades-body {
+      display: grid;
+      grid-template-columns: 787fr 1045fr;
+      gap: var(--gap);
+      padding: 0 clamp(1.5rem, 13.67%, 350px);
+      align-items: stretch;
+    }
+
+    /* ── LEFT big panel — 787×835 ── */
+    .nov-left {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #e2e2e2;
+      width: 100%;
+      aspect-ratio: 787 / 835;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .nov-left-img {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 3rem 6rem;
+    }
+    .nov-left-img img {
+      max-width: 75%;
+      max-height: 60%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .nov-left-text {
+      position: relative;
+      z-index: 2;
+      padding: 1rem 1.1rem;
+      background: transparent;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      gap: 1rem;
+    }
+    .nov-left-info { flex: 1; }
+    .nov-left-tag { display: none; }
+    .nov-left-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35em;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: clamp(0.54rem, 1.04vw, 0.94rem);
+      font-weight: 700; color: #111; line-height: 1;
+      background: #fff;
+      padding: 0.85em 0.85em 0.85em 1.3em;
+      border-radius: 999px;
+      margin-bottom: 0;
+    }
+    .nov-left-title .pill-arrow {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 1.5em; height: 1.5em;
+      background: transparent; border-radius: 50%; flex-shrink: 0;
+    }
+    .nov-left-title .pill-arrow svg { display: block; width: 0.7em; height: 0.7em; }
+    .nov-left-date { display: none; }
+    .nov-left-desc { display: none; }
+
+    /* Red arrow button */
+    .arrow-btn {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--pink);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; flex-shrink: 0;
+      transition: background 0.18s, transform 0.18s;
+    }
+    .arrow-btn:hover { background: var(--pink-light); transform: scale(1.08); }
+
+    /* RIGHT grid: fila larga arriba + 2 pequeñas abajo */
+    .nov-right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr auto;
+      gap: var(--gap);
+    }
+
+    /* Noticias pequeñas: proporción 510/461, se colocan en la segunda fila */
+    .nov-item:not(:first-child) {
+      aspect-ratio: 510 / 461;
+      width: 100%;
+    }
+
+    /* Noticia larga: ocupa ambas columnas, proporción fija 1045/350 */
+    .nov-item:first-child {
+      grid-column: 1 / -1;
+      grid-row: 1;
+      width: 100%;
+      aspect-ratio: 1045 / 350;
+      min-height: 0;
+    }
+
+    .nov-item {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #e2e2e2;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      text-decoration: none;
+      cursor: pointer;
+      transition: filter 0.2s;
+    }
+    .nov-item:hover { filter: brightness(0.96); }
+
+    .nov-item-thumb {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 1rem 4rem;
+    }
+    .nov-item-thumb img {
+      max-width: 55%;
+      max-height: 55%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .nov-item-body {
+      position: relative;
+      z-index: 2;
+      padding: 1rem 1.1rem;
+      background: transparent;
+    }
+    .nov-item-tag { display: none; }
+    .nov-item-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35em;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: clamp(0.49rem, 1.74vw, 0.94rem); font-weight: 700;
+      color: #111; line-height: 1;
+      background: #fff;
+      padding: 0.85em 0.85em 0.85em 1.3em;
+      border-radius: 999px;
+    }
+    .nov-item-title .pill-arrow {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 1.5em; height: 1.5em;
+      background: transparent; border-radius: 50%; flex-shrink: 0;
+    }
+    .nov-item-title .pill-arrow svg { display: block; width: 0.7em; height: 0.7em; }
+    .nov-item-date { display: none; }
+
+    @media (max-width: 1400px) {
+      .novedades-heading { padding: 1.2rem 2rem; }
+      .novedades-body { padding: 0 2rem; }
+      .videos-heading { padding: 1.7rem 2rem 1.2rem; }
+      .videos-grid { padding: 0 2rem; }
+    }
+    @media (max-width: 860px) {
+      .novedades-body { grid-template-columns: 1fr; padding: 0 1.5rem; }
+      .nov-right { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 500px) {
+      .nov-right { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Zona hover para reaparecer navbar -->
+  <div id="nav-hover-zone"></div>
+
+  <!-- NAVBAR -->
+  <nav>
+    <!-- Hamburger (visible solo en móvil) -->
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+
+    <a href="/" class="nav-logo" title="Inicio">
+      <img class="logo-desktop" src="/Zassets/icono_esqunas_redondeadas.png" alt="SPG" style="height:47px;width:47px;border-radius:10px;object-fit:cover;"/>
+      <img class="logo-mobile"  src="/Zassets/icono_web_app.png" alt="SPG" style="object-fit:contain;"/>
+    </a>
+    <div class="nav-center">
+      <a href="/" class="nav-link">Inicio</a>
+      <a href="/servidores/" class="nav-link">Servidores</a>
+      <a href="/archivo/" class="nav-link">Archivo</a>
+      <a href="/redes-sociales/" class="nav-link">Redes Sociales</a>
+      <a href="/wiki/" class="nav-link">Wiki</a>
+      <a href="https://discord.com/invite/WaSdGkwMrm" target="_blank" rel="noopener" class="nav-link">Discord <span class="ext">↗</span></a>
+    </div>
+    <div class="nav-right">
+      <a href="/asistencia/" class="nav-btn-outline">Obtener Asistencia</a>
+      <button class="nav-icon-btn" aria-label="Buscar">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Spacer para centrar el logo en móvil -->
+    <div class="nav-spacer"></div>
+  </nav>
+
+  <!-- Overlay móvil -->
+  <div class="nav-overlay" id="nav-overlay"></div>
+
+  <!-- Panel lateral móvil -->
+  <div class="nav-dropdown" id="nav-dropdown">
+    <div class="dd-section-label">Navegación</div>
+    <a href="/">
+      <span class="dd-label">Inicio</span>
+    </a>
+    <a href="/servidores/">
+      <span class="dd-label">Servidores</span>
+    </a>
+    <a href="/archivo/">
+      <span class="dd-label">Archivo</span>
+    </a>
+    <a href="/redes-sociales/">
+      <span class="dd-label">Redes Sociales</span>
+    </a>
+    <a href="/wiki/">
+      <span class="dd-label">Wiki</span>
+    </a>
+    <div class="dd-divider"></div>
+    <a href="https://discord.com/invite/WaSdGkwMrm" target="_blank" rel="noopener">
+      <span class="dd-label">Discord</span>
+      <span class="dd-arrow">›</span>
+    </a>
+    <a href="/asistencia/" class="dd-assist">
+      Obtener Asistencia
+    </a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-vignette" id="hero-vignette"></div>
+    <div class="hero-center-logo">
+      <img src="/Zassets/full_logo_2k.png" alt="SpanishProGamers" />
+    </div>
+  </section>
+
+  <!-- ══ NOVEDADES ══ -->
+  <section class="novedades-wrap" id="novedades-main">
+    <p class="novedades-heading">Novedades <a href="#" class="ver-todo">Ver todo ↗</a></p>
+
+    <div class="novedades-body">
+
+      <!-- PANEL GRANDE IZQUIERDA -->
+      <a href="/archivo/" class="nov-left" style="background: #111 url('/Zassets/noticia_principal.png') center center / cover no-repeat; text-decoration:none;">
+        <div class="nov-left-text">
+          <div class="nov-left-info">
+            <span class="nov-left-tag">Destacado</span>
+            <p class="nov-left-title">Descarga de SPG 4.1 Ya Disponible <span class="pill-arrow"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="7 5 19 5 19 17"/></svg></span></p>
+            <p class="nov-left-date">18/04/2026</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- CUADRÍCULA 2×2 DERECHA -->
+      <div class="nov-right">
+
+        <a href="/servidores/" class="nov-item" style="background: #111 url('/Zassets/noticia_larga.png') center center / cover no-repeat;">
+          <div class="nov-item-body">
+            <span class="nov-item-tag">Utilidades</span>
+            <p class="nov-item-title">Nuevo Modpack Manager <span class="pill-arrow"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="7 5 19 5 19 17"/></svg></span></p>
+            <span class="nov-item-date">10/04/2026</span>
+          </div>
+        </a>
+
+        <a href="/wiki/" class="nov-item" style="background: #111 url('/Zassets/noticia_pequeña.png') center center / cover no-repeat;">
+          <div class="nov-item-body">
+            <span class="nov-item-tag">Comunidad</span>
+            <p class="nov-item-title">Nueva Wiki <span class="pill-arrow"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="7 5 19 5 19 17"/></svg></span></p>
+            <span class="nov-item-date">20/04/2026</span>
+          </div>
+        </a>
+
+        <a href="/servidores/" class="nov-item" style="background: #111 url('/Zassets/noticia_pequeña2.png') center center / cover no-repeat;">
+          <div class="nov-item-body">
+            <span class="nov-item-tag">Servidores</span>
+            <p class="nov-item-title">SPG 5.2 Abierto <span class="pill-arrow"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="7 5 19 5 19 17"/></svg></span></p>
+            <span class="nov-item-date">21/04/2026</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ VÍDEOS / EMISIONES ══ -->
+  <style>
+    /* ── Sección vídeos ── */
+    .videos-section {
+      background: #1a1a1a;
+      padding-bottom: 8rem;
+    }
+
+    /* Título "Vídeos" igual que "Novedades" */
+    .videos-heading {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 2.2rem; font-weight: 800;
+      letter-spacing: -0.01em;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: transparent;
+      padding: 1.7rem clamp(1.5rem, 13.67%, 350px) 1.2rem;
+      margin-bottom: var(--gap);
+      width: 100%;
+    }
+    .videos-heading .ver-todo {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      opacity: 0.85;
+      transition: opacity 0.18s;
+    }
+    .videos-heading .ver-todo:hover { opacity: 1; }
+
+    /* Cuadrícula 4×2 */
+    .videos-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+      padding: 0 clamp(1.5rem, 13.67%, 350px);
+    }
+
+    /* Tarjeta de vídeo */
+    .video-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      text-decoration: none;
+      color: #fff;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    /* Thumbnail */
+    .video-card-thumb {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #111;
+      aspect-ratio: 16/9;
+    }
+    .video-card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Overlay play */
+    .video-card-play {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .video-card:hover .video-card-play { opacity: 1; }
+    .video-card-play-yt {
+      width: 62px; height: 44px;
+      filter: drop-shadow(0 2px 10px rgba(0,0,0,0.6));
+    }
+
+    /* Duración */
+    .video-card-dur {
+      position: absolute;
+      bottom: 7px; right: 8px;
+      background: rgba(0,0,0,0.82);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* Info bajo la miniatura */
+    .video-card-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.22rem;
+    }
+    .video-card-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .video-card-meta {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 1400px) {
+      .videos-grid { padding: 0 2rem; }
+      .videos-heading { padding-left: 2rem; padding-right: 2rem; }
+    }
+    @media (max-width: 1100px) {
+      .videos-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 860px) {
+      .videos-grid { grid-template-columns: repeat(2, 1fr); padding: 0 1.5rem; }
+      .videos-heading { padding: 2rem 1.5rem 1.2rem; }
+    }
+    @media (max-width: 500px) {
+      .videos-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Modal de vídeo ── */
+    #video-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    #video-modal.open {
+      display: flex;
+    }
+    #video-modal-inner {
+      position: relative;
+      width: 100%;
+      max-width: 960px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+    }
+    #video-modal-inner .video-ratio {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+    }
+    #video-modal-inner iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    #video-modal-close {
+      position: absolute;
+      top: -44px;
+      right: 0;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+      line-height: 1;
+      opacity: 0.75;
+      transition: opacity 0.18s;
+    }
+    #video-modal-close:hover { opacity: 1; }
+  </style>
+
+  <section class="novedades-wrap videos-section">
+
+    <!-- Título sección -->
+    <p class="videos-heading">Vídeos <a href="https://www.youtube.com/@TELEPORTER1000" target="_blank" rel="noopener" class="ver-todo">Ver canal ↗</a></p>
+
+    <!-- Cuadrícula dinámica — se rellena por JS -->
+    <div class="videos-grid" id="videos-grid">
+      <!-- Skeletons de carga -->
+      <div class="video-skeleton"></div>
+      <div class="video-skeleton"></div>
+      <div class="video-skeleton"></div>
+      <div class="video-skeleton"></div>
+      <div class="video-skeleton"></div>
+      <div class="video-skeleton"></div>
+      <div class="video-skeleton"></div>
+      <div class="video-skeleton"></div>
+    </div>
+  </section>
+
+  <style>
+    /* Skeleton loader */
+    .video-skeleton {
+      border-radius: 10px;
+      overflow: hidden;
+      background: #222;
+    }
+    .video-skeleton::before {
+      content: '';
+      display: block;
+      aspect-ratio: 16/9;
+      background: linear-gradient(90deg, #2a2a2a 25%, #333 50%, #2a2a2a 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+    }
+    .video-skeleton::after {
+      content: '';
+      display: block;
+      height: 2.8rem;
+      margin: 0.65rem 0.5rem;
+      border-radius: 6px;
+      background: linear-gradient(90deg, #2a2a2a 25%, #333 50%, #2a2a2a 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite 0.2s;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+  </style>
+
+  <!-- MODAL VÍDEO -->
+  <div id="video-modal">
+    <div id="video-modal-inner">
+      <button id="video-modal-close" aria-label="Cerrar">✕</button>
+      <div class="video-ratio">
+        <iframe id="video-modal-iframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    const CHANNEL_ID  = 'UCDJHjhqvS83CbLJ2GA5kPng'; // SpanishProGamers
+    const FEED_URL    = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
+    const CHANNEL_URL = 'https://www.youtube.com/channel/UCDJHjhqvS83CbLJ2GA5kPng';
+
+    // Lista de proxies CORS — se prueban en orden hasta que uno funcione
+    const PROXIES = [
+      url => `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
+      url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+      url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
+    ];
+
+    const grid = document.getElementById('videos-grid');
+
+    function timeAgo(dateStr) {
+      const diff = (Date.now() - new Date(dateStr)) / 1000;
+      if (diff < 3600)    return `hace ${Math.floor(diff / 60)} min`;
+      if (diff < 86400)   return `hace ${Math.floor(diff / 3600)} h`;
+      if (diff < 2592000) return `hace ${Math.floor(diff / 86400)} días`;
+      if (diff < 31536000) return `hace ${Math.floor(diff / 2592000)} meses`;
+      return `hace ${Math.floor(diff / 31536000)} años`;
+    }
+
+    function playIcon() {
+      return `<div class="video-card-play">
+        <svg class="video-card-play-yt" viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+          <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74 .06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#FF0000"/>
+          <path d="M27 14.5v19l18.5-9.5z" fill="#fff"/>
+        </svg>
+      </div>`;
+    }
+
+    function renderVideos(items) {
+      grid.innerHTML = items.slice(0, 8).map(v => `
+        <div class="video-card" data-video-id="${v.id}" data-video-title="${v.title.replace(/"/g,'&quot;')}" style="cursor:pointer;">
+          <div class="video-card-thumb">
+            <img
+              src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg"
+              alt="${v.title}"
+              data-maxres="https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg"
+              onload="if(!this.dataset.upgraded){this.dataset.upgraded=1;var hi=new Image();hi.onload=function(){if(hi.naturalWidth>120)this_.src=hi.src;}.bind(this);var this_=this;hi.src=this.dataset.maxres;}"
+            />
+            ${playIcon()}
+          </div>
+          <div class="video-card-info">
+            <p class="video-card-title">${v.title}</p>
+            <span class="video-card-meta">${timeAgo(v.published)}</span>
+          </div>
+        </div>
+      `).join('');
+
+      // Clic en cada tarjeta → abrir modal
+      grid.querySelectorAll('.video-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const id = card.dataset.videoId;
+          openVideoModal(id);
+        });
+      });
+    }
+
+    // ── Lógica modal ──
+    const modal  = document.getElementById('video-modal');
+    const iframe = document.getElementById('video-modal-iframe');
+    const btnCerrar = document.getElementById('video-modal-close');
+
+    function openVideoModal(videoId) {
+      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeVideoModal() {
+      modal.classList.remove('open');
+      iframe.src = '';
+      document.body.style.overflow = '';
+    }
+
+    btnCerrar.addEventListener('click', closeVideoModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeVideoModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeVideoModal();
+    });
+
+    function renderError() {
+      grid.innerHTML = `<p style="color:rgba(255,255,255,0.4);padding:2rem;grid-column:1/-1;text-align:center;">
+        No se pudieron cargar los vídeos. <a href="${CHANNEL_URL}" target="_blank" style="color:#cc1a1a;">Ver canal ↗</a>
+      </p>`;
+    }
+
+    // Parsea la respuesta del proxy (allorigins devuelve {contents:...}, otros devuelven texto directo)
+    function parseXML(proxyResponse, isJSON) {
+      const text = isJSON ? proxyResponse.contents : proxyResponse;
+      const parser = new DOMParser();
+      return parser.parseFromString(text, 'text/xml');
+    }
+
+    function extractItems(xml) {
+      return Array.from(xml.querySelectorAll('entry')).map(e => ({
+        id:        e.querySelector('videoId')?.textContent
+                   || e.querySelector('id')?.textContent?.split(':').pop() || '',
+        title:     e.querySelector('title')?.textContent || '',
+        url:       e.querySelector('link')?.getAttribute('href') || '#',
+        published: e.querySelector('published')?.textContent || ''
+      }));
+    }
+
+    // Intenta cada proxy en secuencia
+    async function tryProxies() {
+      for (let i = 0; i < PROXIES.length; i++) {
+        try {
+          const proxyUrl = PROXIES[i](FEED_URL);
+          const resp = await fetch(proxyUrl);
+          if (!resp.ok) continue;
+
+          // allorigins devuelve JSON; corsproxy.io y codetabs devuelven XML directo
+          const isJSON = proxyUrl.includes('allorigins.win');
+          const data   = isJSON ? await resp.json() : await resp.text();
+          const xml    = parseXML(data, isJSON);
+
+          // Comprobar que no es un documento de error XML
+          if (xml.querySelector('parsererror')) continue;
+
+          const items = extractItems(xml);
+          if (items.length > 0) return items;
+        } catch (_) {
+          // Silencia el error y prueba el siguiente proxy
+        }
+      }
+      return null;
+    }
+
+    tryProxies().then(items => {
+      if (items) renderVideos(items);
+      else renderError();
+    });
+  })();
+  </script>
+
+  <!-- FOOTER -->
+  <div class="footer-bottom-bar">
+    <span>SpanishProGamers</span>
+    <span>Madrid</span>
+    <span>MMXIX</span>
+  </div>
+
+  <script>
+    // ── HAMBURGER TOGGLE ──
+    const hamburger = document.getElementById('nav-hamburger');
+    const dropdown  = document.getElementById('nav-dropdown');
+
+    const overlay = document.getElementById('nav-overlay');
+
+    function openMenu() {
+      dropdown.classList.add('open');
+      overlay.classList.add('open');
+      hamburger.classList.add('open');
+      nav.classList.add('scrolled');
+      nav.classList.add('menu-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      dropdown.classList.remove('open');
+      overlay.classList.remove('open');
+      hamburger.classList.remove('open');
+      nav.classList.remove('menu-open');
+      document.body.style.overflow = '';
+    }
+
+    hamburger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      dropdown.classList.contains('open') ? closeMenu() : openMenu();
+    });
+
+    overlay.addEventListener('click', closeMenu);
+
+    // Cerrar al hacer clic en un enlace del panel
+    dropdown.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', closeMenu);
+    });
+
+    const nav = document.querySelector('nav');
+    const hoverZone = document.getElementById('nav-hover-zone');
+    let isHovering = false;
+    // 0 = transparente | 1 = translúcida | 2 = oculta
+    let navState = 0;
+    // scrollY en el momento en que se volvió translúcida
+    let transitionY = null;
+    // Cuántos px hay que bajar desde transitionY para ocultarla
+    const HIDE_AFTER_PX = 120;
+    // scrollY en el momento en que se ocultó
+    let hiddenY = null;
+
+    function applyState(s) {
+      navState = s;
+      // Never hide navbar while the side menu is open
+      if (dropdown.classList.contains('open')) {
+        nav.classList.add('scrolled');
+        nav.classList.remove('hidden');
+        return;
+      }
+      if (s === 0) {
+        nav.classList.remove('scrolled', 'hidden');
+      } else if (s === 1) {
+        nav.classList.add('scrolled');
+        nav.classList.remove('hidden');
+      } else {
+        nav.classList.add('scrolled');
+        if (!isHovering) nav.classList.add('hidden');
+      }
+    }
+
+    const isMobile = () => window.innerWidth <= 1050;
+
+    // wheel: solo gestiona el paso 0→1 (transparente → translúcida) — SOLO DESKTOP
+    window.addEventListener('wheel', (e) => {
+      if (isMobile()) return;
+      if (e.deltaY > 0 && navState === 0) {
+        transitionY = window.scrollY;
+        applyState(1);
+      } else if (e.deltaY > 0 && navState === 1 && transitionY === null) {
+        // Volvió a bajar tras reaparecer: ocultar inmediatamente
+        transitionY = window.scrollY - HIDE_AFTER_PX;
+      } else if (e.deltaY < 0) {
+        if (window.scrollY <= 0) { transitionY = null; applyState(0); }
+        else if (navState !== 1)  { applyState(1); transitionY = null; }
+      }
+    }, { passive: true });
+
+    // scroll: en móvil siempre translúcida y visible; en desktop gestiona ocultar/mostrar
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+
+      // MÓVIL: navbar siempre scrolled (translúcida) y nunca hidden
+      if (isMobile()) {
+        if (y <= 0) {
+          nav.classList.remove('scrolled', 'hidden');
+        } else {
+          nav.classList.add('scrolled');
+          nav.classList.remove('hidden');
+        }
+        return;
+      }
+
+      // DESKTOP
+      if (y <= 0) {
+        transitionY = null;
+        applyState(0);
+        return;
+      }
+      if (navState === 1 && transitionY !== null && y >= transitionY + HIDE_AFTER_PX) {
+        hiddenY = y;
+        applyState(2);
+      }
+      // Si sube mientras está oculta: volver a translúcida
+      if (navState === 2 && hiddenY !== null && y < hiddenY) {
+        hiddenY = null;
+        transitionY = null; // null = listo para ocultarse en el próximo scroll hacia abajo
+        applyState(1);
+      }
+    }, { passive: true });
+
+    hoverZone.addEventListener('mouseenter', () => { isHovering = true; nav.classList.remove('hidden'); });
+    nav.addEventListener('mouseenter',       () => { isHovering = true; nav.classList.remove('hidden'); });
+    nav.addEventListener('mouseleave',       () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); });
+    hoverZone.addEventListener('mouseleave', () => { isHovering = false; if (navState === 2) nav.classList.add('hidden'); });
+
+    // ── TRANSICIÓN DE COLOR AL HACER SCROLL ──
+    const novSection    = document.getElementById('novedades-main');
+    const heroVignette  = document.getElementById('hero-vignette');
+    const novHeading    = document.querySelector('.novedades-heading');
+    const colorBlack    = { r: 0,  g: 0,  b: 0  };
+    const colorGrey     = { r: 26, g: 26, b: 26  };
+
+    function lerp(a, b, t) {
+      t = Math.max(0, Math.min(1, t));
+      return Math.round(a + (b - a) * t);
+    }
+
+    function updateScrollColors() {
+      const heroH  = document.querySelector('.hero').offsetHeight;
+      const novH   = novSection.offsetHeight;
+      const y      = window.scrollY;
+
+      // — Hero vignette: transita el gradiente inferior de negro a gris
+      //   mientras el usuario pasa el hero (0 → heroH)
+      const tHero = Math.max(0, Math.min(1, y / (heroH * 0.85)));
+      const hr = lerp(colorBlack.r, colorGrey.r, tHero);
+      const hg = lerp(colorBlack.g, colorGrey.g, tHero);
+      const hb = lerp(colorBlack.b, colorGrey.b, tHero);
+      heroVignette.style.background = `
+        linear-gradient(to top, rgb(${hr},${hg},${hb}) 0%, rgba(${hr},${hg},${hb},0.6) 12%, transparent 40%),
+        linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, transparent 15%)
+      `;
+
+      // — Novedades fondo principal
+      const tNov = Math.max(0, Math.min(1, y / (novH * 0.75)));
+      const nr = lerp(colorBlack.r, colorGrey.r, tNov);
+      const ng = lerp(colorBlack.g, colorGrey.g, tNov);
+      const nb = lerp(colorBlack.b, colorGrey.b, tNov);
+      novSection.style.background = `rgb(${nr},${ng},${nb})`;
+
+      // — Novedades heading: mismo color que la sección
+      if (novHeading) novHeading.style.background = `rgb(${nr},${ng},${nb})`;
+    }
+
+    window.addEventListener('scroll', updateScrollColors, { passive: true });
+    updateScrollColors();
+  </script>
+</body>
+</html>
